@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Candidate Pool, part of Talentbank Career OS — browse pre-screened, open-to-work candidates with verified experience, salary expectations and language skills." />
+<title>Candidate Pool — Talentbank Career OS</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232b52dd'/%3E%3Cpath d='M5 5l7 7-7 7' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13 5l7 7-7 7' stroke='%238be3b4' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script type="application/ld+json" id="ldPerson"></script>
+<style>
+/* ================================================================
+   Talentbank Candidate Pool — product design system v3
+   Canvas: warm white · Ink: deep slate · Brand: indigo→fuchsia
+   Signature: gradient cover banner + circular human avatars
+   ================================================================ */
+:root{
+  --ink:#101b33; --ink-2:#46536e; --ink-3:#8a93a9;
+  --bg:#f4f5f9; --surface:#fff;
+  --line:#e5e8f0; --line-soft:#edeff5;
+  --brand:#4f46e5; --brand-2:#4338ca; --brand-tint:#eef1fe; --brand-line:#dde3fc;
+  --grad:linear-gradient(115deg,#312e81 0%,#4f46e5 42%,#7c3aed 72%,#c026d3 105%);
+  --green:#059669; --green-deep:#047857; --green-tint:#e5f6ef;
+  --amber:#b45309; --amber-tint:#fdf3e3; --amber-line:#f4ddb6;
+  --violet:#7c3aed; --violet-tint:#f3edfd;
+  --sky:#0369a1; --sky-tint:#e0f2fe;
+  --focus:#4f46e5;
+  --shadow:0 1px 2px rgba(16,27,51,.04),0 12px 32px -16px rgba(16,27,51,.14);
+  --shadow-lg:0 2px 4px rgba(16,27,51,.05),0 20px 44px -20px rgba(79,70,229,.25);
+  --body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --display:"Space Grotesk",var(--body);
+  --mono:ui-monospace,"SF Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:var(--body);font-size:14px;line-height:1.55;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+a{color:inherit}
+button,select,input,textarea{font-family:inherit}
+.hidden{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ic{width:15px;height:15px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px}
+.ic.sm{width:13px;height:13px}
+.val{font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:no-preference){
+  .card{animation:cardIn .24s cubic-bezier(.2,.7,.3,1) both}
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ---------- top bar: white product frame with nav ---------- */
+.topbar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.topbar-in{display:flex;align-items:center;gap:12px;padding:13px 24px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.logo{display:grid;place-items:center;width:34px;height:34px;background:var(--grad);color:#fff;border-radius:10px;box-shadow:0 3px 10px rgba(79,70,229,.35);flex-shrink:0}
+.logo .ic{width:16px;height:16px;stroke-width:2.4}
+.logo .ic .accent{stroke:#a5f3cf}
+.wordmark{display:flex;flex-direction:column;line-height:1.25}
+.wordmark strong{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
+.wordmark span{font-size:10.5px;font-weight:500;letter-spacing:.3px;color:var(--ink-3)}
+.topbar-right{display:flex;align-items:center;gap:14px;margin-left:auto;flex-shrink:0}
+.acct{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);border:1px solid var(--brand-line);color:var(--brand-2);flex-shrink:0;cursor:pointer;transition:background .13s,border-color .13s}
+.acct:hover{background:var(--brand-line)}
+@media (max-width:640px){.wordmark span{display:none}}
+
+/* ---------- shell ---------- */
+.shell{flex:1;display:grid;grid-template-columns:400px minmax(0,1fr);align-items:stretch;min-height:0}
+.pane-list{background:var(--surface);border-right:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
+.pane-list::-webkit-scrollbar{width:9px}
+.pane-list::-webkit-scrollbar-thumb{background:#d4d9e5;border-radius:8px}
+
+/* ---------- search & filter panel ---------- */
+.filter-panel{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:16px 20px 13px;display:flex;flex-direction:column;gap:12px;flex-shrink:0}
+.fp-title{display:flex;align-items:center;gap:8px;color:var(--ink)}
+.fp-title .ic{color:var(--brand);width:16px;height:16px}
+.fp-title span{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.2px}
+.count-bubble{display:inline-grid;place-items:center;min-width:24px;height:21px;padding:0 7px;border-radius:20px;background:var(--brand-tint);color:var(--brand-2);font-size:11.5px;font-weight:700;margin-left:2px}
+.fp-search{position:relative}
+.fp-search .ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-3);width:15px;height:15px;pointer-events:none}
+.fp-search input{width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);padding:10px 12px 10px 35px;font-size:13.5px;transition:border-color .15s,box-shadow .15s,background .15s}
+.fp-search input::placeholder{color:var(--ink-3)}
+.fp-search input:focus-visible{outline:none;border-color:var(--brand);background:var(--surface);box-shadow:0 0 0 4px var(--brand-tint)}
+.fp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fp-field{display:flex;flex-direction:column;gap:5px;position:relative}
+.fp-field.full{grid-column:1/-1}
+.fp-field label{font-size:11px;letter-spacing:.2px;color:var(--ink-3);font-weight:600}
+.fp-field select{
+  appearance:none;-webkit-appearance:none;width:100%;
+  border:1.5px solid var(--line);border-radius:9px;background:var(--surface);
+  color:var(--ink);font-size:12.5px;font-weight:500;
+  padding:8px 28px 8px 11px;cursor:pointer;transition:border-color .15s}
+.fp-field select:hover{border-color:#c3cbe4}
+.fp-field select:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-tint)}
+.fp-field::after{content:"";position:absolute;right:12px;bottom:13px;width:6.5px;height:6.5px;border-right:1.8px solid var(--ink-3);border-bottom:1.8px solid var(--ink-3);transform:rotate(45deg);pointer-events:none}
+.fp-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-soft);padding-top:10px}
+.fp-hint{font-size:11.5px;color:var(--ink-3)}
+.clear-f{border:0;background:none;color:var(--brand-2);font-size:12.5px;font-weight:600;cursor:pointer;padding:6px 8px;border-radius:7px;margin:-6px -8px}
+.clear-f:hover{background:var(--brand-tint)}
+@media (max-width:480px){.fp-grid{grid-template-columns:1fr}}
+
+/* ---------- candidate rows ---------- */
+.rows{list-style:none;padding:6px 0}
+.row{display:flex;gap:12px;align-items:center;padding:13px 20px;cursor:pointer;position:relative;transition:background .13s}
+.row::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:0 3px 3px 0;background:transparent;transition:background .13s}
+.row:hover{background:#f7f8fc}
+.row.sel,.row.sel:hover{background:var(--brand-tint)}
+.row.sel::before,.row.sel:hover::before{background:var(--brand)}
+.row.sel .row-t strong{color:var(--brand-2)}
+.avatar{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--bg);flex-shrink:0;overflow:hidden;position:relative}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.row-main{flex:1;min-width:0}
+.row-t{display:flex;align-items:center;gap:6px}
+.row-t strong{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px}
+.row-role{font-size:12.5px;color:var(--ink-2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-meta{font-size:11.5px;color:var(--ink-3);margin-top:3px;display:flex;gap:5px;align-items:center;white-space:nowrap;overflow:hidden}
+.row-meta .dot-sep{width:2.5px;height:2.5px;border-radius:50%;background:#c3cbdd;flex-shrink:0}
+.row-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.sal{font-size:12.5px;font-weight:700;color:var(--green-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lvl{font-size:10px;letter-spacing:.1px;font-weight:600;padding:2.5px 8px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+.lvl-fresh{background:var(--sky-tint);color:var(--sky)}
+.lvl-exp{background:var(--amber-tint);color:var(--amber)}
+.lvl-senior{background:var(--violet-tint);color:var(--violet)}
+.row .star-on{color:#eab308;flex-shrink:0}
+.row:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.empty-rows{display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink-3);font-size:13px;padding:44px 20px}
+.empty-rows p{margin-bottom:12px}
+.empty-reset{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:12.5px;font-weight:600;padding:8px 16px;border-radius:9px;cursor:pointer}
+.empty-reset:hover{border-color:var(--brand);color:var(--brand-2);background:var(--brand-tint)}
+
+/* ---------- detail pane ---------- */
+.pane-detail{overflow-y:auto;padding:20px 28px 64px;min-width:0}
+.detail-in{max-width:1280px;margin:0 auto}
+.mob-back{display:none;align-items:center;gap:8px;border:0;background:none;color:var(--ink-2);font-size:13.5px;font-weight:600;cursor:pointer;padding:0 0 14px}
+.mob-back:hover{color:var(--brand-2)}
+.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+
+/* two-column layout */
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) 304px;gap:14px;align-items:start}
+.main-col .card,.side-col .card{margin-bottom:14px}
+.main-col .card:last-child{margin-bottom:0}
+.side-col{position:sticky;top:0}
+.side-col .card:last-child{margin-bottom:0}
+@media (max-width:1080px){.detail-grid{grid-template-columns:1fr}.side-col{position:static}}
+
+/* ---------- profile hero: gradient cover + overlapping avatar ---------- */
+.profile-card{overflow:hidden;box-shadow:var(--shadow-lg)}
+.cover{height:104px;background:var(--grad);position:relative}
+.cover::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(420px 120px at 82% 0%,rgba(255,255,255,.28),transparent 65%),
+  radial-gradient(300px 100px at 12% 100%,rgba(255,255,255,.10),transparent 60%)}
+.cover-id{position:absolute;top:12px;right:16px;font-family:var(--mono);font-size:10px;letter-spacing:1.2px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:4px 9px;border-radius:6px;z-index:1}
+.ph-body{padding:0 26px 22px}
+.ph-top{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:-46px;position:relative;z-index:2}
+.avatar-xl{width:104px;height:104px;border-radius:50%;border:4px solid #fff;box-shadow:0 6px 20px rgba(16,27,51,.18);background:var(--bg);overflow:hidden;position:relative;flex-shrink:0}
+.avatar-xl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph-actions{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:4px}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:10px;font-size:13px;font-weight:600;padding:9.5px 15px;cursor:pointer;white-space:nowrap;border:1.5px solid transparent;font-family:inherit;transition:background .13s,border-color .13s,color .13s,box-shadow .13s}
+.btn .ic{width:14px;height:14px}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 4px 14px -4px rgba(79,70,229,.5)}
+.btn-primary:hover{background:var(--brand-2)}
+.btn-primary.on{background:var(--green);box-shadow:0 4px 14px -4px rgba(5,150,105,.5)}
+.btn-primary.on:hover{background:var(--green-deep)}
+.btn-outline{background:var(--surface);color:var(--ink-2);border-color:var(--line)}
+.btn-outline:hover{border-color:var(--brand);color:var(--brand-2);background:var(--brand-tint)}
+.btn-ghost{background:var(--bg);color:var(--ink-2);border-color:transparent}
+.btn-ghost:hover{color:var(--brand-2);background:var(--brand-tint)}
+.ph-id{margin-top:14px}
+.ph-id h1{font-family:var(--display);font-size:clamp(24px,3vw,30px);font-weight:700;letter-spacing:-.6px;line-height:1.1;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.verified{display:inline-flex;align-items:center;gap:4px;color:var(--green-deep);font-family:var(--body);font-size:11.5px;font-weight:700;letter-spacing:.1px;background:var(--green-tint);border-radius:20px;padding:4px 10px 4px 7px;cursor:help;vertical-align:middle}
+.verified .ic{width:12px;height:12px}
+.ph-role{font-size:15px;color:var(--ink-2);font-weight:600;margin-top:4px}
+.ph-meta{font-size:13px;color:var(--ink-3);margin-top:8px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ph-meta span{display:inline-flex;align-items:center;gap:5px}
+.ph-meta .ic{width:13px;height:13px;color:#a5aec2}
+.ph-chips{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;font-size:11.5px;letter-spacing:.1px;font-weight:600;background:var(--bg);color:var(--ink-2);border:1px solid var(--line);white-space:nowrap}
+.chip.mint{background:var(--green);color:#fff;border-color:transparent;font-weight:700;box-shadow:0 2px 8px -2px rgba(5,150,105,.5)}
+.chip.gold{background:var(--amber-tint);color:var(--amber);border-color:var(--amber-line);font-weight:700}
+
+/* sponsorship banner */
+.sponsor-band{display:flex;align-items:center;gap:12px;background:var(--amber-tint);border:1px solid var(--amber-line);border-radius:12px;padding:12px 15px;margin-top:14px}
+.sponsor-band .ic{width:18px;height:18px;color:var(--amber);flex-shrink:0}
+.sponsor-band strong{display:block;font-size:12.5px;color:#8c3d07}
+.sponsor-band span{font-size:12px;color:#a05b1a}
+
+/* stat tiles: colored icon squares */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:16px}
+.stat{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
+.stat-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;flex-shrink:0}
+.stat-ic .ic{width:16px;height:16px;stroke-width:2}
+.stat-ic.g{background:var(--green-tint);color:var(--green-deep)}
+.stat-ic.v{background:var(--violet-tint);color:var(--violet)}
+.stat-ic.b{background:var(--sky-tint);color:var(--sky)}
+.stat-ic.a{background:var(--amber-tint);color:var(--amber)}
+.stat-ic.n{background:var(--bg);color:var(--ink-2)}
+.stat-label{font-size:11px;color:var(--ink-3);font-weight:500;display:block;line-height:1.3}
+.stat-val{font-family:var(--display);font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.2px;display:block;line-height:1.25;font-variant-numeric:tabular-nums}
+
+/* ---------- section cards ---------- */
+.sec-card{padding:20px 24px 22px}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-ic{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;flex-shrink:0}
+.sec-ic .ic{width:15px;height:15px;stroke-width:2}
+.sec-ic.brand{background:var(--brand-tint);color:var(--brand)}
+.sec-ic.v{background:var(--violet-tint);color:var(--violet)}
+.sec-ic.b{background:var(--sky-tint);color:var(--sky)}
+.sec-ic.g{background:var(--green-tint);color:var(--green-deep)}
+.sec-head h2{font-size:15.5px;font-weight:700;letter-spacing:-.2px;color:var(--ink)}
+
+/* experience timeline with company monograms */
+.xp{list-style:none;padding:0}
+.xp li{display:flex;gap:14px;padding:14px 0}
+.xp li+li{border-top:1px solid var(--line-soft)}
+.xp li:first-child{padding-top:2px}
+.xp li:last-child{padding-bottom:2px}
+.co-avatar{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;font-family:var(--display);font-size:14px;font-weight:700;flex-shrink:0}
+.xp-body{flex:1;min-width:0}
+.xp-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.xp strong{font-size:14.5px;font-weight:600;letter-spacing:-.1px}
+.now-badge{font-size:10px;letter-spacing:.2px;font-weight:700;color:var(--green-deep);background:var(--green-tint);padding:2.5px 8px;border-radius:20px}
+.xp .co{font-size:13px;color:var(--ink-2);font-weight:500;margin-top:1px}
+.xp .when{font-size:12px;color:var(--ink-3);margin-top:1px;display:block}
+.xp p{font-size:13px;color:var(--ink-2);margin-top:7px;line-height:1.6}
+
+/* skills */
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.skill{background:var(--bg);border:1px solid var(--line);border-radius:20px;font-size:12.5px;font-weight:500;padding:6px 14px;color:var(--ink-2);transition:border-color .13s,color .13s,background .13s}
+.skill:hover{border-color:var(--brand-line);background:var(--brand-tint);color:var(--brand-2)}
+
+/* about & education */
+.about{color:var(--ink-2);font-size:14px;line-height:1.7}
+.edu-sub{margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft);display:flex;gap:14px;align-items:flex-start}
+.edu-ic{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:var(--green-tint);color:var(--green-deep);flex-shrink:0}
+.edu-ic .ic{width:19px;height:19px;stroke-width:1.9}
+.edu strong{display:block;color:var(--ink);font-size:14px;font-weight:600;letter-spacing:-.1px}
+.edu .edu-note{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.certs{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.cert-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--ink-2)}
+.cert-item .ic{width:14px;height:14px;color:var(--amber);flex-shrink:0}
+
+/* ---------- AI screening summary ---------- */
+.screening-card{padding:20px 24px 22px;border:1px solid #e4defc;background:linear-gradient(180deg,#fbfaff,#fff 70%)}
+.screening-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.screening-title{display:flex;align-items:center;gap:10px}
+.sec-ic.spark{background:var(--grad);color:#fff;box-shadow:0 3px 10px -2px rgba(124,58,237,.45)}
+.screening-title h2{font-size:15.5px;font-weight:700;letter-spacing:-.2px}
+.ai-tag{font-size:10.5px;letter-spacing:.2px;font-weight:600;color:var(--ink-3);background:var(--surface);border:1px solid var(--line);padding:4px 10px;border-radius:20px;white-space:nowrap}
+.verdict-box{position:relative;background:var(--surface);border:1px solid #e4defc;border-radius:12px;padding:14px 17px 14px 20px;margin-bottom:18px;overflow:hidden}
+.verdict-box::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad)}
+.verdict-box p{font-size:15px;font-weight:700;color:var(--ink);line-height:1.55;letter-spacing:-.15px}
+.assess-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.assess-h{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.1px;margin-bottom:10px}
+.assess-h.pos{color:var(--green-deep)}
+.assess-h.neg{color:var(--amber)}
+.assess-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.assess-list li{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink-2);line-height:1.55}
+.assess-list .ic{flex-shrink:0;margin-top:2.5px;width:14px;height:14px}
+.assess-list.pos .ic{color:var(--green)}
+.assess-list.neg .ic{color:#d97706}
+@media (max-width:560px){.assess-grid{grid-template-columns:1fr;gap:18px}}
+
+/* ---------- sidebar ---------- */
+.side-card{padding:16px 18px 18px}
+.side-h{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;letter-spacing:-.1px;color:var(--ink);margin-bottom:12px}
+.side-h .ic{width:14px;height:14px;color:var(--brand)}
+#notesCard{border:1px solid #f0e6c4;background:#fffdf4}
+#notesCard .side-h .ic{color:#ca8a04}
+.notes-area{width:100%;min-height:96px;resize:vertical;border:1.5px solid #ede3bd;border-radius:10px;background:#fffef9;padding:10px 12px;font-size:13px;line-height:1.55;color:var(--ink)}
+.notes-area::placeholder{color:#a89e7d}
+.notes-area:focus-visible{outline:none;border-color:#d9c25c;box-shadow:0 0 0 4px #faf3d3}
+.notes-saved{font-size:11px;font-weight:600;color:var(--green-deep);margin-top:7px;display:flex;align-items:center;gap:4px;min-height:14px}
+.notes-saved .ic{width:11px;height:11px}
+.c-row{display:flex;align-items:center;gap:11px;padding:8px 0}
+.c-row+.c-row{border-top:1px solid var(--line-soft)}
+.c-ic{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;flex-shrink:0}
+.c-ic .ic{width:14px;height:14px;stroke-width:2}
+.c-ic.brand{background:var(--brand-tint);color:var(--brand)}
+.c-ic.g{background:var(--green-tint);color:var(--green-deep)}
+.c-ic.v{background:var(--violet-tint);color:var(--violet)}
+.c-body{min-width:0;flex:1}
+.c-label{font-size:10.5px;font-weight:600;color:var(--ink-3);display:block;letter-spacing:.2px;text-transform:uppercase}
+.c-val{font-size:12.5px;font-weight:600;color:var(--ink);display:block;word-break:break-word;text-decoration:none}
+a.c-val:hover{color:var(--brand-2);text-decoration:underline}
+.links-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.links-row a{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-2);text-decoration:none;border:1.5px solid var(--line);border-radius:9px;padding:8px 10px;transition:border-color .13s,color .13s,background .13s}
+.links-row a:hover{color:var(--brand-2);border-color:var(--brand-line);background:var(--brand-tint)}
+
+/* ---------- print / export ---------- */
+@media print{
+  html,body{height:auto!important}
+  body{display:block!important;background:#fff}
+  .topbar,.pane-list,.mob-back,.ph-actions,#notesCard{display:none!important}
+  .shell{display:block!important;height:auto!important}
+  .pane-detail{display:block!important;overflow:visible!important;height:auto!important;padding:0!important}
+  .detail-in{max-width:none}
+  .detail-grid{display:block!important}
+  .side-col{position:static!important;display:block!important}
+  .card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .cover{height:60px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ---------- mobile ---------- */
+@media (max-width:820px){
+  .shell{grid-template-columns:1fr}
+  .pane-list{border-right:0}
+  .pane-detail{display:none}
+  body.viewing .pane-list{display:none}
+  body.viewing .pane-detail{display:block;padding:14px 14px 48px}
+  body.viewing .mob-back{display:inline-flex}
+  .cover{height:84px}
+  .ph-body{padding:0 18px 18px}
+  .ph-top{margin-top:-40px}
+  .avatar-xl{width:88px;height:88px}
+  .ph-actions{width:100%;padding-bottom:0}
+  .ph-actions .btn{flex:1;justify-content:center}
+  .sec-card,.screening-card{padding:17px 18px 19px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-fastpass" viewBox="0 0 24 24"><path d="m5 5 7 7-7 7"/><path class="accent" d="M13 5l7 7-7 7"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4.5 4.5"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m7 7-7-7 7-7"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 10 14M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="11.5" rx="1.6"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/><path d="M3.5 12.5h17"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.3v9.4M9.6 9.3c0-1 1-1.7 2.4-1.7s2.4.7 2.4 1.6c0 2.2-4.8 1-4.8 3.2 0 .9 1 1.6 2.4 1.6s2.4-.6 2.4-1.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2.2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.7 7-11.6A7 7 0 0 0 5 9.4C5 14.3 12 21 12 21z"/><circle cx="12" cy="9.4" r="2.4"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5 14.7 9l6 .9-4.4 4.2 1 6-5.3-2.8L6.7 20l1-6L3.3 9.9l6-.9L12 3.5z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M12 4 2 9l10 5 10-5-10-5z"/><path d="M6 12v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M4 4h7l9 9-7 7-9-9V4z"/><circle cx="8.5" cy="8.5" r="1.4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v6c0 4.6 3.2 7.9 7.5 9 4.3-1.1 7.5-4.4 7.5-9V6L12 3z"/><path d="m8.7 12.3 2.2 2.2 4.4-4.6"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5"/><path d="m8.5 12.8-1.7 7.7 5.2-2.7 5.2 2.7-1.7-7.7"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M4 18v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h13l-3 4.5L18 13H5"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-note-pen" viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9.5 17.5 13 16l4-4-2-2-4 4-1.5 3.5z"/></symbol>
+  <symbol id="i-caution" viewBox="0 0 24 24"><path d="M12 3.5 21 19H3L12 3.5z"/><path d="M12 10v3.5"/><circle cx="12" cy="16.3" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9L12 3z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 19.5c0-3.3 3-5 6.5-5s6.5 1.7 6.5 5"/><path d="M16 5.6a3.2 3.2 0 0 1 0 5.8M18.5 14.9c2 .8 3 2.3 3 4.6"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.3 4 5.2 4 8.5s-1.4 6.2-4 8.5c-2.6-2.3-4-5.2-4-8.5s1.4-6.2 4-8.5z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h3l1.5 4-2 1.5a12.5 12.5 0 0 0 6.5 6.5L16 14l4 1.5v3a1.8 1.8 0 0 1-2 1.8C10.5 19.6 4.4 13.5 3.7 6a1.8 1.8 0 0 1 1.8-2z"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#/">
+      <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
+      <span class="wordmark"><strong>Candidate Pool</strong><span>by Talentbank Career OS</span></span>
+    </a>
+    <span class="topbar-right">
+      <span class="acct" title="Account"><svg class="ic sm"><use href="#i-user"/></svg></span>
+    </span>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="pane-list">
+    <div class="filter-panel" role="search" aria-label="Search and filter candidates">
+      <div class="fp-title"><svg class="ic"><use href="#i-users"/></svg><span>Candidates</span><span class="count-bubble" aria-live="polite"><b id="nCount">0</b></span></div>
+
+      <div class="fp-search">
+        <label class="sr-only" for="q">Search candidates by name, role or skill</label>
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="q" type="search" placeholder="Search by name, role or skill…" autocomplete="off" />
+      </div>
+
+      <div class="fp-grid">
+        <div class="fp-field">
+          <label for="fLevel">Experience</label>
+          <select id="fLevel">
+            <option value="all">All levels</option>
+            <option value="fresh">Fresh graduate</option>
+            <option value="exp">Experienced (1–4 yrs)</option>
+            <option value="senior">Senior (5+ yrs)</option>
+          </select>
+        </div>
+        <div class="fp-field">
+          <label for="fLocation">Location</label>
+          <select id="fLocation">
+            <option value="all">All locations</option>
+          </select>
+        </div>
+        <div class="fp-field full">
+          <label for="fSort">Sort by</label>
+          <select id="fSort">
+            <option value="name">Name A–Z</option>
+            <option value="exp-desc">Most experienced</option>
+            <option value="exp-asc">Least experienced</option>
+            <option value="salary">Expected salary</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fp-footer">
+        <span class="fp-hint">Tip: search by skill, e.g. “React”</span>
+        <button class="clear-f" id="fClear" type="button">Reset filters</button>
+      </div>
+    </div>
+    <ul class="rows" id="rows" aria-label="Candidate results"></ul>
+  </aside>
+  <main class="pane-detail" id="detailPane"><div class="detail-in" id="detail"></div></main>
+</div>
+
+<script>
+/* =====================================================================
+   ✏️  EDIT CANDIDATES HERE — change the values, nothing else.
+   Fields: slug (url id), tb (candidate id), name, title,
+   level ("fresh" | "exp" | "senior"), years (number, for sorting),
+   email, phone (+country code), location, qualification, expYears,
+   salary, salaryNum (number, for sorting), notice, relocation,
+   workMode, nationality, skills[], summary,
+   xp[] {role, co, when, now, desc}, edu, links{linkedin, github}.
+   Optional: photo (URL or data-URI — shown instead of the colored
+   initials avatar when present).
+   ===================================================================== */
+const CANDIDATES = [
+  {
+    slug: "najmi-zulhusni", tb: "TB-DI-9418",
+    name: "Najmi Zulhusni",
+    title: "Data Integration Developer",
+    level: "exp", years: 1,
+    email: "najmisapuan02@gmail.com",
+    phone: "+60 11-1145 8752",
+    location: "Johor Bahru, Malaysia",
+    qualification: "Bachelor of Computer Science, UTM",
+    cgpa: "3.71 / 4.00",
+    verified: true,
+    source: "Applied directly via Talentbank",
+    lastActive: "Active 2 days ago",
+    strengths: [
+      "Deep SuiteQL and NetSuite integration expertise for a first job out of university",
+      "Ships iPaaS/webhook pipelines independently across Latenode, Workato and Supabase",
+      "Best Project Award from a prior internship shows early technical judgement"
+    ],
+    improve: [
+      "Limited exposure to large-scale or high-traffic distributed systems",
+      "No formal mentoring or team-lead experience yet"
+    ],
+    verdict: "Solid first-role technical hire for integration-heavy engineering teams — ready to contribute now, not yet ready to lead.",
+    expYears: "1 year",
+    salary: "RM 4,500/mo", salaryNum: 4500,
+    notice: "2 months",
+    relocation: "Yes",
+    workMode: "Hybrid / Remote",
+    nationality: "Malaysian",
+    languages: ["Bahasa Malaysia (Native)", "English (Fluent)"],
+    skills: ["iPaaS", "Latenode", "Workato", "SuiteQL", "NetSuite", "REST API", "Supabase", "JavaScript"],
+    summary: "Integration developer building iPaaS pipelines between NetSuite ERP and WMS, POS and e-commerce systems across Southeast Asia. Strong on SuiteQL, webhook architecture and Supabase monitoring.",
+    xp: [
+      { role: "Data & Integration Developer", co: "PS Global Consulting", when: "Aug 2025 — Present", now: true,
+        desc: "Enterprise NetSuite integrations for SEA clients in F&B, trading and logistics using Latenode and Workato." },
+      { role: "Data & Analytics Intern", co: "SLB (Schlumberger)", when: "2024 — 2025", now: false,
+        desc: "Operational dashboards and SAP exposure. Best Project Award." }
+    ],
+    edu: "Bachelor of Computer Science (Software Engineering) — Universiti Teknologi Malaysia, 2025",
+    links: { linkedin: "https://www.linkedin.com/in/najmi-zulhusni/", github: "https://github.com/najmizulhusni" }
+  },
+  {
+    slug: "arjun-ravindran", tb: "TB-FS-3207",
+    name: "Arjun Ravindran",
+    title: "Junior Full-Stack Engineer",
+    level: "fresh", years: 0,
+    email: "arjun.ravindran02@gmail.com",
+    phone: "+60 12-336 7789",
+    location: "Kuala Lumpur, Malaysia",
+    qualification: "Bachelor of Computer Science, UM",
+    cgpa: "3.84 / 4.00",
+    verified: true,
+    sponsor: "Telekom Malaysia — TM Undergraduate Scholarship (bonded 2 years, fulfilled)",
+    source: "Sourced via Talentbank Campus Fair 2025",
+    lastActive: "Active today",
+    strengths: [
+      "Ships full production apps solo — unusually complete for a fresh graduate",
+      "Solid React, Node and TypeScript fundamentals reinforced by a bank internship",
+      "Bonded scholar profile signals strong retention if the role fits the bond terms"
+    ],
+    improve: [
+      "No professional experience beyond a 6-month internship",
+      "Backend and infrastructure depth still developing"
+    ],
+    verdict: "Rare fresh-grad shipping ability — a safe bet for junior full-stack roles with light mentorship in place.",
+    expYears: "Fresh graduate",
+    salary: "RM 4,800/mo", salaryNum: 4800,
+    notice: "Immediate",
+    relocation: "Yes",
+    workMode: "On-site / Hybrid",
+    nationality: "Malaysian",
+    languages: ["Tamil (Native)", "English (Fluent)", "Bahasa Malaysia (Fluent)"],
+    skills: ["React", "Node.js", "TypeScript", "PostgreSQL", "Tailwind", "Docker"],
+    summary: "Fresh graduate who ships. Built three production-grade final-year projects including a campus marketplace with 1,200 users.",
+    xp: [
+      { role: "Software Engineering Intern", co: "Maybank — Digital Products", when: "Mar — Sep 2025", now: false,
+        desc: "React dashboard components, integration tests, 30+ UI defects fixed." }
+    ],
+    edu: "Bachelor of Computer Science (Software Engineering) — Universiti Malaya, 2025",
+    links: { linkedin: "https://www.linkedin.com/in/arjun-ravindran-demo/", github: "https://github.com/arjunrav-demo" }
+  },
+  {
+    slug: "sarah-lim", tb: "TB-DO-5561",
+    name: "Sarah Lim Mei Yee",
+    title: "DevOps Engineer",
+    level: "exp", years: 3,
+    email: "sarahlim.ops@gmail.com",
+    phone: "+60 16-778 8990",
+    location: "Subang Jaya, Selangor",
+    qualification: "B.Sc Cloud Computing, Taylor's",
+    cgpa: "3.62 / 4.00",
+    verified: true,
+    source: "Applied directly via Talentbank",
+    lastActive: "Active 5 days ago",
+    strengths: [
+      "Proven production Kubernetes ownership at genuine scale",
+      "Cut deployment time from 40 to 6 minutes — strong automation instinct",
+      "Already comfortable carrying on-call for a high-volume platform"
+    ],
+    improve: [
+      "Career so far concentrated in one vertical (fintech)",
+      "Terraform/IaC work has been contributor-level, not yet leading the standard"
+    ],
+    verdict: "Strong mid-level DevOps hire for teams that need reliable Kubernetes ownership starting immediately.",
+    expYears: "3 years",
+    salary: "RM 6,200/mo", salaryNum: 6200,
+    notice: "1 month",
+    relocation: "Yes",
+    workMode: "Remote preferred",
+    nationality: "Malaysian",
+    languages: ["Mandarin (Native)", "English (Fluent)", "Bahasa Malaysia (Fluent)"],
+    skills: ["AWS", "Kubernetes", "Terraform", "CI/CD", "Prometheus", "Python"],
+    summary: "Runs production Kubernetes for a regional fintech. Cut deployment time from 40 to 6 minutes; led the Terraform migration.",
+    xp: [
+      { role: "DevOps Engineer", co: "PayNet Solutions", when: "2024 — Present", now: true,
+        desc: "CI/CD across 14 services; on-call for a platform processing 2M transactions/day." },
+      { role: "Junior DevOps Engineer", co: "Cloudtech MSP", when: "2022 — 2024", now: false,
+        desc: "AWS environments for 8 SME clients; automated backups and monitoring." }
+    ],
+    edu: "B.Sc Cloud Computing — Taylor's University, 2022",
+    links: { linkedin: "https://www.linkedin.com/in/sarahlim-demo/", github: "https://github.com/sarahlim-demo" }
+  },
+  {
+    slug: "harith-iskandar", tb: "TB-CE-8834",
+    name: "Harith Iskandar Bin Rahman",
+    title: "Senior Cloud Infrastructure Engineer",
+    level: "senior", years: 9,
+    email: "harith.iskandar.cloud@gmail.com",
+    phone: "+60 19-224 6673",
+    location: "Cyberjaya, Selangor",
+    qualification: "B.Eng Computer Engineering, UTP · AWS SA Pro",
+    cgpa: "3.55 / 4.00",
+    verified: true,
+    certs: ["AWS Certified Solutions Architect – Professional"],
+    source: "Referred by internal recruiter network",
+    lastActive: "Active 1 day ago",
+    strengths: [
+      "9-year track record progressing from systems engineer to platform lead",
+      "AWS Solutions Architect – Professional, backed by real multi-region delivery",
+      "Delivered a measurable 28% cloud cost reduction through FinOps"
+    ],
+    improve: [
+      "Requires a 3-month notice period — plan the hiring timeline around it",
+      "Depth is concentrated in AWS; Azure exposure is comparatively lighter"
+    ],
+    verdict: "High-confidence senior hire for platform leadership — move quickly given the 3-month notice period.",
+    expYears: "9 years",
+    salary: "RM 13,500/mo", salaryNum: 13500,
+    notice: "3 months",
+    relocation: "Negotiable",
+    workMode: "Hybrid",
+    nationality: "Malaysian",
+    languages: ["Bahasa Malaysia (Native)", "English (Fluent)", "Mandarin (Basic)"],
+    skills: ["AWS", "Azure", "Kubernetes", "Terraform", "Kafka", "Security", "Team Leadership", "FinOps"],
+    summary: "Leads a 6-person platform team at a regional e-commerce group. Multi-region infrastructure for 40M monthly users; cloud spend cut 28% through FinOps.",
+    xp: [
+      { role: "Senior Cloud Infrastructure Engineer", co: "ShopSEA Group", when: "2021 — Present", now: true,
+        desc: "Platform team lead. Multi-region AWS, zero-downtime migrations, DR design." },
+      { role: "Cloud Engineer", co: "Axiata Digital", when: "2018 — 2021", now: false,
+        desc: "Built the group's first Kubernetes platform; introduced Terraform and GitOps." },
+      { role: "Systems Engineer", co: "HeiTech Padu", when: "2016 — 2018", now: false,
+        desc: "Government infrastructure: Linux, virtualization, networking." }
+    ],
+    edu: "B.Eng Computer Engineering — Universiti Teknologi PETRONAS, 2016",
+    links: { linkedin: "https://www.linkedin.com/in/harith-iskandar-demo/", github: "https://github.com/harith-demo" }
+  },
+  {
+    slug: "aisyah-yusof", tb: "TB-PM-4471",
+    name: "Nur Aisyah Binti Yusof",
+    title: "Product Manager",
+    level: "exp", years: 4,
+    email: "aisyah.yusof.pm@gmail.com",
+    phone: "+60 13-556 2290",
+    location: "Petaling Jaya, Selangor",
+    qualification: "B.Business Administration, Sunway University",
+    cgpa: "3.68 / 4.00",
+    verified: true,
+    source: "Applied directly via Talentbank",
+    lastActive: "Active 3 days ago",
+    strengths: [
+      "Owns a live roadmap with 300K MAU and a measurable churn reduction",
+      "Strong cross-functional operator, coordinating engineering and design across 3 squads",
+      "Data-literate — fluent in SQL and structured A/B testing, not just backlog management"
+    ],
+    improve: [
+      "No experience yet managing or mentoring other PMs",
+      "Career so far has been fintech-only; unproven outside the vertical"
+    ],
+    verdict: "Proven product manager for consumer or fintech apps — ready to own a roadmap from day one.",
+    expYears: "4 years",
+    salary: "RM 7,800/mo", salaryNum: 7800,
+    notice: "1 month",
+    relocation: "Negotiable",
+    workMode: "Hybrid",
+    nationality: "Malaysian",
+    languages: ["Bahasa Malaysia (Native)", "English (Fluent)", "Mandarin (Conversational)"],
+    skills: ["Product Strategy", "Roadmapping", "Agile/Scrum", "Figma", "SQL", "A/B Testing", "Jira", "Stakeholder Management"],
+    summary: "Product manager driving a fintech payments app with 300K monthly active users. Owns the merchant payments roadmap and cut churn 15% through onboarding redesign.",
+    xp: [
+      { role: "Product Manager", co: "Boost Holdings", when: "2023 — Present", now: true,
+        desc: "Owns merchant payments roadmap; partners with engineering and design across 3 squads." },
+      { role: "Associate Product Manager", co: "iPay88", when: "2021 — 2023", now: false,
+        desc: "Launched a recurring billing feature adopted by 1,200 merchants." }
+    ],
+    edu: "B.Business Administration (Marketing) — Sunway University, 2021",
+    links: { linkedin: "https://www.linkedin.com/in/aisyah-yusof-demo/", github: "https://github.com/aisyahyusof-demo" }
+  },
+  {
+    slug: "wong-kah-weng", tb: "TB-FA-2205",
+    name: "Wong Kah Weng",
+    title: "Junior Financial Analyst",
+    level: "fresh", years: 0,
+    email: "wongkahweng.fin@gmail.com",
+    phone: "+60 17-882 1034",
+    location: "George Town, Penang",
+    qualification: "Bachelor of Accounting and Finance, USM",
+    cgpa: "3.91 / 4.00",
+    verified: true,
+    certs: ["CFA Level I Candidate"],
+    source: "Sourced via Talentbank Campus Fair 2025",
+    lastActive: "Active today",
+    strengths: [
+      "Top 5% of cohort with CFA Level I already underway",
+      "Already automated Power BI reporting as an intern — not just spreadsheet work",
+      "Immediately available, which shortens time-to-start"
+    ],
+    improve: [
+      "No full-time work experience yet",
+      "Financial modelling exposure so far is limited to one internship's scope"
+    ],
+    verdict: "Promising junior finance hire, best suited to a team that can invest in structured ramp-up.",
+    expYears: "Fresh graduate",
+    salary: "RM 3,800/mo", salaryNum: 3800,
+    notice: "Immediate",
+    relocation: "Yes",
+    workMode: "On-site",
+    nationality: "Malaysian",
+    languages: ["Mandarin (Native)", "English (Fluent)", "Bahasa Malaysia (Fluent)", "Hokkien (Native)"],
+    skills: ["Financial Modeling", "Excel", "Power BI", "Bloomberg Terminal", "Variance Analysis", "SQL"],
+    summary: "Finance graduate with internship experience building budget models for a manufacturing group. Top 5% of cohort and CFA Level 1 candidate.",
+    xp: [
+      { role: "Finance Intern", co: "Penang Bridge Manufacturing Bhd", when: "Jan — Jun 2025", now: false,
+        desc: "Built monthly variance reports and automated Power BI dashboards for regional plant costs." }
+    ],
+    edu: "Bachelor of Accounting and Finance — Universiti Sains Malaysia, 2025",
+    links: { linkedin: "https://www.linkedin.com/in/wongkahweng-demo/", github: "https://github.com/wongkahweng-demo" }
+  },
+  {
+    slug: "priya-selvam", tb: "TB-UX-6689",
+    name: "Priya A/P Selvam",
+    title: "Senior UI/UX Designer",
+    level: "senior", years: 7,
+    email: "priya.selvam.design@gmail.com",
+    phone: "+60 14-990 3321",
+    location: "Bangsar, Kuala Lumpur",
+    qualification: "B.Design (Visual Communication), MMU · Google UX Cert",
+    cgpa: "3.49 / 4.00",
+    verified: true,
+    certs: ["Google UX Design Professional Certificate"],
+    source: "Referred by internal recruiter network",
+    lastActive: "Active 4 days ago",
+    strengths: [
+      "Built and scaled a design system across 4 countries — proven at multi-market scale",
+      "Already mentors junior designers, a natural next step toward a lead role",
+      "Google UX certified with a measurable 40% cut in design-to-dev handoff time"
+    ],
+    improve: [
+      "Not open to relocation — best suited to remote or hybrid roles",
+      "2-month notice period to plan around"
+    ],
+    verdict: "Design leadership hire ready today — best suited to a remote-first team given no relocation.",
+    expYears: "7 years",
+    salary: "RM 9,800/mo", salaryNum: 9800,
+    notice: "2 months",
+    relocation: "No",
+    workMode: "Hybrid",
+    nationality: "Malaysian",
+    languages: ["Tamil (Native)", "English (Fluent)", "Bahasa Malaysia (Fluent)"],
+    skills: ["Figma", "Design Systems", "User Research", "Prototyping", "Accessibility", "Webflow", "Adobe XD"],
+    summary: "Design lead who built the design system for a regional super-app used across 4 countries. Mentors 3 junior designers and cut design-to-dev handoff time by 40%.",
+    xp: [
+      { role: "Senior UI/UX Designer", co: "Grab Malaysia (Vendor Team)", when: "2022 — Present", now: true,
+        desc: "Leads design system and accessibility standards across 4 product squads." },
+      { role: "UI/UX Designer", co: "MoneyLion Malaysia", when: "2019 — 2022", now: false,
+        desc: "Designed onboarding and lending flows; increased completion rate by 22%." },
+      { role: "Junior Designer", co: "Kaodim", when: "2017 — 2019", now: false,
+        desc: "Marketplace UI and marketing site design." }
+    ],
+    edu: "B.Design (Visual Communication) — Multimedia University, 2017",
+    links: { linkedin: "https://www.linkedin.com/in/priya-selvam-demo/", github: "https://github.com/priyaselvam-demo" }
+  }
+];
+/* ===================== end of editable data ===================== */
+
+const $ = (id) => document.getElementById(id);
+const state = { level: "all", loc: "all", sort: "name", q: "", selected: null };
+const shortlist = new Set();
+const notes = new Map();      // slug -> recruiter note text
+const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+const city = (c) => c.location.split(",")[0].trim();
+/* colored-initials fallback: hue is stable per name, palette matches the design system */
+const AVATAR_PALETTE = [
+  ["#1e3ebe", "#e4e9fd"], // royal blue
+  ["#067647", "#dff3e9"], // emerald
+  ["#6941c6", "#ece4fb"], // violet
+  ["#b54708", "#fdeed7"], // amber
+  ["#c01048", "#fce7ef"], // rose
+  ["#0e7090", "#dff2f9"]  // teal
+];
+const nameHue = (name) => AVATAR_PALETTE[[...name].reduce((a, ch) => a + ch.charCodeAt(0), 0) % AVATAR_PALETTE.length];
+function avatarUri(name) {
+  const [deep, tint] = nameHue(name);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144"><rect width="144" height="144" rx="72" fill="${tint}"/><text x="72" y="90" font-family="Arial,Helvetica,sans-serif" font-size="52" font-weight="700" letter-spacing="-1" fill="${deep}" text-anchor="middle">${initials(name)}</text></svg>`;
+  return "data:image/svg+xml," + encodeURIComponent(svg);
+}
+/* real photo when provided (c.photo), colored initials otherwise */
+const avatarSrc = (c) => c.photo || avatarUri(c.name);
+/* company monogram chip for the experience timeline */
+function coMono(co) {
+  const [deep, tint] = nameHue(co);
+  return `<span class="co-avatar" style="background:${tint};color:${deep}">${esc(initials(co.replace(/[^\w\s]/g, " ").trim()))}</span>`;
+}
+const telHref = (p) => p.replace(/[^\d+]/g, "");
+
+/* Structured data for the selected candidate */
+function setStructuredData(c) {
+  $("ldPerson").textContent = c ? JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: {
+      "@type": "Person",
+      name: c.name,
+      jobTitle: c.title,
+      email: "mailto:" + c.email,
+      telephone: c.phone,
+      image: avatarSrc(c),
+      address: { "@type": "PostalAddress", addressLocality: c.location },
+      sameAs: [c.links.linkedin, c.links.github]
+    }
+  }) : "";
+  document.title = c ? `${c.name} - ${c.title} | Candidate Pool` : "Candidate Pool — Talentbank Career OS";
+}
+
+/* ---------- filtering & sorting ---------- */
+function visibleRows() {
+  const q = state.q.toLowerCase();
+  let rows = CANDIDATES.filter((c) => {
+    if (state.level !== "all" && c.level !== state.level) return false;
+    if (state.loc !== "all" && city(c) !== state.loc) return false;
+    if (q && ![c.name, c.title, c.location, c.skills.join(" ")].join(" ").toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const sorters = {
+    "name": (a, b) => a.name.localeCompare(b.name),
+    "exp-desc": (a, b) => b.years - a.years,
+    "exp-asc": (a, b) => a.years - b.years,
+    "salary": (a, b) => a.salaryNum - b.salaryNum
+  };
+  return rows.sort(sorters[state.sort] || sorters.name);
+}
+
+const LVL = { fresh: ["lvl-fresh", "Fresh grad"], exp: ["lvl-exp", "Experienced"], senior: ["lvl-senior", "Senior"] };
+
+function renderList() {
+  const rows = visibleRows();
+  $("nCount").textContent = rows.length;
+  const ul = $("rows");
+  if (!rows.length) {
+    ul.innerHTML = `
+      <li class="empty-rows">
+        <svg class="ic" aria-hidden="true" style="width:20px;height:20px;color:var(--ink-3);margin-bottom:8px"><use href="#i-search"/></svg>
+        <p>No candidates match your filters.</p>
+        <button type="button" class="empty-reset" id="emptyReset">Clear filters</button>
+      </li>`;
+    $("emptyReset")?.addEventListener("click", resetFilters);
+    return;
+  }
+  ul.innerHTML = "";
+  for (const c of rows) {
+    const li = document.createElement("li");
+    li.className = "row" + (state.selected === c.slug ? " sel" : "");
+    li.tabIndex = 0;
+    li.setAttribute("role", "button");
+    li.setAttribute("aria-current", state.selected === c.slug ? "true" : "false");
+    const [lvlCls, lvlTxt] = LVL[c.level];
+    const starChip = shortlist.has(c.slug) ? `<svg class="ic sm star-on" aria-hidden="true"><use href="#i-star"/></svg>` : "";
+    li.innerHTML = `
+      <span class="avatar"><img alt="" src="${avatarSrc(c)}"></span>
+      <span class="row-main">
+        <span class="row-t"><strong>${esc(c.name)}</strong>${starChip}</span>
+        <span class="row-role">${esc(c.title)}</span>
+        <span class="row-meta">
+          <span>${esc(city(c))}</span><span class="dot-sep"></span>
+          <span>${esc(c.expYears)}</span>
+        </span>
+      </span>
+      <span class="row-right">
+        <span class="sal">${esc(c.salary)}</span>
+        <span class="lvl ${lvlCls}">${lvlTxt}</span>
+      </span>`;
+    const go = () => { location.hash = "#/c/" + c.slug; };
+    li.addEventListener("click", go);
+    li.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+    });
+    ul.append(li);
+  }
+}
+
+/* ---------- detail ---------- */
+function renderDetail() {
+  const c = CANDIDATES.find((x) => x.slug === state.selected);
+  setStructuredData(c || null);
+  document.body.classList.toggle("viewing", !!c && window.innerWidth <= 820);
+  const el = $("detail");
+  if (!c) { el.innerHTML = ""; return; }
+  const [, lvlTxt] = LVL[c.level];
+  const shortlisted = shortlist.has(c.slug);
+  const noteVal = notes.get(c.slug) || "";
+  el.innerHTML = `
+    <button class="mob-back" id="mobBack"><svg class="ic sm"><use href="#i-arrow-left"/></svg> All candidates</button>
+
+    <section class="card profile-card" itemscope itemtype="https://schema.org/Person">
+      <div class="cover"><span class="cover-id">${esc(c.tb)}</span></div>
+      <div class="ph-body">
+        <div class="ph-top">
+          <span class="avatar-xl"><img alt="${esc(c.name)}" itemprop="image" src="${avatarSrc(c)}"></span>
+          <div class="ph-actions">
+            <button class="btn btn-primary${shortlisted ? " on" : ""}" id="btnShortlist" type="button">
+              <svg class="ic"><use href="#i-star"/></svg> ${shortlisted ? "Shortlisted" : "Shortlist"}
+            </button>
+            <a class="btn btn-outline" href="mailto:${esc(c.email)}"><svg class="ic"><use href="#i-mail"/></svg> Contact</a>
+            <button class="btn btn-ghost" id="btnPrint" type="button" title="Export this profile as a PDF via your browser's print dialog"><svg class="ic"><use href="#i-download"/></svg> Export PDF</button>
+          </div>
+        </div>
+        <div class="ph-id">
+          <h1 itemprop="name">${esc(c.name)}${c.verified ? ` <span class="verified" title="Identity and work history verified by Talentbank"><svg class="ic"><use href="#i-shield"/></svg> Verified</span>` : ""}</h1>
+          <div class="ph-role" itemprop="jobTitle">${esc(c.title)}</div>
+          <div class="ph-meta">
+            <span><svg class="ic"><use href="#i-pin"/></svg>${esc(c.location)}</span>
+            <span><svg class="ic"><use href="#i-briefcase"/></svg>${esc(c.workMode)}</span>
+            <span><svg class="ic"><use href="#i-clock"/></svg>${esc(c.lastActive)}</span>
+            <span><svg class="ic"><use href="#i-tag"/></svg>${esc(c.source)}</span>
+          </div>
+        </div>
+        <div class="ph-chips">
+          <span class="chip mint"><svg class="ic sm"><use href="#i-check"/></svg> Open to work</span>
+          <span class="chip">${esc(lvlTxt)}</span>
+          <span class="chip">Notice: ${esc(c.notice)}</span>
+          <span class="chip">Relocate: ${esc(c.relocation)}</span>
+          ${c.sponsor ? `<span class="chip gold"><svg class="ic sm"><use href="#i-flag"/></svg> Sponsored scholar</span>` : ""}
+        </div>
+        ${c.sponsor ? `
+        <div class="sponsor-band">
+          <svg class="ic"><use href="#i-flag"/></svg>
+          <div><strong>Sponsorship / bonding obligation</strong><span>${esc(c.sponsor)}</span></div>
+        </div>` : ""}
+        <div class="stat-row">
+          <div class="stat"><span class="stat-ic g"><svg class="ic"><use href="#i-coin"/></svg></span><span><span class="stat-label">Expected salary</span><span class="stat-val">${esc(c.salary)}</span></span></div>
+          <div class="stat"><span class="stat-ic v"><svg class="ic"><use href="#i-cap"/></svg></span><span><span class="stat-label">CGPA</span><span class="stat-val">${esc(c.cgpa)}</span></span></div>
+          <div class="stat"><span class="stat-ic b"><svg class="ic"><use href="#i-briefcase"/></svg></span><span><span class="stat-label">Experience</span><span class="stat-val">${esc(c.expYears)}</span></span></div>
+          <div class="stat"><span class="stat-ic a"><svg class="ic"><use href="#i-clock"/></svg></span><span><span class="stat-label">Notice period</span><span class="stat-val">${esc(c.notice)}</span></span></div>
+          <div class="stat"><span class="stat-ic n"><svg class="ic"><use href="#i-user"/></svg></span><span><span class="stat-label">Nationality</span><span class="stat-val">${esc(c.nationality)}</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="detail-grid">
+      <div class="main-col">
+        <section class="card sec-card">
+          <div class="sec-head"><span class="sec-ic brand"><svg class="ic"><use href="#i-briefcase"/></svg></span><h2>Experience</h2></div>
+          <ul class="xp">
+            ${c.xp.map((x) => `
+              <li>
+                ${coMono(x.co)}
+                <div class="xp-body">
+                  <div class="xp-top"><strong>${esc(x.role)}</strong>${x.now ? `<span class="now-badge">Current</span>` : ""}</div>
+                  <div class="co">${esc(x.co)}</div>
+                  <span class="when">${esc(x.when)}</span>
+                  <p>${esc(x.desc)}</p>
+                </div>
+              </li>`).join("")}
+          </ul>
+        </section>
+
+        <section class="card sec-card">
+          <div class="sec-head"><span class="sec-ic v"><svg class="ic"><use href="#i-tag"/></svg></span><h2>Skills</h2></div>
+          <div class="skills">${c.skills.map((s) => `<span class="skill">${esc(s)}</span>`).join("")}</div>
+        </section>
+
+        <section class="card sec-card">
+          <div class="sec-head"><span class="sec-ic b"><svg class="ic"><use href="#i-note"/></svg></span><h2>About & education</h2></div>
+          <p class="about">${esc(c.summary)}</p>
+          <div class="edu-sub">
+            <span class="edu-ic"><svg class="ic"><use href="#i-cap"/></svg></span>
+            <div class="edu">
+              <strong>${esc(c.edu)}</strong>
+              <div class="edu-note">CGPA ${esc(c.cgpa)}</div>
+              ${c.certs?.length ? `
+              <div class="certs">
+                ${c.certs.map((cert) => `<div class="cert-item"><svg class="ic"><use href="#i-award"/></svg>${esc(cert)}</div>`).join("")}
+              </div>` : ""}
+            </div>
+          </div>
+        </section>
+
+        <section class="card screening-card">
+          <div class="screening-head">
+            <div class="screening-title"><span class="sec-ic spark"><svg class="ic"><use href="#i-spark"/></svg></span><h2>Screening Summary</h2></div>
+            <span class="ai-tag">AI-assisted · verify before deciding</span>
+          </div>
+          <div class="verdict-box"><p>${esc(c.verdict)}</p></div>
+          <div class="assess-grid">
+            <div>
+              <div class="assess-h pos"><svg class="ic sm"><use href="#i-check"/></svg>Strengths</div>
+              <ul class="assess-list pos">
+                ${c.strengths.map((s) => `<li><svg class="ic sm"><use href="#i-check"/></svg>${esc(s)}</li>`).join("")}
+              </ul>
+            </div>
+            <div>
+              <div class="assess-h neg"><svg class="ic sm"><use href="#i-caution"/></svg>Areas to watch</div>
+              <ul class="assess-list neg">
+                ${c.improve.map((s) => `<li><svg class="ic sm"><use href="#i-caution"/></svg>${esc(s)}</li>`).join("")}
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="side-col">
+        <section class="card side-card" id="notesCard">
+          <span class="side-h"><svg class="ic"><use href="#i-note-pen"/></svg>Your notes</span>
+          <textarea class="notes-area" id="notesArea" placeholder="Private to you — interview feedback, fit assessment, follow-ups…">${esc(noteVal)}</textarea>
+          <div class="notes-saved" id="notesSaved"></div>
+        </section>
+
+        <section class="card side-card">
+          <span class="side-h"><svg class="ic"><use href="#i-mail"/></svg>Contact</span>
+          <div class="c-row">
+            <span class="c-ic brand"><svg class="ic"><use href="#i-mail"/></svg></span>
+            <span class="c-body"><span class="c-label">Email</span><a class="c-val" href="mailto:${esc(c.email)}" itemprop="email">${esc(c.email)}</a></span>
+          </div>
+          <div class="c-row">
+            <span class="c-ic g"><svg class="ic"><use href="#i-phone"/></svg></span>
+            <span class="c-body"><span class="c-label">Phone</span><a class="c-val" href="tel:${telHref(c.phone)}" itemprop="telephone">${esc(c.phone)}</a></span>
+          </div>
+          <div class="c-row">
+            <span class="c-ic v"><svg class="ic"><use href="#i-globe"/></svg></span>
+            <span class="c-body"><span class="c-label">Languages</span><span class="c-val">${esc(c.languages.join(", "))}</span></span>
+          </div>
+          <div class="links-row">
+            <a href="${esc(c.links.linkedin)}" target="_blank" rel="noopener"><svg class="ic sm"><use href="#i-external"/></svg> LinkedIn</a>
+            <a href="${esc(c.links.github)}" target="_blank" rel="noopener"><svg class="ic sm"><use href="#i-external"/></svg> GitHub</a>
+          </div>
+        </section>
+      </div>
+    </div>`;
+  const back = $("mobBack");
+  if (back) back.addEventListener("click", () => { location.hash = "#/"; });
+  const sBtn = $("btnShortlist");
+  if (sBtn) sBtn.addEventListener("click", () => {
+    if (shortlist.has(c.slug)) shortlist.delete(c.slug); else shortlist.add(c.slug);
+    const on = shortlist.has(c.slug);
+    sBtn.classList.toggle("on", on);
+    sBtn.innerHTML = `<svg class="ic"><use href="#i-star"/></svg> ${on ? "Shortlisted" : "Shortlist"}`;
+    renderList();
+  });
+  const printBtn = $("btnPrint");
+  if (printBtn) printBtn.addEventListener("click", () => window.print());
+  const notesArea = $("notesArea");
+  const notesSaved = $("notesSaved");
+  if (notesArea) notesArea.addEventListener("input", debounce((e) => {
+    notes.set(c.slug, e.target.value);
+    notesSaved.innerHTML = `<svg class="ic"><use href="#i-check"/></svg> Note saved`;
+  }, 400));
+}
+
+/* ---------- router & wiring ---------- */
+function route() {
+  const m = (location.hash || "").match(/^#\/c\/([\w-]+)/);
+  const found = m && CANDIDATES.find((c) => c.slug === m[1]);
+  if (found) {
+    state.selected = found.slug;
+  } else {
+    state.selected = window.innerWidth > 820 ? (visibleRows()[0]?.slug || null) : null;
+  }
+  renderList();
+  renderDetail();
+  document.querySelector(".pane-detail")?.scrollTo(0, 0);
+}
+
+function populateLocations() {
+  const sel = $("fLocation");
+  [...new Set(CANDIDATES.map(city))].sort().forEach((l) => sel.append(new Option(l, l)));
+}
+function applyFilters() {
+  renderList();
+  // keep selection valid within the filtered set on desktop
+  if (window.innerWidth > 820 && !visibleRows().some((c) => c.slug === state.selected)) {
+    state.selected = visibleRows()[0]?.slug || null;
+    renderDetail();
+    renderList();
+  }
+}
+
+function resetFilters() {
+  state.level = "all"; state.loc = "all"; state.sort = "name"; state.q = "";
+  $("fLevel").value = "all"; $("fLocation").value = "all"; $("fSort").value = "name"; $("q").value = "";
+  applyFilters();
+}
+function debounce(fn, ms) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
+$("q").addEventListener("input", debounce((e) => { state.q = e.target.value; applyFilters(); }, 120));
+$("fLevel").addEventListener("change", (e) => { state.level = e.target.value; applyFilters(); });
+$("fLocation").addEventListener("change", (e) => { state.loc = e.target.value; applyFilters(); });
+$("fSort").addEventListener("change", (e) => { state.sort = e.target.value; applyFilters(); });
+$("fClear").addEventListener("click", resetFilters);
+window.addEventListener("hashchange", route);
+populateLocations();
+route();
+</script>
+</body>
+</html>
