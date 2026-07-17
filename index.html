@@ -329,26 +329,19 @@ a.c-val:hover{color:var(--brand-2)}
 .role-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 
 /* ---------- welcome / role picker ---------- */
-.welcome{min-height:100%;flex:1;display:flex;flex-direction:column;align-items:center;background:var(--bg);padding:56px 24px 64px;position:relative;overflow:hidden}
+.welcome{min-height:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);padding:32px 24px;position:relative;overflow:hidden}
 .welcome::before{content:"";position:absolute;inset:0 0 auto 0;height:340px;background:var(--grad);opacity:.06;mask-image:linear-gradient(#000,transparent);pointer-events:none}
-.welcome-top{display:flex;align-items:center;gap:11px;position:relative;z-index:1;margin-bottom:52px}
-.welcome-in{max-width:760px;width:100%;text-align:center;position:relative;z-index:1}
-.welcome-in h1{font-family:var(--display);font-size:clamp(26px,3.4vw,34px);font-weight:700;letter-spacing:-.6px;color:var(--ink);line-height:1.15}
-.welcome-sub{margin-top:10px;font-size:14.5px;color:var(--ink-2);max-width:480px;margin-left:auto;margin-right:auto}
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:38px;text-align:left}
-.role-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:12px;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:26px 24px;cursor:pointer;font-family:inherit;box-shadow:var(--shadow);transition:border-color .16s,box-shadow .16s,transform .16s}
+.welcome-top{display:flex;align-items:center;gap:11px;position:relative;z-index:1;margin-bottom:44px}
+.welcome-in{width:100%;text-align:center;position:relative;z-index:1}
+.welcome-in h1{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-.2px;color:var(--ink-2)}
+.role-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:20px}
+.role-card{display:flex;flex-direction:column;align-items:center;gap:10px;width:132px;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:24px 12px;cursor:pointer;font-family:inherit;box-shadow:var(--shadow);transition:border-color .16s,box-shadow .16s,transform .16s}
 .role-card:hover{border-color:var(--brand-line);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
 .role-card:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
-.role-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--brand-tint);color:var(--brand)}
-.role-ic .ic{width:20px;height:20px;stroke-width:1.9}
+.role-ic{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--brand-tint);color:var(--brand)}
+.role-ic .ic{width:21px;height:21px;stroke-width:1.9}
 .role-ic.v{background:var(--violet-tint);color:var(--violet)}
-.role-card strong{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.2px;color:var(--ink)}
-.role-desc{font-size:13px;color:var(--ink-2);line-height:1.55}
-.role-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--brand-2);margin-top:2px}
-.role-cta .ic{width:13px;height:13px;transition:transform .16s}
-.role-card:hover .role-cta .ic{transform:translateX(3px)}
-.welcome-foot{margin-top:40px;font-size:12px;color:var(--ink-3);position:relative;z-index:1}
-@media (max-width:640px){.role-grid{grid-template-columns:1fr}}
+.role-card strong{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-.1px;color:var(--ink)}
 
 /* ---------- candidate intake ---------- */
 .cand-shell{flex:1;display:flex;flex-direction:column;min-height:0}
@@ -424,7 +417,6 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.3 4 5.2 4 8.5s-1.4 6.2-4 8.5c-2.6-2.3-4-5.2-4-8.5s1.4-6.2 4-8.5z"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h3l1.5 4-2 1.5a12.5 12.5 0 0 0 6.5 6.5L16 14l4 1.5v3a1.8 1.8 0 0 1-2 1.8C10.5 19.6 4.4 13.5 3.7 6a1.8 1.8 0 0 1 1.8-2z"/></symbol>
   <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9.5 4.5v15"/></symbol>
-  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-7 7 7-7 7"/></symbol>
 </svg>
 
 <main class="welcome" id="welcomeView">
@@ -433,24 +425,18 @@ a.c-val:hover{color:var(--brand-2)}
     <span class="wordmark"><strong>Candidate Pool</strong><span>by Talentbank Career OS</span></span>
   </div>
   <div class="welcome-in">
-    <h1>Welcome to Talentbank Career OS</h1>
-    <p class="welcome-sub">Let us know who you are so we can take you to the right place.</p>
+    <h1>Who's continuing today?</h1>
     <div class="role-grid">
       <button class="role-card" id="roleRecruiter" type="button">
         <span class="role-ic"><svg class="ic"><use href="#i-briefcase"/></svg></span>
-        <strong>I'm a Recruiter</strong>
-        <span class="role-desc">Browse pre-screened, open-to-work candidates with verified experience and AI screening summaries.</span>
-        <span class="role-cta">Continue as recruiter <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+        <strong>Recruiter</strong>
       </button>
       <button class="role-card" id="roleCandidate" type="button">
         <span class="role-ic v"><svg class="ic"><use href="#i-user"/></svg></span>
-        <strong>I'm a Candidate</strong>
-        <span class="role-desc">Create your profile so recruiters actively hiring can find and reach out to you.</span>
-        <span class="role-cta">Continue as candidate <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+        <strong>Candidate</strong>
       </button>
     </div>
   </div>
-  <div class="welcome-foot">You can switch roles again at any time.</div>
 </main>
 
 <div class="cand-shell hidden" id="candidateView">
