@@ -163,7 +163,7 @@ button,select,input,textarea{font-family:inherit}
 .avatar-xl{width:104px;height:104px;border-radius:50%;border:4px solid #fff;box-shadow:0 6px 20px rgba(16,27,51,.18);background:var(--bg);overflow:hidden;position:relative;flex-shrink:0}
 .avatar-xl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ph-actions{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:4px}
-.btn{display:inline-flex;align-items:center;gap:7px;border-radius:10px;font-size:13px;font-weight:600;padding:9.5px 15px;cursor:pointer;white-space:nowrap;border:1.5px solid transparent;font-family:inherit;transition:background .13s,border-color .13s,color .13s,box-shadow .13s}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:10px;font-size:13px;font-weight:600;padding:9.5px 15px;cursor:pointer;white-space:nowrap;border:1.5px solid transparent;font-family:inherit;text-decoration:none;transition:background .13s,border-color .13s,color .13s,box-shadow .13s}
 .btn .ic{width:14px;height:14px}
 .btn-primary{background:var(--brand);color:#fff;box-shadow:0 4px 14px -4px rgba(79,70,229,.5)}
 .btn-primary:hover{background:var(--brand-2)}
@@ -280,10 +280,21 @@ button,select,input,textarea{font-family:inherit}
 .c-body{min-width:0;flex:1}
 .c-label{font-size:10.5px;font-weight:600;color:var(--ink-3);display:block;letter-spacing:.2px;text-transform:uppercase}
 .c-val{font-size:12.5px;font-weight:600;color:var(--ink);display:block;word-break:break-word;text-decoration:none}
-a.c-val:hover{color:var(--brand-2);text-decoration:underline}
+a.c-val:hover{color:var(--brand-2)}
 .links-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .links-row a{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-2);text-decoration:none;border:1.5px solid var(--line);border-radius:9px;padding:8px 10px;transition:border-color .13s,color .13s,background .13s}
 .links-row a:hover{color:var(--brand-2);border-color:var(--brand-line);background:var(--brand-tint)}
+
+/* similar candidates */
+.similar-list{list-style:none;display:flex;flex-direction:column}
+.similar-row{display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-radius:8px}
+.similar-row+.similar-row{border-top:1px solid var(--line-soft)}
+.similar-row:hover{background:var(--brand-tint)}
+.similar-row:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.avatar.sm{width:32px;height:32px}
+.similar-body{min-width:0;flex:1}
+.similar-body strong{display:block;font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.similar-role{display:block;font-size:11.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ---------- print / export ---------- */
 @media print{
@@ -745,6 +756,24 @@ function coMono(co) {
 }
 const telHref = (p) => p.replace(/[^\d+]/g, "");
 
+/* other candidates who share skills, level or title with c, best matches first */
+function similarCandidates(c) {
+  const skillSet = new Set(c.skills.map((s) => s.toLowerCase()));
+  return CANDIDATES
+    .filter((x) => x.slug !== c.slug)
+    .map((x) => {
+      const shared = x.skills.filter((s) => skillSet.has(s.toLowerCase())).length;
+      let score = shared;
+      if (x.level === c.level) score += 1;
+      if (x.title === c.title) score += 2;
+      return { x, score };
+    })
+    .filter((m) => m.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((m) => m.x);
+}
+
 /* Structured data for the selected candidate */
 function setStructuredData(c) {
   $("ldPerson").textContent = c ? JSON.stringify({
@@ -839,6 +868,7 @@ function renderDetail() {
   if (!c) { el.innerHTML = ""; return; }
   const [, lvlTxt] = LVL[c.level];
   const shortlisted = shortlist.has(c.slug);
+  const similar = similarCandidates(c);
   const noteVal = notes.get(c.slug) || "";
   el.innerHTML = `
     <button class="mob-back" id="mobBack"><svg class="ic sm"><use href="#i-arrow-left"/></svg> All candidates</button>
@@ -852,7 +882,7 @@ function renderDetail() {
             <button class="btn btn-primary${shortlisted ? " on" : ""}" id="btnShortlist" type="button">
               <svg class="ic"><use href="#i-star"/></svg> ${shortlisted ? "Shortlisted" : "Shortlist"}
             </button>
-            <a class="btn btn-outline" href="mailto:${esc(c.email)}"><svg class="ic"><use href="#i-mail"/></svg> Contact</a>
+            <a class="btn btn-outline" href="mailto:${esc(c.email)}"><svg class="ic"><use href="#i-mail"/></svg> Email</a>
             <button class="btn btn-ghost" id="btnPrint" type="button" title="Export this profile as a PDF via your browser's print dialog"><svg class="ic"><use href="#i-download"/></svg> Export PDF</button>
           </div>
         </div>
@@ -975,8 +1005,31 @@ function renderDetail() {
             <a href="${esc(c.links.github)}" target="_blank" rel="noopener"><svg class="ic sm"><use href="#i-external"/></svg> GitHub</a>
           </div>
         </section>
+
+        ${similar.length ? `
+        <section class="card side-card">
+          <span class="side-h"><svg class="ic"><use href="#i-users"/></svg>Similar candidates</span>
+          <ul class="similar-list">
+            ${similar.map((s) => `
+              <li class="similar-row" data-slug="${esc(s.slug)}" tabindex="0" role="button">
+                <span class="avatar sm"><img alt="" src="${avatarSrc(s)}"></span>
+                <span class="similar-body">
+                  <strong>${esc(s.name)}</strong>
+                  <span class="similar-role">${esc(s.title)}</span>
+                </span>
+              </li>`).join("")}
+          </ul>
+        </section>` : ""}
       </div>
     </div>`;
+
+  el.querySelectorAll(".similar-row").forEach((row) => {
+    const go = () => { location.hash = "#/c/" + row.dataset.slug; };
+    row.addEventListener("click", go);
+    row.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+    });
+  });
   const back = $("mobBack");
   if (back) back.addEventListener("click", () => { location.hash = "#/"; });
   const sBtn = $("btnShortlist");
