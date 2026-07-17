@@ -129,7 +129,6 @@ button,select,input,textarea{font-family:inherit}
 .lvl-fresh{background:var(--sky-tint);color:var(--sky)}
 .lvl-exp{background:var(--amber-tint);color:var(--amber)}
 .lvl-senior{background:var(--violet-tint);color:var(--violet)}
-.row .star-on{color:#eab308;flex-shrink:0}
 .row:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 .empty-rows{display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink-3);font-size:13px;padding:44px 20px}
 .empty-rows p{margin-bottom:12px}
@@ -165,10 +164,6 @@ button,select,input,textarea{font-family:inherit}
 .ph-actions{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:4px}
 .btn{display:inline-flex;align-items:center;gap:7px;border-radius:10px;font-size:13px;font-weight:600;padding:9.5px 15px;cursor:pointer;white-space:nowrap;border:1.5px solid transparent;font-family:inherit;text-decoration:none;transition:background .13s,border-color .13s,color .13s,box-shadow .13s}
 .btn .ic{width:14px;height:14px}
-.btn-primary{background:var(--brand);color:#fff;box-shadow:0 4px 14px -4px rgba(79,70,229,.5)}
-.btn-primary:hover{background:var(--brand-2)}
-.btn-primary.on{background:var(--green);box-shadow:0 4px 14px -4px rgba(5,150,105,.5)}
-.btn-primary.on:hover{background:var(--green-deep)}
 .btn-outline{background:var(--surface);color:var(--ink-2);border-color:var(--line)}
 .btn-outline:hover{border-color:var(--brand);color:var(--brand-2);background:var(--brand-tint)}
 .btn-ghost{background:var(--bg);color:var(--ink-2);border-color:transparent}
@@ -342,7 +337,6 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.3v9.4M9.6 9.3c0-1 1-1.7 2.4-1.7s2.4.7 2.4 1.6c0 2.2-4.8 1-4.8 3.2 0 .9 1 1.6 2.4 1.6s2.4-.6 2.4-1.5"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2.2"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.7 7-11.6A7 7 0 0 0 5 9.4C5 14.3 12 21 12 21z"/><circle cx="12" cy="9.4" r="2.4"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5 14.7 9l6 .9-4.4 4.2 1 6-5.3-2.8L6.7 20l1-6L3.3 9.9l6-.9L12 3.5z"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
   <symbol id="i-cap" viewBox="0 0 24 24"><path d="M12 4 2 9l10 5 10-5-10-5z"/><path d="M6 12v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5"/></symbol>
   <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9 13h6M9 17h6"/></symbol>
@@ -726,7 +720,6 @@ const CANDIDATES = [
 
 const $ = (id) => document.getElementById(id);
 const state = { level: "all", loc: "all", sort: "name", q: "", selected: null };
-const shortlist = new Set();
 const notes = new Map();      // slug -> recruiter note text
 const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
@@ -835,11 +828,10 @@ function renderList() {
     li.setAttribute("role", "button");
     li.setAttribute("aria-current", state.selected === c.slug ? "true" : "false");
     const [lvlCls, lvlTxt] = LVL[c.level];
-    const starChip = shortlist.has(c.slug) ? `<svg class="ic sm star-on" aria-hidden="true"><use href="#i-star"/></svg>` : "";
     li.innerHTML = `
       <span class="avatar"><img alt="" src="${avatarSrc(c)}"></span>
       <span class="row-main">
-        <span class="row-t"><strong>${esc(c.name)}</strong>${starChip}</span>
+        <span class="row-t"><strong>${esc(c.name)}</strong></span>
         <span class="row-role">${esc(c.title)}</span>
         <span class="row-meta">
           <span>${esc(city(c))}</span><span class="dot-sep"></span>
@@ -867,7 +859,6 @@ function renderDetail() {
   const el = $("detail");
   if (!c) { el.innerHTML = ""; return; }
   const [, lvlTxt] = LVL[c.level];
-  const shortlisted = shortlist.has(c.slug);
   const similar = similarCandidates(c);
   const noteVal = notes.get(c.slug) || "";
   el.innerHTML = `
@@ -879,9 +870,6 @@ function renderDetail() {
         <div class="ph-top">
           <span class="avatar-xl"><img alt="${esc(c.name)}" itemprop="image" src="${avatarSrc(c)}"></span>
           <div class="ph-actions">
-            <button class="btn btn-primary${shortlisted ? " on" : ""}" id="btnShortlist" type="button">
-              <svg class="ic"><use href="#i-star"/></svg> ${shortlisted ? "Shortlisted" : "Shortlist"}
-            </button>
             <a class="btn btn-outline" href="mailto:${esc(c.email)}"><svg class="ic"><use href="#i-mail"/></svg> Email</a>
             <button class="btn btn-ghost" id="btnPrint" type="button" title="Export this profile as a PDF via your browser's print dialog"><svg class="ic"><use href="#i-download"/></svg> Export PDF</button>
           </div>
@@ -1032,14 +1020,6 @@ function renderDetail() {
   });
   const back = $("mobBack");
   if (back) back.addEventListener("click", () => { location.hash = "#/"; });
-  const sBtn = $("btnShortlist");
-  if (sBtn) sBtn.addEventListener("click", () => {
-    if (shortlist.has(c.slug)) shortlist.delete(c.slug); else shortlist.add(c.slug);
-    const on = shortlist.has(c.slug);
-    sBtn.classList.toggle("on", on);
-    sBtn.innerHTML = `<svg class="ic"><use href="#i-star"/></svg> ${on ? "Shortlisted" : "Shortlist"}`;
-    renderList();
-  });
   const printBtn = $("btnPrint");
   if (printBtn) printBtn.addEventListener("click", () => window.print());
   const notesArea = $("notesArea");
