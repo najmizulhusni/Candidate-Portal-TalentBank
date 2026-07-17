@@ -329,19 +329,35 @@ a.c-val:hover{color:var(--brand-2)}
 .role-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 
 /* ---------- welcome / role picker ---------- */
-.welcome{min-height:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);padding:32px 24px;position:relative;overflow:hidden}
-.welcome::before{content:"";position:absolute;inset:0 0 auto 0;height:340px;background:var(--grad);opacity:.06;mask-image:linear-gradient(#000,transparent);pointer-events:none}
-.welcome-top{display:flex;align-items:center;gap:11px;position:relative;z-index:1;margin-bottom:44px}
-.welcome-in{width:100%;text-align:center;position:relative;z-index:1}
-.welcome-in h1{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-.2px;color:var(--ink-2)}
-.role-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:20px}
-.role-card{display:flex;flex-direction:column;align-items:center;gap:10px;width:132px;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:24px 12px;cursor:pointer;font-family:inherit;box-shadow:var(--shadow);transition:border-color .16s,box-shadow .16s,transform .16s}
-.role-card:hover{border-color:var(--brand-line);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
-.role-card:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
-.role-ic{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--brand-tint);color:var(--brand)}
-.role-ic .ic{width:21px;height:21px;stroke-width:1.9}
-.role-ic.v{background:var(--violet-tint);color:var(--violet)}
-.role-card strong{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-.1px;color:var(--ink)}
+.welcome{flex:1;display:flex;flex-direction:column;background:var(--surface);position:relative;overflow:hidden}
+.welcome-brand{position:absolute;top:30px;left:36px;display:flex;align-items:center;gap:11px;z-index:2}
+.role-split{flex:1;display:flex;align-items:stretch;min-height:560px}
+.role-panel{flex:1;display:flex;align-items:center;justify-content:center;border:0;cursor:pointer;font-family:inherit;position:relative;background:var(--bg);transition:background .18s}
+.role-panel:first-child{background:linear-gradient(165deg,#f4f5fb 0%,#eceefa 100%)}
+.role-panel:last-child{background:linear-gradient(195deg,#faf8ff 0%,#f4eefd 100%)}
+.role-panel:first-child:hover{background:linear-gradient(165deg,#eef0fc 0%,#e3e6f8 100%)}
+.role-panel:last-child:hover{background:linear-gradient(195deg,#f6f1fe 0%,#eee3fb 100%)}
+.role-panel:focus-visible{outline:2px solid var(--focus);outline-offset:-4px}
+.role-panel-in{max-width:360px;padding:48px 44px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.role-ic{display:grid;place-items:center;width:60px;height:60px;border-radius:16px;background:var(--surface);color:var(--brand);box-shadow:0 10px 24px -10px rgba(79,70,229,.35)}
+.role-ic .ic{width:27px;height:27px;stroke-width:1.7}
+.role-ic.v{color:var(--violet);box-shadow:0 10px 24px -10px rgba(124,58,237,.35)}
+.role-eyebrow{margin-top:20px;font-size:11.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--ink-3)}
+.role-panel-in strong{margin-top:6px;font-family:var(--display);font-size:38px;font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1.05}
+.role-line{margin-top:12px;font-size:14.5px;color:var(--ink-2);line-height:1.6}
+.role-go{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:var(--brand-2);margin-top:26px;padding:12px 20px;border-radius:10px;background:var(--surface);border:1.5px solid var(--brand-line);transition:background .15s,color .15s,transform .15s}
+.role-go .ic{width:13px;height:13px;transition:transform .15s}
+.role-panel:hover .role-go{background:var(--brand);color:#fff;border-color:transparent}
+.role-panel:hover .role-go .ic{transform:translateX(3px)}
+.role-divider{width:1px;flex-shrink:0;background:var(--line);position:relative;z-index:2}
+.role-divider span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:10.5px;font-weight:700;letter-spacing:0;color:var(--ink-3);box-shadow:var(--shadow);white-space:nowrap}
+@media (max-width:760px){
+  .welcome-brand{position:static;padding:24px 24px 0}
+  .role-split{flex-direction:column;min-height:0}
+  .role-panel{padding:8px 0}
+  .role-panel-in{padding:32px 28px;max-width:none}
+  .role-divider{width:100%;height:1px}
+}
 
 /* ---------- candidate intake ---------- */
 .cand-shell{flex:1;display:flex;flex-direction:column;min-height:0}
@@ -417,25 +433,34 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.3 4 5.2 4 8.5s-1.4 6.2-4 8.5c-2.6-2.3-4-5.2-4-8.5s1.4-6.2 4-8.5z"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h3l1.5 4-2 1.5a12.5 12.5 0 0 0 6.5 6.5L16 14l4 1.5v3a1.8 1.8 0 0 1-2 1.8C10.5 19.6 4.4 13.5 3.7 6a1.8 1.8 0 0 1 1.8-2z"/></symbol>
   <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9.5 4.5v15"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-7 7 7-7 7"/></symbol>
 </svg>
 
 <main class="welcome" id="welcomeView">
-  <div class="welcome-top">
+  <div class="welcome-brand">
     <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
     <span class="wordmark"><strong>Candidate Pool</strong><span>by Talentbank Career OS</span></span>
   </div>
-  <div class="welcome-in">
-    <h1>Who's continuing today?</h1>
-    <div class="role-grid">
-      <button class="role-card" id="roleRecruiter" type="button">
+  <div class="role-split">
+    <button class="role-panel" id="roleRecruiter" type="button">
+      <span class="role-panel-in">
         <span class="role-ic"><svg class="ic"><use href="#i-briefcase"/></svg></span>
+        <span class="role-eyebrow">For hiring teams</span>
         <strong>Recruiter</strong>
-      </button>
-      <button class="role-card" id="roleCandidate" type="button">
+        <span class="role-line">Search verified, open-to-work candidates and review AI screening summaries.</span>
+        <span class="role-go">Continue as recruiter <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+      </span>
+    </button>
+    <div class="role-divider" aria-hidden="true"><span>OR</span></div>
+    <button class="role-panel" id="roleCandidate" type="button">
+      <span class="role-panel-in">
         <span class="role-ic v"><svg class="ic"><use href="#i-user"/></svg></span>
+        <span class="role-eyebrow">For job seekers</span>
         <strong>Candidate</strong>
-      </button>
-    </div>
+        <span class="role-line">Create your profile once and get discovered by recruiters who are hiring.</span>
+        <span class="role-go">Continue as candidate <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+      </span>
+    </button>
   </div>
 </main>
 
