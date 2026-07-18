@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Candidate Pool, part of Talentbank Career OS — browse pre-screened, open-to-work candidates with verified experience, salary expectations and language skills." />
-<title>Candidate Pool — Talentbank Career OS</title>
+<meta name="description" content="FastPass by TalentBank — manage your recruiter candidate list, or view candidate data extracted from your browser by the FastPass plugin." />
+<title>FastPass — TalentBank</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232b52dd'/%3E%3Cpath d='M5 5l7 7-7 7' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13 5l7 7-7 7' stroke='%238be3b4' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <script type="application/ld+json" id="ldPerson"></script>
 <style>
 /* ================================================================
-   Talentbank Candidate Pool — product design system v3
+   FastPass by TalentBank — product design system v3
    Canvas: warm white · Ink: deep slate · Brand: indigo→fuchsia
    Signature: gradient cover banner + circular human avatars
    ================================================================ */
@@ -62,6 +62,9 @@ button,select,input,textarea{font-family:inherit}
 .acct{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);border:1px solid var(--brand-line);color:var(--brand-2);flex-shrink:0;cursor:pointer;transition:background .13s,border-color .13s}
 .acct:hover{background:var(--brand-line)}
 @media (max-width:640px){.wordmark span{display:none}}
+.topbar-sep{color:var(--line);font-size:16px;margin:0 1px}
+.topbar-context{font-size:13.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+@media (max-width:520px){.topbar-sep,.topbar-context{display:none}}
 
 /* ---------- shell ---------- */
 .shell{flex:1;display:grid;grid-template-columns:400px minmax(0,1fr);align-items:stretch;min-height:0;transition:grid-template-columns .18s ease}
@@ -330,6 +333,17 @@ a.c-val:hover{color:var(--brand-2)}
 .role-switch{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:12.5px;font-weight:600;padding:8px 13px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:border-color .13s,color .13s,background .13s}
 .role-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 
+/* ---------- login ---------- */
+.login{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:32px 20px;position:relative;overflow:hidden}
+.login::before{content:"";position:absolute;inset:0 0 auto 0;height:400px;background:var(--grad);opacity:.07;mask-image:linear-gradient(#000,transparent);pointer-events:none}
+.login-card{position:relative;z-index:1;width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:36px 32px 32px;box-shadow:var(--shadow-lg)}
+.login-brand{display:flex;align-items:center;gap:11px;margin-bottom:26px}
+.login-card h1{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
+.login-sub{margin-top:5px;font-size:13px;color:var(--ink-2)}
+.login-card form{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.login-submit{width:100%;justify-content:center;padding:11px 16px;margin-top:2px}
+@media (max-width:440px){.login-card{padding:30px 22px 24px}}
+
 /* ---------- welcome / role picker ---------- */
 .welcome{flex:1;display:flex;flex-direction:column;background:var(--surface);position:relative;overflow:hidden}
 .welcome-brand{position:absolute;top:30px;left:36px;display:flex;align-items:center;gap:11px;z-index:2}
@@ -456,30 +470,54 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.6"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.6"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
 </svg>
 
-<main class="welcome" id="welcomeView">
+<main class="login" id="loginView">
+  <div class="login-card">
+    <div class="login-brand">
+      <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
+      <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
+    </div>
+    <h1>Sign in</h1>
+    <p class="login-sub">Enter your credentials to continue.</p>
+    <form id="loginForm" novalidate>
+      <div class="cform-error" id="loginError">Incorrect username or password.</div>
+      <div class="cform-field">
+        <label for="loginUser">Username</label>
+        <input id="loginUser" name="username" type="text" placeholder="Username" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+      </div>
+      <div class="cform-field">
+        <label for="loginPass">Password</label>
+        <input id="loginPass" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary login-submit"><svg class="ic"><use href="#i-lock"/></svg> Sign in</button>
+    </form>
+  </div>
+</main>
+
+<main class="welcome hidden" id="welcomeView">
   <div class="welcome-brand">
     <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-    <span class="wordmark"><strong>Candidate Pool</strong><span>by Talentbank Career OS</span></span>
+    <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
   </div>
   <div class="role-split">
     <button class="role-panel" id="roleRecruiter" type="button">
       <span class="role-panel-in">
         <span class="role-ic"><svg class="ic"><use href="#i-briefcase"/></svg></span>
-        <span class="role-eyebrow">For hiring teams</span>
+        <span class="role-eyebrow">For recruiters</span>
         <strong>Candidate Portal</strong>
-        <span class="role-line">Search verified, open-to-work candidates, review AI screening summaries, and add new candidates.</span>
-        <span class="role-go">Continue to Candidate Portal <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+        <span class="role-line">Manage your candidate list — search, review AI screening summaries, and add new candidates.</span>
+        <span class="role-go">Continue as recruiter <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
       </span>
     </button>
     <div class="role-divider" aria-hidden="true"><span>OR</span></div>
     <button class="role-panel" id="roleCandidate" type="button">
       <span class="role-panel-in">
         <span class="role-ic v"><svg class="ic"><use href="#i-grid"/></svg></span>
-        <span class="role-eyebrow">Plugin data</span>
+        <span class="role-eyebrow">Browser plugin</span>
         <strong>Dashboard</strong>
-        <span class="role-line">View candidate activity synced from the Talentbank Fastpass plugin.</span>
+        <span class="role-line">View candidate data extracted from your browser by the FastPass plugin.</span>
         <span class="role-go">Continue to Dashboard <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
       </span>
     </button>
@@ -491,10 +529,13 @@ a.c-val:hover{color:var(--brand-2)}
     <div class="topbar-in">
       <span class="brand">
         <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-        <span class="wordmark"><strong>Dashboard</strong><span>by Talentbank Career OS</span></span>
+        <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
       </span>
+      <span class="topbar-sep" aria-hidden="true">/</span>
+      <span class="topbar-context">Dashboard</span>
       <span class="topbar-right">
         <button class="role-switch" id="candSwitchRole" type="button">Switch role</button>
+        <button class="acct" id="candLogout" title="Log out" type="button"><svg class="ic sm"><use href="#i-user"/></svg></button>
       </span>
     </div>
   </header>
@@ -502,9 +543,9 @@ a.c-val:hover{color:var(--brand-2)}
     <div class="cand-in">
       <section class="card dash-empty">
         <span class="dash-empty-ic"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-        <span class="dash-empty-tag">Talentbank Fastpass plugin</span>
+        <span class="dash-empty-tag">FastPass browser plugin</span>
         <h2>No data yet</h2>
-        <p>This dashboard will show candidate activity synced from the Talentbank Fastpass plugin once it's connected.</p>
+        <p>This dashboard will show candidate details extracted from your browser once the FastPass plugin is connected.</p>
       </section>
     </div>
   </main>
@@ -518,11 +559,13 @@ a.c-val:hover{color:var(--brand-2)}
     </button>
     <a class="brand" href="#/">
       <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-      <span class="wordmark"><strong>Candidate Pool</strong><span>by Talentbank Career OS</span></span>
+      <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
     </a>
+    <span class="topbar-sep" aria-hidden="true">/</span>
+    <span class="topbar-context">Candidate Portal</span>
     <span class="topbar-right">
       <button class="role-switch" id="recruiterSwitchRole" type="button">Switch role</button>
-      <span class="acct" title="Account"><svg class="ic sm"><use href="#i-user"/></svg></span>
+      <button class="acct" id="recruiterLogout" title="Log out" type="button"><svg class="ic sm"><use href="#i-user"/></svg></button>
     </span>
   </div>
 </header>
@@ -614,7 +657,7 @@ const CANDIDATES = [
     qualification: "Bachelor of Computer Science, UTM",
     cgpa: "3.71 / 4.00",
     verified: true,
-    source: "Applied directly via Talentbank",
+    source: "Applied directly via TalentBank",
     strengths: [
       "Deep SuiteQL and NetSuite integration expertise for a first job out of university",
       "Ships iPaaS/webhook pipelines independently across Latenode, Workato and Supabase",
@@ -655,7 +698,7 @@ const CANDIDATES = [
     cgpa: "3.84 / 4.00",
     verified: true,
     sponsor: "Telekom Malaysia — TM Undergraduate Scholarship (bonded 2 years, fulfilled)",
-    source: "Sourced via Talentbank Campus Fair 2025",
+    source: "Sourced via TalentBank Campus Fair 2025",
     strengths: [
       "Ships full production apps solo — unusually complete for a fresh graduate",
       "Solid React, Node and TypeScript fundamentals reinforced by a bank internship",
@@ -693,7 +736,7 @@ const CANDIDATES = [
     qualification: "B.Sc Cloud Computing, Taylor's",
     cgpa: "3.62 / 4.00",
     verified: true,
-    source: "Applied directly via Talentbank",
+    source: "Applied directly via TalentBank",
     strengths: [
       "Proven production Kubernetes ownership at genuine scale",
       "Cut deployment time from 40 to 6 minutes — strong automation instinct",
@@ -776,7 +819,7 @@ const CANDIDATES = [
     qualification: "B.Business Administration, Sunway University",
     cgpa: "3.68 / 4.00",
     verified: true,
-    source: "Applied directly via Talentbank",
+    source: "Applied directly via TalentBank",
     strengths: [
       "Owns a live roadmap with 300K MAU and a measurable churn reduction",
       "Strong cross-functional operator, coordinating engineering and design across 3 squads",
@@ -817,7 +860,7 @@ const CANDIDATES = [
     cgpa: "3.91 / 4.00",
     verified: true,
     certs: ["CFA Level I Candidate"],
-    source: "Sourced via Talentbank Campus Fair 2025",
+    source: "Sourced via TalentBank Campus Fair 2025",
     strengths: [
       "Top 5% of cohort with CFA Level I already underway",
       "Already automated Power BI reporting as an intern — not just spreadsheet work",
@@ -955,7 +998,7 @@ function setStructuredData(c) {
       sameAs: [c.links.linkedin, c.links.github]
     }
   }) : "";
-  document.title = c ? `${c.name} - ${c.title} | Candidate Pool` : "Candidate Pool — Talentbank Career OS";
+  document.title = c ? `${c.name} - ${c.title} | FastPass` : "FastPass — TalentBank";
 }
 
 /* ---------- filtering & sorting ---------- */
@@ -1046,7 +1089,7 @@ function renderDetail() {
           </div>
         </div>
         <div class="ph-id">
-          <h1 itemprop="name">${esc(c.name)}${c.verified ? ` <span class="verified" title="Identity and work history verified by Talentbank"><svg class="ic"><use href="#i-shield"/></svg> Verified</span>` : ""}</h1>
+          <h1 itemprop="name">${esc(c.name)}${c.verified ? ` <span class="verified" title="Identity and work history verified by TalentBank"><svg class="ic"><use href="#i-shield"/></svg> Verified</span>` : ""}</h1>
           <div class="ph-role" itemprop="jobTitle">${esc(c.title)}</div>
           <div class="ph-meta">
             <span><svg class="ic"><use href="#i-pin"/></svg>${esc(c.location)}</span>
@@ -1258,6 +1301,43 @@ sidebarToggle.addEventListener("click", () => {
 });
 setSidebarCollapsed(localStorage.getItem("sidebarCollapsed") === "1");
 
+/* ---------- login ---------- */
+const AUTH_KEY = "tbAuthed";
+const AUTH_USER = "najmizulhusni";
+const AUTH_PASS = "najmi123";
+
+function applyAuth() {
+  const authed = localStorage.getItem(AUTH_KEY) === "1";
+  $("loginView").classList.toggle("hidden", authed);
+  if (authed) {
+    applyRole();
+  } else {
+    $("welcomeView").classList.add("hidden");
+    $("recruiterView").classList.add("hidden");
+    $("candidateView").classList.add("hidden");
+  }
+}
+function logout() {
+  localStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem(ROLE_KEY);
+  applyAuth();
+}
+
+$("loginForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const user = $("loginUser").value.trim();
+  const pass = $("loginPass").value;
+  if (user === AUTH_USER && pass === AUTH_PASS) {
+    $("loginError").classList.remove("show");
+    localStorage.setItem(AUTH_KEY, "1");
+    applyAuth();
+  } else {
+    $("loginError").classList.add("show");
+  }
+});
+$("recruiterLogout").addEventListener("click", logout);
+$("candLogout").addEventListener("click", logout);
+
 /* ---------- role selection (welcome screen) ---------- */
 const ROLE_KEY = "tbRole";
 const getRole = () => localStorage.getItem(ROLE_KEY);
@@ -1284,7 +1364,7 @@ function candidateFormHTML(d) {
   return `
     <div class="cand-head">
       <h1 id="addCandTitle">Add a candidate</h1>
-      <p>Enter their details to add them to the Talentbank candidate pool.</p>
+      <p>Enter their details to add them to the FastPass candidate list.</p>
     </div>
     <form id="candForm" novalidate>
       <div class="cform-error" id="candFormError">Please fill in name, title, email, location and a short summary before submitting.</div>
@@ -1373,7 +1453,7 @@ function candidateAddedHTML(d) {
     <section class="cand-success">
       <span class="succ-ic"><svg class="ic"><use href="#i-check"/></svg></span>
       <h2>Candidate added</h2>
-      <p>${esc(d.name)} has been added to the Talentbank candidate pool.</p>
+      <p>${esc(d.name)} has been added to the FastPass candidate list.</p>
       <div class="succ-summary">
         <div><span class="sl">Name</span><span class="sv">${esc(d.name)}</span></div>
         <div><span class="sl">Title</span><span class="sv">${esc(d.title)}</span></div>
@@ -1424,7 +1504,7 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && !$("addCandModal").classList.contains("hidden")) closeAddCandidateModal();
 });
 
-applyRole();
+applyAuth();
 </script>
 </body>
 </html>
