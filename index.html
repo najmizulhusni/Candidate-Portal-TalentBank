@@ -353,11 +353,18 @@ a.c-val:hover{color:var(--brand-2)}
 .login-points{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:13px}
 .login-points li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(255,255,255,.94);line-height:1.5}
 .login-points .ic{flex-shrink:0;margin-top:2.5px;color:#a5f3cf;width:13px;height:13px}
-.login-panel{flex:1;display:flex;align-items:center;justify-content:center;background:var(--surface);padding:40px 28px}
-.login-card{width:100%;max-width:340px}
-.login-card h1{font-family:var(--display);font-size:25px;font-weight:700;letter-spacing:-.4px;color:var(--ink);line-height:1.2}
+.login-panel{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:40px 28px}
+.login-card{width:100%;max-width:380px;padding:36px 34px 34px}
+.login-acct{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid var(--line-soft)}
+.login-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;overflow:hidden;background:var(--bg)}
+.login-avatar img{width:100%;height:100%;object-fit:cover}
+.login-acct-txt{display:flex;flex-direction:column;min-width:0}
+.login-acct-txt strong{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.1px}
+.login-acct-txt span{font-size:12px;color:var(--ink-3);margin-top:1px}
+.login-card h1{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.4px;color:var(--ink);line-height:1.2}
 .login-sub{margin-top:7px;font-size:13.5px;color:var(--ink-2)}
 .login-submit{width:100%;justify-content:center;padding:12px 16px;margin-top:26px}
+@media (max-width:440px){.login-card{padding:28px 24px 26px}}
 @media (max-width:760px){
   .login{flex-direction:column;min-height:0}
   .login-visual{flex:none;padding:40px 28px}
@@ -506,8 +513,15 @@ a.c-val:hover{color:var(--brand-2)}
     </div>
   </div>
   <div class="login-panel">
-    <div class="login-card">
-      <h1>Welcome back, najmizulhusni</h1>
+    <div class="card login-card">
+      <div class="login-acct">
+        <span class="login-avatar" id="loginAvatar"></span>
+        <span class="login-acct-txt">
+          <strong>najmizulhusni</strong>
+          <span>Recruiter account</span>
+        </span>
+      </div>
+      <h1>Welcome back</h1>
       <p class="login-sub">One click and you're in.</p>
       <button class="btn btn-primary login-submit" id="loginBtn" type="button">Continue <svg class="ic"><use href="#i-arrow-right"/></svg></button>
     </div>
@@ -1354,6 +1368,7 @@ function logout() {
   applyAuth();
 }
 
+$("loginAvatar").innerHTML = `<img alt="" src="${avatarUri("Najmi Zulhusni")}">`;
 $("loginBtn").addEventListener("click", () => {
   localStorage.setItem(AUTH_KEY, "1");
   applyAuth();
