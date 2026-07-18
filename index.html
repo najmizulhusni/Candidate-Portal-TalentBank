@@ -61,6 +61,12 @@ button,select,input,textarea{font-family:inherit}
 .topbar-right{display:flex;align-items:center;gap:14px;margin-left:auto;flex-shrink:0}
 .acct{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);border:1px solid var(--brand-line);color:var(--brand-2);flex-shrink:0;cursor:pointer;transition:background .13s,border-color .13s}
 .acct:hover{background:var(--brand-line)}
+.acct-wrap{position:relative}
+.acct-menu{position:absolute;top:calc(100% + 10px);right:0;min-width:170px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;z-index:30}
+.acct-menu-name{padding:8px 10px 9px;font-size:12px;font-weight:600;color:var(--ink-3);border-bottom:1px solid var(--line-soft);margin-bottom:4px}
+.acct-menu-item{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border:0;border-radius:8px;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;text-align:left}
+.acct-menu-item:hover{background:var(--brand-tint);color:var(--brand-2)}
+.acct-menu-item .ic{color:inherit}
 @media (max-width:640px){.wordmark span{display:none}}
 .topbar-sep{color:var(--line);font-size:16px;margin:0 1px}
 .topbar-context{font-size:13.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
@@ -445,7 +451,6 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
   <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 10 14M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
-  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
   <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="11.5" rx="1.6"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/><path d="M3.5 12.5h17"/></symbol>
   <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.3v9.4M9.6 9.3c0-1 1-1.7 2.4-1.7s2.4.7 2.4 1.6c0 2.2-4.8 1-4.8 3.2 0 .9 1 1.6 2.4 1.6s2.4-.6 2.4-1.5"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2.2"/></symbol>
@@ -458,7 +463,6 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5"/><path d="m8.5 12.8-1.7 7.7 5.2-2.7 5.2 2.7-1.7-7.7"/></symbol>
   <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M4 18v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1"/></symbol>
   <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h13l-3 4.5L18 13H5"/></symbol>
-  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></symbol>
   <symbol id="i-note-pen" viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9.5 17.5 13 16l4-4-2-2-4 4-1.5 3.5z"/></symbol>
   <symbol id="i-caution" viewBox="0 0 24 24"><path d="M12 3.5 21 19H3L12 3.5z"/><path d="M12 10v3.5"/><circle cx="12" cy="16.3" r=".6" fill="currentColor"/></symbol>
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9L12 3z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z"/></symbol>
@@ -470,7 +474,7 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.6"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.6"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/><path d="M15 16l4-4-4-4"/><path d="M19 12H9"/></symbol>
 </svg>
 
 <main class="login" id="loginView">
@@ -479,20 +483,9 @@ a.c-val:hover{color:var(--brand-2)}
       <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
       <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
     </div>
-    <h1>Sign in</h1>
-    <p class="login-sub">Enter your credentials to continue.</p>
-    <form id="loginForm" novalidate>
-      <div class="cform-error" id="loginError">Incorrect username or password.</div>
-      <div class="cform-field">
-        <label for="loginUser">Username</label>
-        <input id="loginUser" name="username" type="text" placeholder="Username" autocomplete="username" autocapitalize="off" spellcheck="false" required>
-      </div>
-      <div class="cform-field">
-        <label for="loginPass">Password</label>
-        <input id="loginPass" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
-      </div>
-      <button type="submit" class="btn btn-primary login-submit"><svg class="ic"><use href="#i-lock"/></svg> Sign in</button>
-    </form>
+    <h1>Welcome back, najmizulhusni</h1>
+    <p class="login-sub">One click and you're in.</p>
+    <button class="btn btn-primary login-submit" id="loginBtn" type="button">Continue <svg class="ic"><use href="#i-arrow-right"/></svg></button>
   </div>
 </main>
 
@@ -517,7 +510,7 @@ a.c-val:hover{color:var(--brand-2)}
         <span class="role-ic v"><svg class="ic"><use href="#i-grid"/></svg></span>
         <span class="role-eyebrow">Browser plugin</span>
         <strong>Dashboard</strong>
-        <span class="role-line">View candidate data extracted from your browser by the FastPass plugin.</span>
+        <span class="role-line">See candidate details picked up from your browser by the FastPass plugin.</span>
         <span class="role-go">Continue to Dashboard <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
       </span>
     </button>
@@ -535,7 +528,13 @@ a.c-val:hover{color:var(--brand-2)}
       <span class="topbar-context">Dashboard</span>
       <span class="topbar-right">
         <button class="role-switch" id="candSwitchRole" type="button">Switch role</button>
-        <button class="acct" id="candLogout" title="Log out" type="button"><svg class="ic sm"><use href="#i-user"/></svg></button>
+        <span class="acct-wrap">
+          <button class="acct acct-btn" id="candAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false"><svg class="ic sm"><use href="#i-user"/></svg></button>
+          <div class="acct-menu hidden" id="candAcctMenu">
+            <div class="acct-menu-name">najmizulhusni</div>
+            <button class="acct-menu-item" id="candLogout" type="button"><svg class="ic sm"><use href="#i-logout"/></svg> Log out</button>
+          </div>
+        </span>
       </span>
     </div>
   </header>
@@ -545,7 +544,7 @@ a.c-val:hover{color:var(--brand-2)}
         <span class="dash-empty-ic"><svg class="ic"><use href="#i-fastpass"/></svg></span>
         <span class="dash-empty-tag">FastPass browser plugin</span>
         <h2>No data yet</h2>
-        <p>This dashboard will show candidate details extracted from your browser once the FastPass plugin is connected.</p>
+        <p>Once the FastPass plugin is connected, candidate details picked up from your browser will show up here.</p>
       </section>
     </div>
   </main>
@@ -565,7 +564,13 @@ a.c-val:hover{color:var(--brand-2)}
     <span class="topbar-context">Candidate Portal</span>
     <span class="topbar-right">
       <button class="role-switch" id="recruiterSwitchRole" type="button">Switch role</button>
-      <button class="acct" id="recruiterLogout" title="Log out" type="button"><svg class="ic sm"><use href="#i-user"/></svg></button>
+      <span class="acct-wrap">
+        <button class="acct acct-btn" id="recruiterAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false"><svg class="ic sm"><use href="#i-user"/></svg></button>
+        <div class="acct-menu hidden" id="recruiterAcctMenu">
+          <div class="acct-menu-name">najmizulhusni</div>
+          <button class="acct-menu-item" id="recruiterLogout" type="button"><svg class="ic sm"><use href="#i-logout"/></svg> Log out</button>
+        </div>
+      </span>
     </span>
   </div>
 </header>
@@ -934,6 +939,7 @@ const CANDIDATES = [
 /* ===================== end of editable data ===================== */
 
 const $ = (id) => document.getElementById(id);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 const state = { level: "all", loc: "all", sort: "name", q: "", selected: null };
 const notes = new Map();      // slug -> recruiter note text
 const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
@@ -1303,8 +1309,6 @@ setSidebarCollapsed(localStorage.getItem("sidebarCollapsed") === "1");
 
 /* ---------- login ---------- */
 const AUTH_KEY = "tbAuthed";
-const AUTH_USER = "najmizulhusni";
-const AUTH_PASS = "najmi123";
 
 function applyAuth() {
   const authed = localStorage.getItem(AUTH_KEY) === "1";
@@ -1318,25 +1322,38 @@ function applyAuth() {
   }
 }
 function logout() {
+  closeAcctMenus();
   localStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(ROLE_KEY);
   applyAuth();
 }
 
-$("loginForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const user = $("loginUser").value.trim();
-  const pass = $("loginPass").value;
-  if (user === AUTH_USER && pass === AUTH_PASS) {
-    $("loginError").classList.remove("show");
-    localStorage.setItem(AUTH_KEY, "1");
-    applyAuth();
-  } else {
-    $("loginError").classList.add("show");
-  }
+$("loginBtn").addEventListener("click", () => {
+  localStorage.setItem(AUTH_KEY, "1");
+  applyAuth();
 });
-$("recruiterLogout").addEventListener("click", logout);
-$("candLogout").addEventListener("click", logout);
+
+/* ---------- account menu (topbar) ---------- */
+function closeAcctMenus() {
+  $$(".acct-menu").forEach((m) => m.classList.add("hidden"));
+  $$(".acct-btn").forEach((b) => b.setAttribute("aria-expanded", "false"));
+}
+function wireAcctMenu(btnId, menuId, logoutId) {
+  const btn = $(btnId);
+  const menu = $(menuId);
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const willOpen = menu.classList.contains("hidden");
+    closeAcctMenus();
+    menu.classList.toggle("hidden", !willOpen);
+    btn.setAttribute("aria-expanded", String(willOpen));
+  });
+  $(logoutId).addEventListener("click", logout);
+}
+wireAcctMenu("recruiterAcctBtn", "recruiterAcctMenu", "recruiterLogout");
+wireAcctMenu("candAcctBtn", "candAcctMenu", "candLogout");
+document.addEventListener("click", closeAcctMenus);
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAcctMenus(); });
 
 /* ---------- role selection (welcome screen) ---------- */
 const ROLE_KEY = "tbRole";
