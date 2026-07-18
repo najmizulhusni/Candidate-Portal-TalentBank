@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="FastPass by TalentBank — manage your recruiter candidate list, or view candidate data extracted from your browser by the FastPass plugin." />
-<title>FastPass — TalentBank</title>
+<meta name="description" content="FastPass by Talentbank — manage your recruiter candidate list, or view candidate data extracted from your browser by the FastPass plugin." />
+<title>FastPass — Talentbank</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232b52dd'/%3E%3Cpath d='M5 5l7 7-7 7' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13 5l7 7-7 7' stroke='%238be3b4' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <script type="application/ld+json" id="ldPerson"></script>
 <style>
 /* ================================================================
-   FastPass by TalentBank — product design system v3
+   FastPass by Talentbank — product design system v3
    Canvas: warm white · Ink: deep slate · Brand: indigo→fuchsia
    Signature: gradient cover banner + circular human avatars
    ================================================================ */
@@ -340,15 +340,30 @@ a.c-val:hover{color:var(--brand-2)}
 .role-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 
 /* ---------- login ---------- */
-.login{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:32px 20px;position:relative;overflow:hidden}
-.login::before{content:"";position:absolute;inset:0 0 auto 0;height:400px;background:var(--grad);opacity:.07;mask-image:linear-gradient(#000,transparent);pointer-events:none}
-.login-card{position:relative;z-index:1;width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:36px 32px 32px;box-shadow:var(--shadow-lg)}
-.login-brand{display:flex;align-items:center;gap:11px;margin-bottom:26px}
-.login-card h1{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
-.login-sub{margin-top:5px;font-size:13px;color:var(--ink-2)}
-.login-card form{display:flex;flex-direction:column;gap:14px;margin-top:22px}
-.login-submit{width:100%;justify-content:center;padding:11px 16px;margin-top:2px}
-@media (max-width:440px){.login-card{padding:30px 22px 24px}}
+.login{flex:1;display:flex;align-items:stretch;min-height:560px}
+.login-visual{flex:1;display:flex;align-items:center;justify-content:center;background:var(--grad);color:#fff;padding:56px 48px;position:relative;overflow:hidden}
+.login-visual::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(460px 320px at 88% 12%,rgba(255,255,255,.20),transparent 62%),
+  radial-gradient(360px 280px at 8% 92%,rgba(255,255,255,.12),transparent 60%);pointer-events:none}
+.login-visual-in{position:relative;z-index:1;max-width:380px}
+.login-visual .logo{width:52px;height:52px;border-radius:13px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);box-shadow:none}
+.login-visual .logo .ic{width:22px;height:22px}
+.login-visual-in h2{margin-top:20px;font-family:var(--display);font-size:29px;font-weight:700;letter-spacing:-.6px;line-height:1.15}
+.login-visual-in p{margin-top:12px;font-size:14px;line-height:1.65;color:rgba(255,255,255,.82)}
+.login-points{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:13px}
+.login-points li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(255,255,255,.94);line-height:1.5}
+.login-points .ic{flex-shrink:0;margin-top:2.5px;color:#a5f3cf;width:13px;height:13px}
+.login-panel{flex:1;display:flex;align-items:center;justify-content:center;background:var(--surface);padding:40px 28px}
+.login-card{width:100%;max-width:340px}
+.login-card h1{font-family:var(--display);font-size:25px;font-weight:700;letter-spacing:-.4px;color:var(--ink);line-height:1.2}
+.login-sub{margin-top:7px;font-size:13.5px;color:var(--ink-2)}
+.login-submit{width:100%;justify-content:center;padding:12px 16px;margin-top:26px}
+@media (max-width:760px){
+  .login{flex-direction:column;min-height:0}
+  .login-visual{flex:none;padding:40px 28px}
+  .login-panel{flex:none;padding:36px 28px 48px}
+  .login-points{margin-top:22px}
+}
 
 /* ---------- welcome / role picker ---------- */
 .welcome{flex:1;display:flex;flex-direction:column;background:var(--surface);position:relative;overflow:hidden}
@@ -478,21 +493,32 @@ a.c-val:hover{color:var(--brand-2)}
 </svg>
 
 <main class="login" id="loginView">
-  <div class="login-card">
-    <div class="login-brand">
+  <div class="login-visual">
+    <div class="login-visual-in">
       <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-      <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
+      <h2>FastPass</h2>
+      <p>The recruiter workspace for Talentbank — manage your candidate list and see what the FastPass browser plugin picks up.</p>
+      <ul class="login-points">
+        <li><svg class="ic sm"><use href="#i-check"/></svg> Search and manage your candidate list</li>
+        <li><svg class="ic sm"><use href="#i-check"/></svg> Review AI screening summaries</li>
+        <li><svg class="ic sm"><use href="#i-check"/></svg> See what the FastPass plugin picks up</li>
+      </ul>
     </div>
-    <h1>Welcome back, najmizulhusni</h1>
-    <p class="login-sub">One click and you're in.</p>
-    <button class="btn btn-primary login-submit" id="loginBtn" type="button">Continue <svg class="ic"><use href="#i-arrow-right"/></svg></button>
+  </div>
+  <div class="login-panel">
+    <div class="login-card">
+      <h1>Welcome back, najmizulhusni</h1>
+      <p class="login-sub">One click and you're in.</p>
+      <button class="btn btn-primary login-submit" id="loginBtn" type="button">Continue <svg class="ic"><use href="#i-arrow-right"/></svg></button>
+    </div>
+  </div>
   </div>
 </main>
 
 <main class="welcome hidden" id="welcomeView">
   <div class="welcome-brand">
     <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-    <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
+    <span class="wordmark"><strong>FastPass</strong><span>by Talentbank</span></span>
   </div>
   <div class="role-split">
     <button class="role-panel" id="roleRecruiter" type="button">
@@ -522,7 +548,7 @@ a.c-val:hover{color:var(--brand-2)}
     <div class="topbar-in">
       <span class="brand">
         <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-        <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
+        <span class="wordmark"><strong>FastPass</strong><span>by Talentbank</span></span>
       </span>
       <span class="topbar-sep" aria-hidden="true">/</span>
       <span class="topbar-context">Dashboard</span>
@@ -558,7 +584,7 @@ a.c-val:hover{color:var(--brand-2)}
     </button>
     <a class="brand" href="#/">
       <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-      <span class="wordmark"><strong>FastPass</strong><span>by TalentBank</span></span>
+      <span class="wordmark"><strong>FastPass</strong><span>by Talentbank</span></span>
     </a>
     <span class="topbar-sep" aria-hidden="true">/</span>
     <span class="topbar-context">Candidate Portal</span>
@@ -662,7 +688,7 @@ const CANDIDATES = [
     qualification: "Bachelor of Computer Science, UTM",
     cgpa: "3.71 / 4.00",
     verified: true,
-    source: "Applied directly via TalentBank",
+    source: "Applied directly via Talentbank",
     strengths: [
       "Deep SuiteQL and NetSuite integration expertise for a first job out of university",
       "Ships iPaaS/webhook pipelines independently across Latenode, Workato and Supabase",
@@ -703,7 +729,7 @@ const CANDIDATES = [
     cgpa: "3.84 / 4.00",
     verified: true,
     sponsor: "Telekom Malaysia — TM Undergraduate Scholarship (bonded 2 years, fulfilled)",
-    source: "Sourced via TalentBank Campus Fair 2025",
+    source: "Sourced via Talentbank Campus Fair 2025",
     strengths: [
       "Ships full production apps solo — unusually complete for a fresh graduate",
       "Solid React, Node and TypeScript fundamentals reinforced by a bank internship",
@@ -741,7 +767,7 @@ const CANDIDATES = [
     qualification: "B.Sc Cloud Computing, Taylor's",
     cgpa: "3.62 / 4.00",
     verified: true,
-    source: "Applied directly via TalentBank",
+    source: "Applied directly via Talentbank",
     strengths: [
       "Proven production Kubernetes ownership at genuine scale",
       "Cut deployment time from 40 to 6 minutes — strong automation instinct",
@@ -824,7 +850,7 @@ const CANDIDATES = [
     qualification: "B.Business Administration, Sunway University",
     cgpa: "3.68 / 4.00",
     verified: true,
-    source: "Applied directly via TalentBank",
+    source: "Applied directly via Talentbank",
     strengths: [
       "Owns a live roadmap with 300K MAU and a measurable churn reduction",
       "Strong cross-functional operator, coordinating engineering and design across 3 squads",
@@ -865,7 +891,7 @@ const CANDIDATES = [
     cgpa: "3.91 / 4.00",
     verified: true,
     certs: ["CFA Level I Candidate"],
-    source: "Sourced via TalentBank Campus Fair 2025",
+    source: "Sourced via Talentbank Campus Fair 2025",
     strengths: [
       "Top 5% of cohort with CFA Level I already underway",
       "Already automated Power BI reporting as an intern — not just spreadsheet work",
@@ -1004,7 +1030,7 @@ function setStructuredData(c) {
       sameAs: [c.links.linkedin, c.links.github]
     }
   }) : "";
-  document.title = c ? `${c.name} - ${c.title} | FastPass` : "FastPass — TalentBank";
+  document.title = c ? `${c.name} - ${c.title} | FastPass` : "FastPass — Talentbank";
 }
 
 /* ---------- filtering & sorting ---------- */
@@ -1095,7 +1121,7 @@ function renderDetail() {
           </div>
         </div>
         <div class="ph-id">
-          <h1 itemprop="name">${esc(c.name)}${c.verified ? ` <span class="verified" title="Identity and work history verified by TalentBank"><svg class="ic"><use href="#i-shield"/></svg> Verified</span>` : ""}</h1>
+          <h1 itemprop="name">${esc(c.name)}${c.verified ? ` <span class="verified" title="Identity and work history verified by Talentbank"><svg class="ic"><use href="#i-shield"/></svg> Verified</span>` : ""}</h1>
           <div class="ph-role" itemprop="jobTitle">${esc(c.title)}</div>
           <div class="ph-meta">
             <span><svg class="ic"><use href="#i-pin"/></svg>${esc(c.location)}</span>
