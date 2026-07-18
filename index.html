@@ -340,40 +340,56 @@ a.c-val:hover{color:var(--brand-2)}
 .role-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 
 /* ---------- login ---------- */
-.login{flex:1;display:flex;align-items:stretch;min-height:560px}
-.login-visual{flex:1;display:flex;align-items:center;justify-content:center;background:var(--grad);color:#fff;padding:56px 48px;position:relative;overflow:hidden}
-.login-visual::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(460px 320px at 88% 12%,rgba(255,255,255,.20),transparent 62%),
-  radial-gradient(360px 280px at 8% 92%,rgba(255,255,255,.12),transparent 60%);pointer-events:none}
-.login-visual-in{position:relative;z-index:1;max-width:380px}
-.login-visual .logo{width:52px;height:52px;border-radius:13px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);box-shadow:none}
-.login-visual .logo .ic{width:22px;height:22px}
-.login-visual-in h2{margin-top:20px;font-family:var(--display);font-size:29px;font-weight:700;letter-spacing:-.6px;line-height:1.15}
-.login-visual-in p{margin-top:12px;font-size:14px;line-height:1.65;color:rgba(255,255,255,.82)}
-.login-points{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:13px}
-.login-points li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(255,255,255,.94);line-height:1.5}
-.login-points .ic{flex-shrink:0;margin-top:2.5px;color:#a5f3cf;width:13px;height:13px}
-.login-panel{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:40px 28px}
-.login-card{width:100%;max-width:380px;padding:36px 34px 34px}
-.login-acct{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid var(--line-soft)}
-.login-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;overflow:hidden;background:var(--bg)}
-.login-avatar img{width:100%;height:100%;object-fit:cover}
-.login-acct-txt{display:flex;flex-direction:column;min-width:0}
-.login-acct-txt strong{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.1px}
-.login-acct-txt span{font-size:12px;color:var(--ink-3);margin-top:1px}
-.login-card h1{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.4px;color:var(--ink);line-height:1.2}
-.login-sub{margin-top:7px;font-size:13.5px;color:var(--ink-2)}
-.login-submit{width:100%;justify-content:center;padding:12px 16px;margin-top:26px}
-@media (max-width:440px){.login-card{padding:28px 24px 26px}}
-@media (max-width:760px){
-  .login{flex-direction:column;min-height:0}
-  .login-visual{flex:none;padding:40px 28px}
-  .login-panel{flex:none;padding:36px 28px 48px}
-  .login-points{margin-top:22px}
+.login{
+  flex:1;min-height:560px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;padding:40px 24px;
+  background:
+    radial-gradient(900px 620px at 82% -8%,rgba(124,58,237,.55),transparent 60%),
+    radial-gradient(700px 560px at 8% 108%,rgba(79,70,229,.6),transparent 58%),
+    linear-gradient(165deg,#0d1130 0%,#151a42 46%,#232a5c 100%);
+  transition:opacity .32s ease,transform .32s ease;
+}
+.login.leaving{opacity:0;transform:scale(.985)}
+.login-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.login-bg::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(closest-side,#000 0%,transparent 78%);
+}
+.login-watermark{position:absolute;right:-9%;bottom:-13%;width:52vw;max-width:640px;aspect-ratio:1;color:rgba(255,255,255,.05);transform:rotate(-8deg)}
+.login-watermark .ic{width:100%;height:100%;stroke-width:1}
+.login-in{position:relative;z-index:1;width:100%;max-width:460px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.login-tag{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.82);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:6px 14px;border-radius:20px}
+.login-logo{display:grid;place-items:center;width:60px;height:60px;border-radius:16px;margin-top:26px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;box-shadow:0 10px 30px -12px rgba(0,0,0,.5)}
+.login-logo .ic{width:27px;height:27px}
+.login-in h1{margin-top:22px;font-family:var(--display);font-size:clamp(38px,6vw,52px);font-weight:700;letter-spacing:-1.4px;color:#fff;line-height:1}
+.login-desc{margin-top:16px;font-size:15px;line-height:1.65;color:rgba(255,255,255,.72);max-width:420px}
+.login-cta{
+  display:inline-flex;align-items:center;gap:9px;margin-top:34px;padding:15px 28px;
+  background:#fff;color:var(--ink);border:0;border-radius:12px;
+  font-family:inherit;font-size:15.5px;font-weight:700;letter-spacing:-.1px;cursor:pointer;
+  box-shadow:0 16px 40px -14px rgba(0,0,0,.55);transition:transform .15s,box-shadow .15s,background .15s;
+}
+.login-cta:hover{transform:translateY(-1px);box-shadow:0 20px 46px -14px rgba(0,0,0,.6)}
+.login-cta:active{transform:translateY(0)}
+.login-cta-arrow{width:16px;height:16px;stroke-width:2.2;transition:transform .15s}
+.login-cta:hover .login-cta-arrow{transform:translateX(3px)}
+.login-cta.is-loading{cursor:default;color:var(--ink-2)}
+.login-cta.is-loading:hover{transform:none;box-shadow:0 16px 40px -14px rgba(0,0,0,.55)}
+.login-cta.is-loading .login-cta-arrow{display:none}
+.login-spinner{width:15px;height:15px;border:2px solid rgba(16,27,51,.18);border-top-color:var(--ink-2);border-radius:50%;animation:spin .65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.login-fine{margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.55)}
+.login-session{position:absolute;left:24px;bottom:20px;z-index:1;font-size:11.5px;color:rgba(255,255,255,.45);letter-spacing:.2px}
+@media (max-width:520px){
+  .login{flex-direction:column;padding:32px 20px}
+  .login-session{position:static;margin-top:34px;text-align:center}
 }
 
 /* ---------- welcome / role picker ---------- */
-.welcome{flex:1;display:flex;flex-direction:column;background:var(--surface);position:relative;overflow:hidden}
+.welcome{flex:1;display:flex;flex-direction:column;background:var(--surface);position:relative;overflow:hidden;animation:viewIn .4s ease both}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .welcome-brand{position:absolute;top:30px;left:36px;display:flex;align-items:center;gap:11px;z-index:2}
 .role-split{flex:1;display:flex;align-items:stretch;min-height:560px}
 .role-panel{flex:1;display:flex;align-items:center;justify-content:center;border:0;cursor:pointer;font-family:inherit;position:relative;background:var(--bg);transition:background .18s}
@@ -500,33 +516,21 @@ a.c-val:hover{color:var(--brand-2)}
 </svg>
 
 <main class="login" id="loginView">
-  <div class="login-visual">
-    <div class="login-visual-in">
-      <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-      <h2>FastPass</h2>
-      <p>The recruiter workspace for Talentbank — manage your candidate list and see what the FastPass browser plugin picks up.</p>
-      <ul class="login-points">
-        <li><svg class="ic sm"><use href="#i-check"/></svg> Search and manage your candidate list</li>
-        <li><svg class="ic sm"><use href="#i-check"/></svg> Review AI screening summaries</li>
-        <li><svg class="ic sm"><use href="#i-check"/></svg> See what the FastPass plugin picks up</li>
-      </ul>
-    </div>
+  <div class="login-bg" aria-hidden="true">
+    <span class="login-watermark"><svg class="ic"><use href="#i-fastpass"/></svg></span>
   </div>
-  <div class="login-panel">
-    <div class="card login-card">
-      <div class="login-acct">
-        <span class="login-avatar" id="loginAvatar"></span>
-        <span class="login-acct-txt">
-          <strong>najmizulhusni</strong>
-          <span>Recruiter account</span>
-        </span>
-      </div>
-      <h1>Welcome back</h1>
-      <p class="login-sub">One click and you're in.</p>
-      <button class="btn btn-primary login-submit" id="loginBtn" type="button">Continue <svg class="ic"><use href="#i-arrow-right"/></svg></button>
-    </div>
+  <div class="login-in">
+    <span class="login-tag">Live demo</span>
+    <span class="login-logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
+    <h1>FastPass</h1>
+    <p class="login-desc">A demo recruiter workspace for Talentbank — browse a live candidate list and preview data the FastPass plugin picks up from your browser.</p>
+    <button class="login-cta" id="loginBtn" type="button">
+      <span class="login-cta-label">Enter Demo</span>
+      <svg class="ic login-cta-arrow"><use href="#i-arrow-right"/></svg>
+    </button>
+    <p class="login-fine">No sign-up. No password. Just one click to explore.</p>
   </div>
-  </div>
+  <div class="login-session">najmizulhusni · Talentbank</div>
 </main>
 
 <main class="welcome hidden" id="welcomeView">
@@ -1349,6 +1353,13 @@ setSidebarCollapsed(localStorage.getItem("sidebarCollapsed") === "1");
 
 /* ---------- login ---------- */
 const AUTH_KEY = "tbAuthed";
+const LOGIN_CTA_DEFAULT = `<span class="login-cta-label">Enter Demo</span><svg class="ic login-cta-arrow"><use href="#i-arrow-right"/></svg>`;
+
+function resetLoginCta() {
+  const btn = $("loginBtn");
+  btn.classList.remove("is-loading");
+  btn.innerHTML = LOGIN_CTA_DEFAULT;
+}
 
 function applyAuth() {
   const authed = localStorage.getItem(AUTH_KEY) === "1";
@@ -1356,6 +1367,8 @@ function applyAuth() {
   if (authed) {
     applyRole();
   } else {
+    $("loginView").classList.remove("leaving");
+    resetLoginCta();
     $("welcomeView").classList.add("hidden");
     $("recruiterView").classList.add("hidden");
     $("candidateView").classList.add("hidden");
@@ -1368,10 +1381,18 @@ function logout() {
   applyAuth();
 }
 
-$("loginAvatar").innerHTML = `<img alt="" src="${avatarUri("Najmi Zulhusni")}">`;
 $("loginBtn").addEventListener("click", () => {
-  localStorage.setItem(AUTH_KEY, "1");
-  applyAuth();
+  const btn = $("loginBtn");
+  if (btn.classList.contains("is-loading")) return;
+  btn.classList.add("is-loading");
+  btn.innerHTML = `<span class="login-spinner"></span> Entering…`;
+  setTimeout(() => {
+    $("loginView").classList.add("leaving");
+    setTimeout(() => {
+      localStorage.setItem(AUTH_KEY, "1");
+      applyAuth();
+    }, 320);
+  }, 550);
 });
 
 /* ---------- account menu (topbar) ---------- */
