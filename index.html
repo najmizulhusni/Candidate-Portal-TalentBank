@@ -83,6 +83,9 @@ button,select,input,textarea{font-family:inherit}
 .fp-title{display:flex;align-items:center;gap:8px;color:var(--ink)}
 .fp-title .ic{color:var(--brand);width:16px;height:16px}
 .fp-title span{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.2px}
+.fp-add{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;margin-left:auto;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer;transition:border-color .13s,color .13s,background .13s}
+.fp-add:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
+.fp-add .ic{width:13px;height:13px}
 .fp-search{position:relative}
 .fp-search .ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-3);width:15px;height:15px;pointer-events:none}
 .fp-search input{width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);padding:10px 12px 10px 35px;font-size:13.5px;transition:border-color .15s,box-shadow .15s,background .15s}
@@ -400,6 +403,23 @@ a.c-val:hover{color:var(--brand-2)}
 .succ-summary .sv{font-size:13px;font-weight:600;color:var(--ink);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cand-success .cform-actions{justify-content:center;margin-top:22px}
 @media (max-width:560px){.cform-grid,.succ-summary{grid-template-columns:1fr}}
+
+/* ---------- dashboard empty state (plugin data placeholder) ---------- */
+.dash-empty{padding:56px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:40px}
+.dash-empty-ic{display:grid;place-items:center;width:56px;height:56px;border-radius:16px;background:var(--grad);color:#fff;box-shadow:0 10px 24px -8px rgba(79,70,229,.4)}
+.dash-empty-ic .ic{width:26px;height:26px;stroke-width:2.2}
+.dash-empty-tag{margin-top:18px;font-size:11.5px;font-weight:700;letter-spacing:.3px;color:var(--ink-3);background:var(--bg);border:1px solid var(--line);padding:5px 12px;border-radius:20px}
+.dash-empty h2{margin-top:18px;font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
+.dash-empty p{margin-top:8px;font-size:13.5px;color:var(--ink-2);max-width:400px;line-height:1.6}
+
+/* ---------- add-candidate modal ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(16,27,51,.5);display:flex;align-items:flex-start;justify-content:center;padding:48px 20px;z-index:60;overflow-y:auto}
+.modal-overlay.hidden{display:none}
+.modal-box{position:relative;width:100%;max-width:720px;margin:auto 0;background:var(--bg);border-radius:18px;padding:40px 28px 28px;box-shadow:var(--shadow-lg)}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);transition:border-color .13s,color .13s,background .13s}
+.modal-close:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
+.modal-close .ic{width:15px;height:15px}
+@media (max-width:560px){.modal-box{padding:36px 18px 20px}}
 </style>
 </head>
 <body>
@@ -433,6 +453,9 @@ a.c-val:hover{color:var(--brand-2)}
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h3l1.5 4-2 1.5a12.5 12.5 0 0 0 6.5 6.5L16 14l4 1.5v3a1.8 1.8 0 0 1-2 1.8C10.5 19.6 4.4 13.5 3.7 6a1.8 1.8 0 0 1 1.8-2z"/></symbol>
   <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9.5 4.5v15"/></symbol>
   <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-7 7 7-7 7"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.6"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
 </svg>
 
 <main class="welcome" id="welcomeView">
@@ -445,19 +468,19 @@ a.c-val:hover{color:var(--brand-2)}
       <span class="role-panel-in">
         <span class="role-ic"><svg class="ic"><use href="#i-briefcase"/></svg></span>
         <span class="role-eyebrow">For hiring teams</span>
-        <strong>Recruiter</strong>
-        <span class="role-line">Search verified, open-to-work candidates and review AI screening summaries.</span>
-        <span class="role-go">Continue as recruiter <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+        <strong>Candidate Portal</strong>
+        <span class="role-line">Search verified, open-to-work candidates, review AI screening summaries, and add new candidates.</span>
+        <span class="role-go">Continue to Candidate Portal <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
       </span>
     </button>
     <div class="role-divider" aria-hidden="true"><span>OR</span></div>
     <button class="role-panel" id="roleCandidate" type="button">
       <span class="role-panel-in">
-        <span class="role-ic v"><svg class="ic"><use href="#i-user"/></svg></span>
-        <span class="role-eyebrow">For job seekers</span>
-        <strong>Candidate</strong>
-        <span class="role-line">Create your profile once and get discovered by recruiters who are hiring.</span>
-        <span class="role-go">Continue as candidate <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+        <span class="role-ic v"><svg class="ic"><use href="#i-grid"/></svg></span>
+        <span class="role-eyebrow">Plugin data</span>
+        <strong>Dashboard</strong>
+        <span class="role-line">View candidate activity synced from the Talentbank Fastpass plugin.</span>
+        <span class="role-go">Continue to Dashboard <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
       </span>
     </button>
   </div>
@@ -468,14 +491,23 @@ a.c-val:hover{color:var(--brand-2)}
     <div class="topbar-in">
       <span class="brand">
         <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-        <span class="wordmark"><strong>Candidate Pool</strong><span>by Talentbank Career OS</span></span>
+        <span class="wordmark"><strong>Dashboard</strong><span>by Talentbank Career OS</span></span>
       </span>
       <span class="topbar-right">
         <button class="role-switch" id="candSwitchRole" type="button">Switch role</button>
       </span>
     </div>
   </header>
-  <main class="cand-main"><div class="cand-in" id="candContent"></div></main>
+  <main class="cand-main">
+    <div class="cand-in">
+      <section class="card dash-empty">
+        <span class="dash-empty-ic"><svg class="ic"><use href="#i-fastpass"/></svg></span>
+        <span class="dash-empty-tag">Talentbank Fastpass plugin</span>
+        <h2>No data yet</h2>
+        <p>This dashboard will show candidate activity synced from the Talentbank Fastpass plugin once it's connected.</p>
+      </section>
+    </div>
+  </main>
 </div>
 
 <div id="recruiterView" class="hidden">
@@ -498,7 +530,12 @@ a.c-val:hover{color:var(--brand-2)}
 <div class="shell">
   <aside class="pane-list" id="listPane">
     <div class="filter-panel" role="search" aria-label="Search and filter candidates">
-      <div class="fp-title"><svg class="ic"><use href="#i-users"/></svg><span>Candidates</span></div>
+      <div class="fp-title">
+        <svg class="ic"><use href="#i-users"/></svg><span>Candidates</span>
+        <button class="fp-add" id="btnAddCandidate" type="button" title="Add candidate" aria-label="Add candidate">
+          <svg class="ic sm"><use href="#i-plus"/></svg>
+        </button>
+      </div>
 
       <div class="fp-search">
         <label class="sr-only" for="q">Search candidates by name, role or skill</label>
@@ -541,6 +578,15 @@ a.c-val:hover{color:var(--brand-2)}
     <ul class="rows" id="rows" aria-label="Candidate results"></ul>
   </aside>
   <main class="pane-detail" id="detailPane"><div class="detail-in" id="detail"></div></main>
+</div>
+
+<div class="modal-overlay hidden" id="addCandModal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="addCandTitle">
+    <button class="modal-close" id="addCandClose" type="button" aria-label="Close">
+      <svg class="ic"><use href="#i-close"/></svg>
+    </button>
+    <div id="addCandContent"></div>
+  </div>
 </div>
 </div>
 
@@ -1214,7 +1260,6 @@ setSidebarCollapsed(localStorage.getItem("sidebarCollapsed") === "1");
 
 /* ---------- role selection (welcome screen) ---------- */
 const ROLE_KEY = "tbRole";
-const CAND_KEY = "tbCandidateProfile";
 const getRole = () => localStorage.getItem(ROLE_KEY);
 
 function applyRole() {
@@ -1223,7 +1268,6 @@ function applyRole() {
   $("recruiterView").classList.toggle("hidden", role !== "recruiter");
   $("candidateView").classList.toggle("hidden", role !== "candidate");
   if (role === "recruiter") route();
-  if (role === "candidate") renderCandidateView();
 }
 function setRole(role) { localStorage.setItem(ROLE_KEY, role); applyRole(); }
 function clearRole() { localStorage.removeItem(ROLE_KEY); applyRole(); }
@@ -1233,14 +1277,14 @@ $("roleCandidate").addEventListener("click", () => setRole("candidate"));
 $("recruiterSwitchRole").addEventListener("click", clearRole);
 $("candSwitchRole").addEventListener("click", clearRole);
 
-/* ---------- candidate intake form ---------- */
+/* ---------- add-candidate form (recruiter view) ---------- */
 function candidateFormHTML(d) {
   d = d || {};
   const skillsVal = Array.isArray(d.skills) ? d.skills.join(", ") : (d.skills || "");
   return `
     <div class="cand-head">
-      <h1>Build your candidate profile</h1>
-      <p>Share your background once — recruiters searching Talentbank's candidate pool will be able to find and contact you directly.</p>
+      <h1 id="addCandTitle">Add a candidate</h1>
+      <p>Enter their details to add them to the Talentbank candidate pool.</p>
     </div>
     <form id="candForm" novalidate>
       <div class="cform-error" id="candFormError">Please fill in name, title, email, location and a short summary before submitting.</div>
@@ -1319,17 +1363,17 @@ function candidateFormHTML(d) {
       </section>
 
       <div class="cform-actions">
-        <button type="submit" class="btn btn-primary">Submit profile</button>
+        <button type="submit" class="btn btn-primary">Add candidate</button>
       </div>
     </form>`;
 }
 
-function candidateSuccessHTML(d) {
+function candidateAddedHTML(d) {
   return `
-    <section class="card cand-success">
+    <section class="cand-success">
       <span class="succ-ic"><svg class="ic"><use href="#i-check"/></svg></span>
-      <h2>Profile submitted</h2>
-      <p>Thanks, ${esc(d.name.split(" ")[0])} — your profile has been added to Talentbank's candidate pool. Recruiters hiring for roles that match your skills will be able to find and reach out to you directly.</p>
+      <h2>Candidate added</h2>
+      <p>${esc(d.name)} has been added to the Talentbank candidate pool.</p>
       <div class="succ-summary">
         <div><span class="sl">Name</span><span class="sv">${esc(d.name)}</span></div>
         <div><span class="sl">Title</span><span class="sv">${esc(d.title)}</span></div>
@@ -1337,27 +1381,22 @@ function candidateSuccessHTML(d) {
         <div><span class="sl">Location</span><span class="sv">${esc(d.location)}</span></div>
       </div>
       <div class="cform-actions">
-        <button class="btn btn-outline" id="candEditBtn" type="button">Edit profile</button>
+        <button class="btn btn-outline" id="addAnotherBtn" type="button">Add another</button>
+        <button class="btn btn-primary" id="addDoneBtn" type="button">Done</button>
       </div>
     </section>`;
 }
 
-function renderCandidateView() {
-  const saved = JSON.parse(localStorage.getItem(CAND_KEY) || "null");
-  const el = $("candContent");
-  if (saved) {
-    el.innerHTML = candidateSuccessHTML(saved);
-    $("candEditBtn").addEventListener("click", () => {
-      el.innerHTML = candidateFormHTML(saved);
-      wireCandidateForm();
-    });
-  } else {
-    el.innerHTML = candidateFormHTML(null);
-    wireCandidateForm();
-  }
+function openAddCandidateModal() {
+  $("addCandContent").innerHTML = candidateFormHTML(null);
+  wireAddCandidateForm();
+  $("addCandModal").classList.remove("hidden");
+}
+function closeAddCandidateModal() {
+  $("addCandModal").classList.add("hidden");
 }
 
-function wireCandidateForm() {
+function wireAddCandidateForm() {
   const form = $("candForm");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -1368,21 +1407,22 @@ function wireCandidateForm() {
       $("candFormError").classList.add("show");
       return;
     }
-    $("candFormError").classList.remove("show");
-    const data = {
-      name: get("name"), title: get("title"), email: get("email"), phone: get("phone"),
-      location: get("location"), nationality: get("nationality"),
-      level: get("level"), years: get("years"), salary: get("salary"),
-      notice: get("notice"), workMode: get("workMode"), relocation: get("relocation"),
-      skills: get("skills").split(",").map((s) => s.trim()).filter(Boolean),
-      education: get("education"), linkedin: get("linkedin"), github: get("github"),
-      summary: get("summary"),
-    };
-    localStorage.setItem(CAND_KEY, JSON.stringify(data));
-    renderCandidateView();
-    window.scrollTo(0, 0);
+    const data = { name: get("name"), title: get("title"), email: get("email"), location: get("location") };
+    const content = $("addCandContent");
+    content.innerHTML = candidateAddedHTML(data);
+    $("addAnotherBtn").addEventListener("click", openAddCandidateModal);
+    $("addDoneBtn").addEventListener("click", closeAddCandidateModal);
   });
 }
+
+$("btnAddCandidate").addEventListener("click", openAddCandidateModal);
+$("addCandClose").addEventListener("click", closeAddCandidateModal);
+$("addCandModal").addEventListener("click", (e) => {
+  if (e.target.id === "addCandModal") closeAddCandidateModal();
+});
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !$("addCandModal").classList.contains("hidden")) closeAddCandidateModal();
+});
 
 applyRole();
 </script>
