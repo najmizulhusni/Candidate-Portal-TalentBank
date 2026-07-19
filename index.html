@@ -68,16 +68,29 @@ button,select,input,textarea{font-family:inherit}
 .acct-menu-item:hover{background:var(--brand-tint);color:var(--brand-2)}
 .acct-menu-item .ic{color:inherit}
 @media (max-width:640px){.wordmark span{display:none}}
-.topbar-sep{color:var(--line);font-size:16px;margin:0 1px}
-.topbar-context{font-size:13.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
-@media (max-width:520px){.topbar-sep,.topbar-context{display:none}}
+.brand-wrap{position:relative;margin-left:2px}
+.brand-switch{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:12.5px;font-weight:600;padding:7px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:border-color .13s,color .13s,background .13s}
+.brand-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
+.brand-switch .ic{width:12px;height:12px;stroke-width:2.4;transition:transform .15s;color:var(--ink-3)}
+.brand-switch[aria-expanded="true"] .ic{transform:rotate(180deg)}
+.brand-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;z-index:30}
+.brand-menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border:0;border-radius:8px;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;text-align:left}
+.brand-menu-item .ic{width:15px;height:15px;color:var(--ink-3);flex-shrink:0}
+.brand-menu-item:hover{background:var(--brand-tint);color:var(--brand-2)}
+.brand-menu-item.is-active{color:var(--brand-2);background:var(--brand-tint)}
+.brand-menu-item.is-active .ic{color:var(--brand)}
+@media (max-width:520px){.brand-switch span{display:none}}
 
 /* ---------- shell ---------- */
-.shell{flex:1;display:grid;grid-template-columns:400px minmax(0,1fr);align-items:stretch;min-height:0;transition:grid-template-columns .18s ease}
+.shell{flex:1;display:grid;grid-template-columns:400px minmax(0,1fr);align-items:stretch;min-height:0;transition:grid-template-columns .18s ease;position:relative}
+.sidebar-expand{display:none;position:absolute;left:0;top:16px;z-index:6;width:22px;height:42px;border-radius:0 9px 9px 0;background:var(--surface);border:1px solid var(--line);border-left:0;align-items:center;justify-content:center;color:var(--ink-2);cursor:pointer;box-shadow:2px 0 8px -4px rgba(16,27,51,.15)}
+.sidebar-expand:hover{color:var(--brand-2);background:var(--brand-tint);border-color:var(--brand-line)}
+.sidebar-expand .ic{width:13px;height:13px}
+body.sidebar-collapsed .sidebar-expand{display:flex}
 .pane-list{background:var(--surface);border-right:1px solid var(--line);overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;min-width:0}
 .pane-list::-webkit-scrollbar{width:9px}
 .pane-list::-webkit-scrollbar-thumb{background:#d4d9e5;border-radius:8px}
-.sidebar-toggle{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer;flex-shrink:0;transition:background .13s,border-color .13s,color .13s}
+.sidebar-toggle{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer;flex-shrink:0;margin-left:auto;transition:background .13s,border-color .13s,color .13s}
 .sidebar-toggle:hover{border-color:var(--brand-line);background:var(--brand-tint);color:var(--brand-2)}
 @media (min-width:821px){
   body.sidebar-collapsed .shell{grid-template-columns:0 minmax(0,1fr)}
@@ -85,6 +98,7 @@ button,select,input,textarea{font-family:inherit}
 }
 @media (max-width:820px){
   .sidebar-toggle{display:none}
+  .sidebar-expand{display:none!important}
 }
 
 /* ---------- search & filter panel ---------- */
@@ -92,7 +106,7 @@ button,select,input,textarea{font-family:inherit}
 .fp-title{display:flex;align-items:center;gap:8px;color:var(--ink)}
 .fp-title .ic{color:var(--brand);width:16px;height:16px}
 .fp-title span{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.2px}
-.fp-add{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;margin-left:auto;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer;transition:border-color .13s,color .13s,background .13s}
+.fp-add{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer;transition:border-color .13s,color .13s,background .13s}
 .fp-add:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 .fp-add .ic{width:13px;height:13px}
 .fp-search{position:relative}
@@ -335,9 +349,6 @@ a.c-val:hover{color:var(--brand-2)}
   .sec-card,.screening-card{padding:17px 18px 19px}
 }
 
-/* ---------- role switch (topbar) ---------- */
-.role-switch{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:12.5px;font-weight:600;padding:8px 13px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:border-color .13s,color .13s,background .13s}
-.role-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 
 /* ---------- login ---------- */
 .login{
@@ -462,14 +473,6 @@ a.c-val:hover{color:var(--brand-2)}
 .cand-success .cform-actions{justify-content:center;margin-top:22px}
 @media (max-width:560px){.cform-grid,.succ-summary{grid-template-columns:1fr}}
 
-/* ---------- dashboard empty state (plugin data placeholder) ---------- */
-.dash-empty{padding:56px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:40px}
-.dash-empty-ic{display:grid;place-items:center;width:56px;height:56px;border-radius:16px;background:var(--grad);color:#fff;box-shadow:0 10px 24px -8px rgba(79,70,229,.4)}
-.dash-empty-ic .ic{width:26px;height:26px;stroke-width:2.2}
-.dash-empty-tag{margin-top:18px;font-size:11.5px;font-weight:700;letter-spacing:.3px;color:var(--ink-3);background:var(--bg);border:1px solid var(--line);padding:5px 12px;border-radius:20px}
-.dash-empty h2{margin-top:18px;font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
-.dash-empty p{margin-top:8px;font-size:13.5px;color:var(--ink-2);max-width:400px;line-height:1.6}
-
 /* ---------- add-candidate modal ---------- */
 .modal-overlay{position:fixed;inset:0;background:rgba(16,27,51,.5);display:flex;align-items:flex-start;justify-content:center;padding:48px 20px;z-index:60;overflow-y:auto}
 .modal-overlay.hidden{display:none}
@@ -479,22 +482,48 @@ a.c-val:hover{color:var(--brand-2)}
 .modal-close .ic{width:15px;height:15px}
 @media (max-width:560px){.modal-box{padding:36px 18px 20px}}
 /* ============ FastPass Dashboard (merged, namespaced fpd-) ============ */
-#fpd_root{--paper:var(--bg);--brand-deep:var(--brand-2);--r:10px;--code:var(--mono);--red:#dc2626;font-size:13.5px;color:var(--ink)}
-#candidateView .cand-main{padding:18px 18px 60px}
+#fpd_root{
+  --paper:var(--bg);--brand-deep:var(--brand-2);--r:10px;--code:var(--mono);--red:#dc2626;
+  --fpd-accent:#0d9488;--fpd-accent-deep:#0f766e;--fpd-accent-tint:#e6f6f4;--fpd-accent-line:#b8e6e0;
+  font-size:13.5px;color:var(--ink)
+}
+#candidateView .cand-main{padding:0 0 60px}
 #candidateView .cand-in{max-width:none;margin:0}
 #fpd_root .fpd-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer;font-weight:700;font-size:10.5px;flex-shrink:0}
 #fpd_root .fpd-icon-btn:hover{border-color:var(--ink-3)}
 #fpd_root .fpd-lbl{font-size:10px;letter-spacing:.5px;color:var(--ink-3);font-weight:600;text-transform:uppercase}
-#fpd_root .fpd-mode-note{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:500;color:var(--ink-3);white-space:nowrap}
 #fpd_root .fpd-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 #fpd_root .fpd-dot.fpd-off{background:var(--amber)}
-/* ---------- page head ---------- */
-#fpd_root .fpd-page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:20px 22px 0}
-#fpd_root .fpd-page-head h1{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
-#fpd_root .fpd-page-head p{margin-top:4px;font-size:12.5px;color:var(--ink-2)}
-#fpd_root .fpd-page-head-right{display:flex;align-items:center;gap:10px;flex-shrink:0;padding-top:3px}
+
+/* ---------- hero ---------- */
+#fpd_root .fpd-hero{
+  position:relative;overflow:hidden;color:#fff;padding:26px 22px 22px;
+  background:
+    radial-gradient(640px 320px at 88% -20%,rgba(45,212,191,.35),transparent 60%),
+    radial-gradient(480px 320px at 6% 120%,rgba(13,148,136,.35),transparent 60%),
+    linear-gradient(160deg,#062825 0%,#0a3733 55%,#0d4a44 100%);
+}
+#fpd_root .fpd-hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(closest-side,#000 0%,transparent 85%)
+}
+#fpd_root .fpd-hero-top{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+#fpd_root .fpd-hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:4px 11px;border-radius:20px}
+#fpd_root .fpd-hero h1{margin-top:12px;font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-.4px;color:#fff}
+#fpd_root .fpd-hero p{margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.72);max-width:440px;line-height:1.55}
+#fpd_root .fpd-hero-right{display:flex;align-items:center;gap:8px;flex-shrink:0;padding-top:4px}
+#fpd_root .fpd-hero-right .fpd-mode-note{color:rgba(255,255,255,.78)}
+#fpd_root .fpd-hero-right .fpd-icon-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#fff}
+#fpd_root .fpd-hero-right .fpd-icon-btn:hover{background:rgba(255,255,255,.18)}
+#fpd_root .fpd-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+#fpd_root .fpd-stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px}
+#fpd_root .fpd-stat-val{display:block;font-family:var(--display);font-size:22px;font-weight:700;color:#fff;letter-spacing:-.3px}
+#fpd_root .fpd-stat-lbl{display:block;font-size:10.5px;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
 @media (max-width:700px){#fpd_root .fpd-mode-note span{display:none}}
-@media (max-width:560px){#fpd_root .fpd-page-head{flex-direction:column;gap:12px}}
+@media (max-width:760px){#fpd_root .fpd-stats{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){#fpd_root .fpd-hero-top{flex-direction:column}}
 #fpd_root /* ---------- cloud panel ---------- */
 .fpd-cloud{position:fixed;right:18px;top:60px;width:320px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(13,32,66,.14);padding:14px;display:flex;flex-direction:column;gap:9px;z-index:40}
 #fpd_root .fpd-cloud input{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:8px 10px;font-size:12px;font-family:var(--code)}
@@ -516,12 +545,17 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch{background:var(--brand)}
 #fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch::after{transform:translateX(13px)}
 #fpd_root /* ---------- toolbar ---------- */
-.fpd-toolbar{background:var(--surface);border-bottom:1px solid var(--line);margin-top:16px}
-#fpd_root .fpd-toolbar-in{display:flex;align-items:center;gap:4px;padding:10px 22px;flex-wrap:wrap;row-gap:8px}
-#fpd_root .fpd-tab{display:flex;align-items:center;gap:7px;border:0;background:none;color:var(--ink-2);font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer;flex-shrink:0}
-#fpd_root .fpd-tab:hover{background:var(--paper)}
-#fpd_root .fpd-tab.fpd-active{background:var(--brand-tint);color:var(--brand)}
+.fpd-toolbar{background:var(--surface);border-bottom:1px solid var(--line)}
+#fpd_root .fpd-toolbar-in{display:flex;align-items:center;gap:14px;padding:12px 22px;flex-wrap:wrap;row-gap:10px}
+#fpd_root .fpd-tabs{display:flex;align-items:center;gap:2px;background:var(--paper);border:1px solid var(--line-soft);border-radius:10px;padding:3px;flex-shrink:0}
+#fpd_root .fpd-tab{display:flex;align-items:center;gap:6px;border:0;background:none;color:var(--ink-2);font-size:12.5px;font-weight:600;padding:6.5px 11px;border-radius:7px;cursor:pointer;flex-shrink:0;transition:background .13s,color .13s}
+#fpd_root .fpd-tab:hover{color:var(--ink)}
+#fpd_root .fpd-tab.fpd-active{background:var(--surface);color:var(--fpd-accent-deep);box-shadow:0 1px 3px rgba(13,32,66,.1)}
 #fpd_root .fpd-tab b{font-weight:700}
+#fpd_root .fpd-tab.fpd-active b{color:var(--fpd-accent)}
+#fpd_root .fpd-search{flex:1;min-width:160px;max-width:240px}
+#fpd_root .fpd-search input{width:100%;border:1px solid var(--line);border-radius:9px;background:var(--paper);padding:8px 12px 8px 33px;font-size:12.5px}
+#fpd_root .fpd-search input:focus-visible{outline:none;border-color:var(--fpd-accent);background:var(--surface);box-shadow:0 0 0 3px var(--fpd-accent-tint)}
 #fpd_root .fpd-toolbar-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-left:16px;border-left:1px solid var(--line-soft)}
 #fpd_root .fpd-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:8px;font-weight:600;font-size:12.5px;padding:8px 13px;cursor:pointer;transition:background .15s,border-color .15s}
 #fpd_root .fpd-btn-line{border:1px solid var(--line);background:var(--surface);color:var(--ink)}
@@ -571,11 +605,14 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-stage-sel select{width:100%;appearance:none;-webkit-appearance:none;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;font-weight:600;padding:9px 32px 9px 12px;cursor:pointer}
 #fpd_root .fpd-stage-sel select:focus-visible{outline:none;border-color:var(--brand)}
 #fpd_root .fpd-cell-upd{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
-#fpd_root .fpd-empty-table{text-align:center;color:var(--ink-3);padding:64px 20px!important;font-size:13px;cursor:default}
-#fpd_root .fpd-empty-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--brand-tint);color:var(--brand);margin:0 auto 16px}
-#fpd_root .fpd-empty-ic .ic{width:20px;height:20px;stroke-width:1.8}
-#fpd_root .fpd-empty-table strong{display:block;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px}
-#fpd_root .fpd-empty-table span{display:block;max-width:360px;margin:0 auto;line-height:1.6}
+#fpd_root .fpd-empty-table{text-align:center;color:var(--ink-3);padding:72px 20px!important;font-size:13px;cursor:default}
+#fpd_root .fpd-empty-ic{display:grid;place-items:center;width:60px;height:60px;border-radius:16px;background:linear-gradient(155deg,var(--fpd-accent) 0%,var(--fpd-accent-deep) 100%);color:#fff;margin:0 auto 18px;box-shadow:0 12px 26px -10px rgba(13,148,136,.5)}
+#fpd_root .fpd-empty-ic .ic{width:26px;height:26px;stroke-width:1.8}
+#fpd_root .fpd-empty-table strong{display:block;font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
+#fpd_root .fpd-empty-table span{display:block;max-width:380px;margin:0 auto;line-height:1.6;font-size:13px}
+#fpd_root .fpd-empty-actions{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap}
+#fpd_root .fpd-btn-accent{border:0;background:var(--fpd-accent);color:#fff}
+#fpd_root .fpd-btn-accent:hover{background:var(--fpd-accent-deep)}
 @media (max-width:960px){#fpd_root .fpd-col-facts{display:none}
 }
 @media (max-width:760px){#fpd_root .fpd-col-contact,#fpd_root .fpd-col-upd{display:none}
@@ -658,6 +695,7 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
   <symbol id="i-tag" viewBox="0 0 24 24"><path d="M4 4h7l9 9-7 7-9-9V4z"/><circle cx="8.5" cy="8.5" r="1.4"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v6c0 4.6 3.2 7.9 7.5 9 4.3-1.1 7.5-4.4 7.5-9V6L12 3z"/><path d="m8.7 12.3 2.2 2.2 4.4-4.6"/></symbol>
   <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5"/><path d="m8.5 12.8-1.7 7.7 5.2-2.7 5.2 2.7-1.7-7.7"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="7" cy="8" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="8" r="2"/><path d="M12 12c-3.3 0-6 2-6 4.5S8 20 12 20s6-1 6-3.5S15.3 12 12 12z"/></symbol>
   <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M4 18v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1"/></symbol>
   <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h13l-3 4.5L18 13H5"/></symbol>
   <symbol id="i-note-pen" viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9.5 17.5 13 16l4-4-2-2-4 4-1.5 3.5z"/></symbol>
@@ -672,6 +710,8 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/><path d="M15 16l4-4-4-4"/><path d="M19 12H9"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-5 5 5 5 0 0 1-5-5V8z"/><path d="M12 16v5"/></symbol>
 </svg>
 
 <main class="login" id="loginView">
@@ -727,10 +767,16 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
         <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
         <span class="wordmark"><strong>FastPass</strong><span>by Talentbank</span></span>
       </span>
-      <span class="topbar-sep" aria-hidden="true">/</span>
-      <span class="topbar-context">Dashboard</span>
+      <span class="brand-wrap">
+        <button class="brand-switch" id="candBrandSwitch" type="button" aria-haspopup="true" aria-expanded="false">
+          <span>Dashboard</span><svg class="ic"><use href="#i-chevron-down"/></svg>
+        </button>
+        <div class="brand-menu hidden" id="candBrandMenu">
+          <button class="brand-menu-item" data-role="recruiter" type="button"><svg class="ic"><use href="#i-briefcase"/></svg> Candidate Portal</button>
+          <button class="brand-menu-item is-active" data-role="candidate" type="button"><svg class="ic"><use href="#i-grid"/></svg> Dashboard</button>
+        </div>
+      </span>
       <span class="topbar-right">
-        <button class="role-switch" id="candSwitchRole" type="button">Switch role</button>
         <span class="acct-wrap">
           <button class="acct acct-btn" id="candAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false"><svg class="ic sm"><use href="#i-user"/></svg></button>
           <div class="acct-menu hidden" id="candAcctMenu">
@@ -802,25 +848,41 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
     </div>
     <p class="fpd-cloud-hint">Table setup SQL is in the extension README. Demo uses the anon key — add Supabase Auth before real candidate data.</p>
   </div>
-<div class="fpd-page-head">
-  <div>
-    <h1>Candidate pipeline</h1>
-    <p>Candidates saved by the FastPass plugin sync here automatically.</p>
+<div class="fpd-hero">
+  <div class="fpd-hero-top">
+    <div>
+      <span class="fpd-hero-tag"><svg class="ic sm"><use href="#i-plug"/></svg> Live from the plugin</span>
+      <h1>Candidate pipeline</h1>
+      <p>Everything the FastPass plugin picks up from your browser syncs here automatically.</p>
+    </div>
+    <div class="fpd-hero-right">
+      <span class="fpd-mode-note"><span id="fpd_modeDot" class="fpd-dot"></span><span id="fpd_modeText">Cloud</span></span>
+      <button id="fpd_cloudBtn" class="fpd-icon-btn" title="Cloud sync" aria-expanded="false"><svg class="ic"><use href="#i-cloud"/></svg></button>
+      <button id="fpd_userChip" class="fpd-icon-btn" title="Account">—</button>
+    </div>
   </div>
-  <div class="fpd-page-head-right">
-    <span class="fpd-mode-note"><span id="fpd_modeDot" class="fpd-dot"></span><span id="fpd_modeText">Cloud</span></span>
-    <button id="fpd_cloudBtn" class="fpd-icon-btn" title="Cloud sync" aria-expanded="false"><svg class="ic"><use href="#i-cloud"/></svg></button>
-    <button id="fpd_userChip" class="fpd-icon-btn" title="Account">—</button>
+  <div class="fpd-stats">
+    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statTotal">0</span><span class="fpd-stat-lbl">Total candidates</span></div>
+    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statNew">0</span><span class="fpd-stat-lbl">New</span></div>
+    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statFollow">0</span><span class="fpd-stat-lbl">Needs follow-up</span></div>
+    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statActive">0</span><span class="fpd-stat-lbl">Active</span></div>
   </div>
 </div>
 <div class="fpd-toolbar">
-  <div class="fpd-toolbar-in" id="fpd_statusTabs">
-    <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
-    <button class="fpd-tab" data-f="pending">New <b id="fpd_nPending">0</b></button>
-    <button class="fpd-tab" data-f="contacted">Contacted <b id="fpd_nContacted">0</b></button>
-    <button class="fpd-tab fpd-tab-follow" data-f="followup">Follow-up <b id="fpd_nFollow">0</b></button>
-    <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
-    <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
+  <div class="fpd-toolbar-in">
+    <div class="fpd-tabs" id="fpd_statusTabs">
+      <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
+      <button class="fpd-tab" data-f="pending">New <b id="fpd_nPending">0</b></button>
+      <button class="fpd-tab" data-f="contacted">Contacted <b id="fpd_nContacted">0</b></button>
+      <button class="fpd-tab fpd-tab-follow" data-f="followup">Follow-up <b id="fpd_nFollow">0</b></button>
+      <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
+      <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
+    </div>
+    <div class="fp-search fpd-search">
+      <label class="sr-only" for="fpd_q">Search candidates</label>
+      <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="fpd_q" type="search" placeholder="Search candidates…" autocomplete="off" />
+    </div>
     <div class="fpd-toolbar-actions">
       <div id="fpd_importZone" class="fpd-import-zone hidden">Import JSON backup</div>
       <input id="fpd_importFile" type="file" accept="application/json" class="hidden" />
@@ -937,6 +999,30 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
   </section>
 </aside>
 <div id="fpd_toast" class="fpd-toast"></div>
+
+<div class="modal-overlay hidden" id="fpd_quickAddModal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="fpd_quickAddTitle" style="max-width:520px">
+    <button class="modal-close" id="fpd_quickAddClose" type="button" aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+    <div class="cand-head">
+      <h1 id="fpd_quickAddTitle">Add a candidate</h1>
+      <p>Add someone by hand — you can always fill in more details later from their row.</p>
+    </div>
+    <form id="fpd_quickAddForm" novalidate>
+      <div class="cform-error" id="fpd_quickAddError">Please fill in a name and title before adding.</div>
+      <div class="cform-grid">
+        <div class="cform-field"><label for="fpd_qaName">Full name</label><input id="fpd_qaName" type="text" placeholder="e.g. Nur Aisyah Binti Yusof" required></div>
+        <div class="cform-field"><label for="fpd_qaTitle">Title</label><input id="fpd_qaTitle" type="text" placeholder="e.g. Product Manager" required></div>
+        <div class="cform-field"><label for="fpd_qaEmail">Email <span class="opt">(optional)</span></label><input id="fpd_qaEmail" type="email" placeholder="you@example.com"></div>
+        <div class="cform-field"><label for="fpd_qaPhone">Phone <span class="opt">(optional)</span></label><input id="fpd_qaPhone" type="tel" placeholder="+60 12-345 6789"></div>
+        <div class="cform-field"><label for="fpd_qaLocation">Location <span class="opt">(optional)</span></label><input id="fpd_qaLocation" type="text" placeholder="e.g. Kuala Lumpur"></div>
+        <div class="cform-field"><label for="fpd_qaSalary">Expected salary <span class="opt">(optional)</span></label><input id="fpd_qaSalary" type="text" placeholder="e.g. RM 5,000/mo"></div>
+      </div>
+      <div class="cform-actions">
+        <button type="submit" class="fpd-btn fpd-btn-accent">Add candidate</button>
+      </div>
+    </form>
+  </div>
+</div>
 </div>
     </div>
   </main>
@@ -945,17 +1031,20 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
 <div id="recruiterView" class="hidden">
 <header class="topbar">
   <div class="topbar-in">
-    <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle candidate list" aria-pressed="false" aria-controls="listPane" title="Toggle candidate list">
-      <svg class="ic"><use href="#i-sidebar"/></svg>
-    </button>
     <a class="brand" href="#/">
       <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
       <span class="wordmark"><strong>FastPass</strong><span>by Talentbank</span></span>
     </a>
-    <span class="topbar-sep" aria-hidden="true">/</span>
-    <span class="topbar-context">Candidate Portal</span>
+    <span class="brand-wrap">
+      <button class="brand-switch" id="recruiterBrandSwitch" type="button" aria-haspopup="true" aria-expanded="false">
+        <span>Candidate Portal</span><svg class="ic"><use href="#i-chevron-down"/></svg>
+      </button>
+      <div class="brand-menu hidden" id="recruiterBrandMenu">
+        <button class="brand-menu-item is-active" data-role="recruiter" type="button"><svg class="ic"><use href="#i-briefcase"/></svg> Candidate Portal</button>
+        <button class="brand-menu-item" data-role="candidate" type="button"><svg class="ic"><use href="#i-grid"/></svg> Dashboard</button>
+      </div>
+    </span>
     <span class="topbar-right">
-      <button class="role-switch" id="recruiterSwitchRole" type="button">Switch role</button>
       <span class="acct-wrap">
         <button class="acct acct-btn" id="recruiterAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false"><svg class="ic sm"><use href="#i-user"/></svg></button>
         <div class="acct-menu hidden" id="recruiterAcctMenu">
@@ -968,10 +1057,16 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
 </header>
 
 <div class="shell">
+  <button class="sidebar-expand" id="sidebarExpand" type="button" aria-label="Show candidate list" title="Show candidate list">
+    <svg class="ic"><use href="#i-sidebar"/></svg>
+  </button>
   <aside class="pane-list" id="listPane">
     <div class="filter-panel" role="search" aria-label="Search and filter candidates">
       <div class="fp-title">
         <svg class="ic"><use href="#i-users"/></svg><span>Candidates</span>
+        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle candidate list" aria-pressed="false" aria-controls="listPane" title="Toggle candidate list">
+          <svg class="ic sm"><use href="#i-sidebar"/></svg>
+        </button>
         <button class="fp-add" id="btnAddCandidate" type="button" title="Add candidate" aria-label="Add candidate">
           <svg class="ic sm"><use href="#i-plus"/></svg>
         </button>
@@ -1081,6 +1176,7 @@ const CANDIDATES = [
         desc: "Operational dashboards and SAP exposure. Best Project Award." }
     ],
     edu: "Bachelor of Computer Science (Software Engineering) — Universiti Teknologi Malaysia, 2025",
+    animalTraits: "Beaver — methodical builder, meticulous with data pipelines",
     links: { linkedin: "https://www.linkedin.com/in/najmi-zulhusni/", github: "https://github.com/najmizulhusni" }
   },
   {
@@ -1120,6 +1216,7 @@ const CANDIDATES = [
         desc: "React dashboard components, integration tests, 30+ UI defects fixed." }
     ],
     edu: "Bachelor of Computer Science (Software Engineering) — Universiti Malaya, 2025",
+    animalTraits: "Otter — quick learner, playful problem-solver",
     links: { linkedin: "https://www.linkedin.com/in/arjun-ravindran-demo/", github: "https://github.com/arjunrav-demo" }
   },
   {
@@ -1160,6 +1257,7 @@ const CANDIDATES = [
         desc: "AWS environments for 8 SME clients; automated backups and monitoring." }
     ],
     edu: "B.Sc Cloud Computing — Taylor's University, 2022",
+    animalTraits: "Owl — vigilant, calm under pressure, works best late at night",
     links: { linkedin: "https://www.linkedin.com/in/sarahlim-demo/", github: "https://github.com/sarahlim-demo" }
   },
   {
@@ -1203,6 +1301,7 @@ const CANDIDATES = [
         desc: "Government infrastructure: Linux, virtualization, networking." }
     ],
     edu: "B.Eng Computer Engineering — Universiti Teknologi PETRONAS, 2016",
+    animalTraits: "Elephant — dependable, unshakeable under load, remembers every detail",
     links: { linkedin: "https://www.linkedin.com/in/harith-iskandar-demo/", github: "https://github.com/harith-demo" }
   },
   {
@@ -1243,6 +1342,7 @@ const CANDIDATES = [
         desc: "Launched a recurring billing feature adopted by 1,200 merchants." }
     ],
     edu: "B.Business Administration (Marketing) — Sunway University, 2021",
+    animalTraits: "Dolphin — collaborative, sharp communicator, reads the room fast",
     links: { linkedin: "https://www.linkedin.com/in/aisyah-yusof-demo/", github: "https://github.com/aisyahyusof-demo" }
   },
   {
@@ -1282,6 +1382,7 @@ const CANDIDATES = [
         desc: "Built monthly variance reports and automated Power BI dashboards for regional plant costs." }
     ],
     edu: "Bachelor of Accounting and Finance — Universiti Sains Malaysia, 2025",
+    animalTraits: "Fox — sharp analytical instincts, careful with numbers",
     links: { linkedin: "https://www.linkedin.com/in/wongkahweng-demo/", github: "https://github.com/wongkahweng-demo" }
   },
   {
@@ -1325,6 +1426,7 @@ const CANDIDATES = [
         desc: "Marketplace UI and marketing site design." }
     ],
     edu: "B.Design (Visual Communication) — Multimedia University, 2017",
+    animalTraits: "Peacock — bold visual instincts, detail-oriented storyteller",
     links: { linkedin: "https://www.linkedin.com/in/priya-selvam-demo/", github: "https://github.com/priyaselvam-demo" }
   }
 ];
@@ -1520,27 +1622,6 @@ function renderDetail() {
     <div class="detail-grid">
       <div class="main-col">
         <section class="card sec-card">
-          <div class="sec-head"><span class="sec-ic brand"><svg class="ic"><use href="#i-briefcase"/></svg></span><h2>Experience</h2></div>
-          <ul class="xp">
-            ${c.xp.map((x) => `
-              <li>
-                ${coMono(x.co)}
-                <div class="xp-body">
-                  <div class="xp-top"><strong>${esc(x.role)}</strong>${x.now ? `<span class="now-badge">Current</span>` : ""}</div>
-                  <div class="co">${esc(x.co)}</div>
-                  <span class="when">${esc(x.when)}</span>
-                  <p>${esc(x.desc)}</p>
-                </div>
-              </li>`).join("")}
-          </ul>
-        </section>
-
-        <section class="card sec-card">
-          <div class="sec-head"><span class="sec-ic v"><svg class="ic"><use href="#i-tag"/></svg></span><h2>Skills</h2></div>
-          <div class="skills">${c.skills.map((s) => `<span class="skill">${esc(s)}</span>`).join("")}</div>
-        </section>
-
-        <section class="card sec-card">
           <div class="sec-head"><span class="sec-ic b"><svg class="ic"><use href="#i-note"/></svg></span><h2>About & education</h2></div>
           <p class="about">${esc(c.summary)}</p>
           <div class="edu-sub">
@@ -1554,6 +1635,35 @@ function renderDetail() {
               </div>` : ""}
             </div>
           </div>
+          ${c.animalTraits ? `
+          <div class="edu-sub">
+            <span class="edu-ic"><svg class="ic"><use href="#i-paw"/></svg></span>
+            <div class="edu">
+              <strong>Animal Traits</strong>
+              <div class="edu-note">${esc(c.animalTraits)}</div>
+            </div>
+          </div>` : ""}
+        </section>
+
+        <section class="card sec-card">
+          <div class="sec-head"><span class="sec-ic v"><svg class="ic"><use href="#i-tag"/></svg></span><h2>Skills</h2></div>
+          <div class="skills">${c.skills.map((s) => `<span class="skill">${esc(s)}</span>`).join("")}</div>
+        </section>
+
+        <section class="card sec-card">
+          <div class="sec-head"><span class="sec-ic brand"><svg class="ic"><use href="#i-briefcase"/></svg></span><h2>Experience</h2></div>
+          <ul class="xp">
+            ${c.xp.map((x) => `
+              <li>
+                ${coMono(x.co)}
+                <div class="xp-body">
+                  <div class="xp-top"><strong>${esc(x.role)}</strong>${x.now ? `<span class="now-badge">Current</span>` : ""}</div>
+                  <div class="co">${esc(x.co)}</div>
+                  <span class="when">${esc(x.when)}</span>
+                  <p>${esc(x.desc)}</p>
+                </div>
+              </li>`).join("")}
+          </ul>
         </section>
 
         <section class="card screening-card">
@@ -1697,6 +1807,7 @@ function setSidebarCollapsed(collapsed) {
 sidebarToggle.addEventListener("click", () => {
   setSidebarCollapsed(!document.body.classList.contains("sidebar-collapsed"));
 });
+$("sidebarExpand").addEventListener("click", () => setSidebarCollapsed(false));
 setSidebarCollapsed(localStorage.getItem("sidebarCollapsed") === "1");
 
 /* ---------- login ---------- */
@@ -1755,6 +1866,7 @@ function wireAcctMenu(btnId, menuId, logoutId) {
     e.stopPropagation();
     const willOpen = menu.classList.contains("hidden");
     closeAcctMenus();
+    closeBrandMenus();
     menu.classList.toggle("hidden", !willOpen);
     btn.setAttribute("aria-expanded", String(willOpen));
   });
@@ -1762,8 +1874,32 @@ function wireAcctMenu(btnId, menuId, logoutId) {
 }
 wireAcctMenu("recruiterAcctBtn", "recruiterAcctMenu", "recruiterLogout");
 wireAcctMenu("candAcctBtn", "candAcctMenu", "candLogout");
-document.addEventListener("click", closeAcctMenus);
-window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAcctMenus(); });
+
+/* ---------- brand / workspace switcher (topbar) ---------- */
+function closeBrandMenus() {
+  $$(".brand-menu").forEach((m) => m.classList.add("hidden"));
+  $$(".brand-switch").forEach((b) => b.setAttribute("aria-expanded", "false"));
+}
+function wireBrandSwitch(btnId, menuId) {
+  const btn = $(btnId);
+  const menu = $(menuId);
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const willOpen = menu.classList.contains("hidden");
+    closeBrandMenus();
+    closeAcctMenus();
+    menu.classList.toggle("hidden", !willOpen);
+    btn.setAttribute("aria-expanded", String(willOpen));
+  });
+  menu.querySelectorAll("[data-role]").forEach((item) => {
+    item.addEventListener("click", () => { closeBrandMenus(); setRole(item.dataset.role); });
+  });
+}
+wireBrandSwitch("recruiterBrandSwitch", "recruiterBrandMenu");
+wireBrandSwitch("candBrandSwitch", "candBrandMenu");
+
+document.addEventListener("click", () => { closeAcctMenus(); closeBrandMenus(); });
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeAcctMenus(); closeBrandMenus(); } });
 
 /* ---------- role selection (welcome screen) ---------- */
 const ROLE_KEY = "tbRole";
@@ -1777,12 +1913,9 @@ function applyRole() {
   if (role === "recruiter") route();
 }
 function setRole(role) { localStorage.setItem(ROLE_KEY, role); applyRole(); }
-function clearRole() { localStorage.removeItem(ROLE_KEY); applyRole(); }
 
 $("roleRecruiter").addEventListener("click", () => setRole("recruiter"));
 $("roleCandidate").addEventListener("click", () => setRole("candidate"));
-$("recruiterSwitchRole").addEventListener("click", clearRole);
-$("candSwitchRole").addEventListener("click", clearRole);
 
 /* ---------- add-candidate form (recruiter view) ---------- */
 function candidateFormHTML(d) {
@@ -2103,6 +2236,38 @@ function toast(msg) {
   t.textContent = msg; t.classList.add("fpd-show");
   clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("fpd-show"), 2200);
 }
+function newCandidateId() {
+  return (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+}
+function openQuickAdd() {
+  $("fpd_quickAddError").classList.remove("show");
+  $("fpd_quickAddForm").reset();
+  $("fpd_quickAddModal").classList.remove("hidden");
+  $("fpd_qaName").focus();
+}
+function closeQuickAdd() { $("fpd_quickAddModal").classList.add("hidden"); }
+function wireQuickAdd() {
+  $("fpd_quickAddClose").addEventListener("click", closeQuickAdd);
+  $("fpd_quickAddModal").addEventListener("click", (e) => { if (e.target.id === "fpd_quickAddModal") closeQuickAdd(); });
+  window.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("fpd_quickAddModal").classList.contains("hidden")) closeQuickAdd(); });
+  $("fpd_quickAddForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = $("fpd_qaName").value.trim();
+    const title = $("fpd_qaTitle").value.trim();
+    if (!name || !title) { $("fpd_quickAddError").classList.add("show"); return; }
+    const now = new Date().toISOString();
+    state.candidates.unshift({
+      id: newCandidateId(), name, title,
+      email: $("fpd_qaEmail").value.trim(), phone: $("fpd_qaPhone").value.trim(),
+      location: $("fpd_qaLocation").value.trim(), expectedSalary: $("fpd_qaSalary").value.trim(),
+      status: "pending", sourceHost: "manual", verified: {},
+      extractedAt: now, updatedAt: now
+    });
+    save(); renderAll();
+    closeQuickAdd();
+    toast(`${name} added to your pipeline`);
+  });
+}
 function timeAgo(iso) {
   const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
   if (s < 60) return "just now";
@@ -2193,8 +2358,12 @@ function renderCounts() {
   $("fpd_nFollow").textContent = state.candidates.filter(needsFollowUp).length;
   $("fpd_nActive").textContent = state.candidates.filter((c) => ACTIVE_STAGES.includes(c.status)).length;
   $("fpd_nClosed").textContent = state.candidates.filter((c) => ["placed", "rejected", "hold"].includes(c.status)).length;
+  $("fpd_statTotal").textContent = state.candidates.length;
+  $("fpd_statNew").textContent = n("pending");
+  $("fpd_statFollow").textContent = state.candidates.filter(needsFollowUp).length;
+  $("fpd_statActive").textContent = state.candidates.filter((c) => ACTIVE_STAGES.includes(c.status)).length;
   document.querySelectorAll("#fpd_statusTabs .fpd-tab").forEach((b) =>
-    b.classList.toggle("active", b.dataset.f === state.filter));
+    b.classList.toggle("fpd-active", b.dataset.f === state.filter));
   $("fpd_arrName").textContent = state.sortKey === "name" ? (state.sortDir > 0 ? "▲" : "▼") : "";
   $("fpd_arrUpd").textContent = state.sortKey === "updated" ? (state.sortDir > 0 ? "▲" : "▼") : "";
 }
@@ -2228,8 +2397,16 @@ function renderTable() {
     td.colSpan = 5; td.className = "fpd-empty-table";
     td.innerHTML = state.candidates.length
       ? `<span class="fpd-empty-ic"><svg class="ic"><use href="#i-search"/></svg></span><strong>No matches</strong><span>Try a different tab or search term.</span>`
-      : `<span class="fpd-empty-ic"><svg class="ic"><use href="#i-users"/></svg></span><strong>No candidates yet</strong><span>Save candidates with the FastPass plugin and they'll sync here automatically.</span>`;
+      : `<span class="fpd-empty-ic"><svg class="ic"><use href="#i-plug"/></svg></span><strong>Your pipeline is empty</strong><span>Save candidates with the FastPass plugin while you browse, or add your first one by hand.</span>
+         <div class="fpd-empty-actions">
+           <button class="fpd-btn fpd-btn-accent" id="fpd_emptyAdd" type="button"><svg class="ic sm"><use href="#i-plus"/></svg> Add a candidate</button>
+           <button class="fpd-btn fpd-btn-line" id="fpd_emptyPlugin" type="button"><svg class="ic sm"><use href="#i-cloud"/></svg> Set up the plugin</button>
+         </div>`;
     tr.append(td); tb.append(tr);
+    if (!state.candidates.length) {
+      $("fpd_emptyAdd").addEventListener("click", openQuickAdd);
+      $("fpd_emptyPlugin").addEventListener("click", () => $("fpd_cloudBtn").click());
+    }
     return;
   }
   for (const c of rows) {
@@ -2609,7 +2786,8 @@ function cloudAutoPush() {
 function wire() {
   document.querySelectorAll("#fpd_statusTabs .fpd-tab").forEach((b) =>
     b.addEventListener("click", () => { state.filter = b.dataset.f; renderCounts(); renderTable(); }));
-  $("q").addEventListener("input", (e) => { state.q = e.target.value; renderTable(); });
+  $("fpd_q").addEventListener("input", (e) => { state.q = e.target.value; renderTable(); });
+  wireQuickAdd();
 
   document.querySelectorAll("#fpd_root thead th.sortable").forEach((th) =>
     th.addEventListener("click", () => {
