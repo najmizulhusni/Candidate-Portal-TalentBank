@@ -482,36 +482,28 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root{--paper:var(--bg);--brand-deep:var(--brand-2);--r:10px;--code:var(--mono);--red:#dc2626;font-size:13.5px;color:var(--ink)}
 #candidateView .cand-main{padding:18px 18px 60px}
 #candidateView .cand-in{max-width:none;margin:0}
-#fpd_root .fpd-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer;font-weight:700;font-size:10.5px}
+#fpd_root .fpd-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer;font-weight:700;font-size:10.5px;flex-shrink:0}
 #fpd_root .fpd-icon-btn:hover{border-color:var(--ink-3)}
 #fpd_root .fpd-lbl{font-size:10px;letter-spacing:.5px;color:var(--ink-3);font-weight:600;text-transform:uppercase}
-#fpd_root /* ---------- top bar ---------- */
-.fpd-topbar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
-#fpd_root .fpd-topbar-in{display:flex;align-items:center;gap:14px;padding:11px 22px}
-#fpd_root .fpd-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
-#fpd_root .fpd-logo{display:grid;place-items:center;width:31px;height:31px;background:var(--brand);color:#fff;border-radius:9px}
-#fpd_root .fpd-logo .ic{stroke-width:2.4}
-#fpd_root .fpd-logo .ic .fpd-accent{stroke:var(--accent)}
-#fpd_root .fpd-wordmark strong{font-size:14.5px;font-weight:700;display:block;line-height:1.15;letter-spacing:-.2px}
-#fpd_root .fpd-wordmark span{font-size:10px;font-weight:500;color:var(--ink-3)}
-#fpd_root .fpd-top-search{flex:1;max-width:440px;position:relative}
-#fpd_root .fpd-top-search .ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--ink-3);width:14px;height:14px}
-#fpd_root .fpd-top-search input{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:8px 12px 8px 33px;font-size:13px}
-#fpd_root .fpd-top-search input:focus-visible{outline:none;border-color:var(--brand);background:var(--surface)}
-#fpd_root .fpd-top-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-#fpd_root .fpd-mode-note{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:500;color:var(--ink-3)}
-#fpd_root .fpd-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+#fpd_root .fpd-mode-note{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:500;color:var(--ink-3);white-space:nowrap}
+#fpd_root .fpd-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 #fpd_root .fpd-dot.fpd-off{background:var(--amber)}
-#fpd_root .fpd-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer}
-#fpd_root .fpd-icon-btn:hover{border-color:var(--ink-3)}
-#fpd_root .fpd-user-chip{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:10.5px;font-weight:700;border:1px solid #cddaf2}
-@media (max-width:700px){#fpd_root .fpd-mode-note span{display:none}
-#fpd_root .fpd-wordmark span{display:none}
-}
+/* ---------- page head ---------- */
+#fpd_root .fpd-page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:20px 22px 0}
+#fpd_root .fpd-page-head h1{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
+#fpd_root .fpd-page-head p{margin-top:4px;font-size:12.5px;color:var(--ink-2)}
+#fpd_root .fpd-page-head-right{display:flex;align-items:center;gap:10px;flex-shrink:0;padding-top:3px}
+@media (max-width:700px){#fpd_root .fpd-mode-note span{display:none}}
+@media (max-width:560px){#fpd_root .fpd-page-head{flex-direction:column;gap:12px}}
 #fpd_root /* ---------- cloud panel ---------- */
 .fpd-cloud{position:fixed;right:18px;top:60px;width:320px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(13,32,66,.14);padding:14px;display:flex;flex-direction:column;gap:9px;z-index:40}
 #fpd_root .fpd-cloud input{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:8px 10px;font-size:12px;font-family:var(--code)}
 #fpd_root .fpd-cloud input:focus-visible{outline:none;border-color:var(--brand)}
+#fpd_root .fpd-acct-fixed{display:flex;align-items:center;gap:10px;padding:8px 2px 12px;border-bottom:1px solid var(--line-soft);margin-bottom:2px}
+#fpd_root .fpd-acct-fixed-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:11px;font-weight:700;flex-shrink:0}
+#fpd_root .fpd-acct-fixed-txt{display:flex;flex-direction:column;min-width:0}
+#fpd_root .fpd-acct-fixed-txt strong{font-size:12.5px;font-weight:700;color:var(--ink)}
+#fpd_root .fpd-acct-fixed-txt span{font-size:11px;color:var(--ink-3);margin-top:1px}
 #fpd_root .fpd-cloud-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 #fpd_root .fpd-cloud-status{font-size:11px;font-weight:500;color:var(--ink-3)}
 #fpd_root .fpd-cloud-status.fpd-on{color:var(--green-deep)}
@@ -524,13 +516,13 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch{background:var(--brand)}
 #fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch::after{transform:translateX(13px)}
 #fpd_root /* ---------- toolbar ---------- */
-.fpd-toolbar{background:var(--surface);border-bottom:1px solid var(--line)}
-#fpd_root .fpd-toolbar-in{display:flex;align-items:center;gap:6px;padding:8px 22px;flex-wrap:wrap}
-#fpd_root .fpd-tab{display:flex;align-items:center;gap:7px;border:0;background:none;color:var(--ink-2);font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer}
+.fpd-toolbar{background:var(--surface);border-bottom:1px solid var(--line);margin-top:16px}
+#fpd_root .fpd-toolbar-in{display:flex;align-items:center;gap:4px;padding:10px 22px;flex-wrap:wrap;row-gap:8px}
+#fpd_root .fpd-tab{display:flex;align-items:center;gap:7px;border:0;background:none;color:var(--ink-2);font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer;flex-shrink:0}
 #fpd_root .fpd-tab:hover{background:var(--paper)}
 #fpd_root .fpd-tab.fpd-active{background:var(--brand-tint);color:var(--brand)}
 #fpd_root .fpd-tab b{font-weight:700}
-#fpd_root .fpd-toolbar-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+#fpd_root .fpd-toolbar-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-left:16px;border-left:1px solid var(--line-soft)}
 #fpd_root .fpd-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:8px;font-weight:600;font-size:12.5px;padding:8px 13px;cursor:pointer;transition:background .15s,border-color .15s}
 #fpd_root .fpd-btn-line{border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 #fpd_root .fpd-btn-line:hover{border-color:var(--ink-3)}
@@ -579,7 +571,11 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-stage-sel select{width:100%;appearance:none;-webkit-appearance:none;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;font-weight:600;padding:9px 32px 9px 12px;cursor:pointer}
 #fpd_root .fpd-stage-sel select:focus-visible{outline:none;border-color:var(--brand)}
 #fpd_root .fpd-cell-upd{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
-#fpd_root .fpd-empty-table{text-align:center;color:var(--ink-3);padding:56px 20px!important;font-size:13px;cursor:default}
+#fpd_root .fpd-empty-table{text-align:center;color:var(--ink-3);padding:64px 20px!important;font-size:13px;cursor:default}
+#fpd_root .fpd-empty-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--brand-tint);color:var(--brand);margin:0 auto 16px}
+#fpd_root .fpd-empty-ic .ic{width:20px;height:20px;stroke-width:1.8}
+#fpd_root .fpd-empty-table strong{display:block;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px}
+#fpd_root .fpd-empty-table span{display:block;max-width:360px;margin:0 auto;line-height:1.6}
 @media (max-width:960px){#fpd_root .fpd-col-facts{display:none}
 }
 @media (max-width:760px){#fpd_root .fpd-col-contact,#fpd_root .fpd-col-upd{display:none}
@@ -632,7 +628,7 @@ body.fpd-drawer-open .fpd-drawer{transform:none}
 #fpd_root .fpd-btn-quiet.fpd-danger:hover{color:var(--red)}
 #fpd_root .fpd-grow{flex:1}
 #fpd_root .fpd-send-row{display:flex;gap:8px;margin-top:10px}
-#fpd_root .fpd-import-zone{border:1.5px dashed var(--line);border-radius:10px;padding:11px;text-align:center;font-size:12px;color:var(--ink-3);cursor:pointer;margin-left:8px}
+#fpd_root .fpd-import-zone{display:flex;align-items:center;border:1.5px dashed var(--line);border-radius:8px;padding:7.5px 13px;font-size:12.5px;font-weight:600;color:var(--ink-3);cursor:pointer}
 #fpd_root .fpd-import-zone:hover{border-color:var(--ink-3);color:var(--ink-2)}
 #fpd_root .fpd-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;padding:10px 18px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80}
 #fpd_root .fpd-toast.fpd-show{opacity:1}
@@ -767,8 +763,10 @@ body.fpd-drawer-open .fpd-drawer{transform:none}
 
     <!-- signed in / demo: the profile lives HERE, not in the plugin -->
     <div id="fpd_acctProfile" style="display:flex;flex-direction:column;gap:8px">
-      <input id="fpd_pfName" type="text" placeholder="Your name" style="font-family:var(--body)" />
-      <input id="fpd_pfCompany" type="text" placeholder="Company" style="font-family:var(--body)" />
+      <div class="fpd-acct-fixed">
+        <span class="fpd-acct-fixed-ic">NZ</span>
+        <span class="fpd-acct-fixed-txt"><strong>Najmi Zulhusni</strong><span>PS Global Consulting</span></span>
+      </div>
       <label class="fpd-stage-sel"><select id="fpd_pfDial">
         <option value="60">WhatsApp country: Malaysia (+60)</option>
         <option value="65">WhatsApp country: Singapore (+65)</option>
@@ -804,6 +802,17 @@ body.fpd-drawer-open .fpd-drawer{transform:none}
     </div>
     <p class="fpd-cloud-hint">Table setup SQL is in the extension README. Demo uses the anon key — add Supabase Auth before real candidate data.</p>
   </div>
+<div class="fpd-page-head">
+  <div>
+    <h1>Candidate pipeline</h1>
+    <p>Candidates saved by the FastPass plugin sync here automatically.</p>
+  </div>
+  <div class="fpd-page-head-right">
+    <span class="fpd-mode-note"><span id="fpd_modeDot" class="fpd-dot"></span><span id="fpd_modeText">Cloud</span></span>
+    <button id="fpd_cloudBtn" class="fpd-icon-btn" title="Cloud sync" aria-expanded="false"><svg class="ic"><use href="#i-cloud"/></svg></button>
+    <button id="fpd_userChip" class="fpd-icon-btn" title="Account">—</button>
+  </div>
+</div>
 <div class="fpd-toolbar">
   <div class="fpd-toolbar-in" id="fpd_statusTabs">
     <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
@@ -813,13 +822,10 @@ body.fpd-drawer-open .fpd-drawer{transform:none}
     <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
     <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
     <div class="fpd-toolbar-actions">
-      <span class="fpd-mode-note"><span id="fpd_modeDot" class="fpd-dot"></span><span id="fpd_modeText">Cloud</span></span>
       <div id="fpd_importZone" class="fpd-import-zone hidden">Import JSON backup</div>
       <input id="fpd_importFile" type="file" accept="application/json" class="hidden" />
       <button id="fpd_exportJson" class="fpd-btn fpd-btn-line"><svg class="ic sm"><use href="#i-download"/></svg> Backup</button>
       <button id="fpd_exportCsv" class="fpd-btn fpd-btn-line"><svg class="ic sm"><use href="#i-download"/></svg> Export CSV</button>
-      <button id="fpd_cloudBtn" class="fpd-icon-btn" title="Cloud sync" aria-expanded="false"><svg class="ic"><use href="#i-cloud"/></svg></button>
-      <button id="fpd_userChip" class="fpd-icon-btn" title="Account">—</button>
     </div>
   </div>
 </div>
@@ -2076,6 +2082,9 @@ async function load() {
     try { state.candidates = JSON.parse(localStorage.getItem("fpCandidates") || "[]"); } catch { state.candidates = []; }
     try { state.settings = JSON.parse(localStorage.getItem("fpSettings") || "{}"); } catch { state.settings = {}; }
   }
+  // demo recruiter identity — fixed, not editable per-session
+  state.settings.recruiterName = "Najmi Zulhusni";
+  state.settings.recruiterCompany = "PS Global Consulting";
 }
 let saveT;
 function save() {
@@ -2205,9 +2214,9 @@ function renderTable() {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
     td.colSpan = 5; td.className = "fpd-empty-table";
-    td.textContent = state.candidates.length
-      ? "No candidates match."
-      : "No candidates yet — save candidates with the FastPass plugin and they sync here automatically.";
+    td.innerHTML = state.candidates.length
+      ? `<span class="fpd-empty-ic"><svg class="ic"><use href="#i-search"/></svg></span><strong>No matches</strong><span>Try a different tab or search term.</span>`
+      : `<span class="fpd-empty-ic"><svg class="ic"><use href="#i-users"/></svg></span><strong>No candidates yet</strong><span>Save candidates with the FastPass plugin and they'll sync here automatically.</span>`;
     tr.append(td); tb.append(tr);
     return;
   }
@@ -2417,10 +2426,8 @@ function renderAccount() {
   $("fpd_acctSignOut").classList.add("hidden");
   $("fpd_acctEmail").textContent = fpAuth.session ? "Demo · cloud connected" : "Demo · connecting…";
   $("fpd_acctHint").textContent = "One-click demo workspace — this profile and your pipeline sync with the FastPass plugin through Supabase.";
-  $("fpd_pfName").value = state.settings.recruiterName || "";
-  $("fpd_pfCompany").value = state.settings.recruiterCompany || "";
   $("fpd_pfDial").value = state.settings.defaultDial || "60";
-  $("fpd_userChip").textContent = initials(state.settings.recruiterName || state.session?.displayName || "?");
+  $("fpd_userChip").textContent = initials(state.settings.recruiterName);
 }
 function wireAccount() {
   $("fpd_userChip").style.cursor = "pointer";
@@ -2459,8 +2466,6 @@ function wireAccount() {
         await fpAuth.signIn(email, pass);
         const prof = await fpAuth.getProfile();
         if (prof) {
-          state.settings.recruiterName = prof.name || state.settings.recruiterName;
-          state.settings.recruiterCompany = prof.company || state.settings.recruiterCompany;
           state.settings.defaultDial = prof.default_dial || state.settings.defaultDial;
           saveSettings();
         }
@@ -2481,8 +2486,6 @@ function wireAccount() {
     toast("Signed out");
   });
   $("fpd_pfSave").addEventListener("click", async () => {
-    state.settings.recruiterName = $("fpd_pfName").value.trim();
-    state.settings.recruiterCompany = $("fpd_pfCompany").value.trim();
     state.settings.defaultDial = $("fpd_pfDial").value;
     saveSettings();
     renderAccount();
@@ -2744,8 +2747,6 @@ function wire() {
       try {
         const prof = await fpAuth.getProfile();
         if (prof) {
-          state.settings.recruiterName = prof.name || state.settings.recruiterName;
-          state.settings.recruiterCompany = prof.company || state.settings.recruiterCompany;
           state.settings.defaultDial = prof.default_dial || state.settings.defaultDial;
           saveSettings();
         }
