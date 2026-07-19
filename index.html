@@ -478,12 +478,175 @@ a.c-val:hover{color:var(--brand-2)}
 .modal-close:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
 .modal-close .ic{width:15px;height:15px}
 @media (max-width:560px){.modal-box{padding:36px 18px 20px}}
+/* ============ FastPass Dashboard (merged, namespaced fpd-) ============ */
+#fpd_root{--paper:var(--bg);--brand-deep:var(--brand-2);--r:10px;--code:var(--mono);--red:#dc2626;font-size:13.5px;color:var(--ink)}
+#candidateView .cand-main{padding:18px 18px 60px}
+#candidateView .cand-in{max-width:none;margin:0}
+#fpd_root .fpd-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer;font-weight:700;font-size:10.5px}
+#fpd_root .fpd-icon-btn:hover{border-color:var(--ink-3)}
+#fpd_root .fpd-lbl{font-size:10px;letter-spacing:.5px;color:var(--ink-3);font-weight:600;text-transform:uppercase}
+#fpd_root /* ---------- top bar ---------- */
+.fpd-topbar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+#fpd_root .fpd-topbar-in{display:flex;align-items:center;gap:14px;padding:11px 22px}
+#fpd_root .fpd-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+#fpd_root .fpd-logo{display:grid;place-items:center;width:31px;height:31px;background:var(--brand);color:#fff;border-radius:9px}
+#fpd_root .fpd-logo .ic{stroke-width:2.4}
+#fpd_root .fpd-logo .ic .fpd-accent{stroke:var(--accent)}
+#fpd_root .fpd-wordmark strong{font-size:14.5px;font-weight:700;display:block;line-height:1.15;letter-spacing:-.2px}
+#fpd_root .fpd-wordmark span{font-size:10px;font-weight:500;color:var(--ink-3)}
+#fpd_root .fpd-top-search{flex:1;max-width:440px;position:relative}
+#fpd_root .fpd-top-search .ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--ink-3);width:14px;height:14px}
+#fpd_root .fpd-top-search input{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:8px 12px 8px 33px;font-size:13px}
+#fpd_root .fpd-top-search input:focus-visible{outline:none;border-color:var(--brand);background:var(--surface)}
+#fpd_root .fpd-top-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+#fpd_root .fpd-mode-note{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:500;color:var(--ink-3)}
+#fpd_root .fpd-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+#fpd_root .fpd-dot.fpd-off{background:var(--amber)}
+#fpd_root .fpd-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer}
+#fpd_root .fpd-icon-btn:hover{border-color:var(--ink-3)}
+#fpd_root .fpd-user-chip{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:10.5px;font-weight:700;border:1px solid #cddaf2}
+@media (max-width:700px){#fpd_root .fpd-mode-note span{display:none}
+#fpd_root .fpd-wordmark span{display:none}
+}
+#fpd_root /* ---------- cloud panel ---------- */
+.fpd-cloud{position:fixed;right:18px;top:60px;width:320px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(13,32,66,.14);padding:14px;display:flex;flex-direction:column;gap:9px;z-index:40}
+#fpd_root .fpd-cloud input{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:8px 10px;font-size:12px;font-family:var(--code)}
+#fpd_root .fpd-cloud input:focus-visible{outline:none;border-color:var(--brand)}
+#fpd_root .fpd-cloud-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#fpd_root .fpd-cloud-status{font-size:11px;font-weight:500;color:var(--ink-3)}
+#fpd_root .fpd-cloud-status.fpd-on{color:var(--green-deep)}
+#fpd_root .fpd-cloud-status.fpd-err{color:var(--red)}
+#fpd_root .fpd-cloud-hint{font-size:11px;color:var(--ink-3);line-height:1.5}
+#fpd_root .fpd-mini-toggle{position:relative;display:inline-block;cursor:pointer}
+#fpd_root .fpd-mini-toggle input{position:absolute;opacity:0}
+#fpd_root .fpd-mswitch{display:block;width:32px;height:18px;border-radius:999px;background:#ccd3e2;position:relative;transition:background .2s}
+#fpd_root .fpd-mswitch::after{content:"";position:absolute;top:2.5px;left:3px;width:13px;height:13px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+#fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch{background:var(--brand)}
+#fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch::after{transform:translateX(13px)}
+#fpd_root /* ---------- toolbar ---------- */
+.fpd-toolbar{background:var(--surface);border-bottom:1px solid var(--line)}
+#fpd_root .fpd-toolbar-in{display:flex;align-items:center;gap:6px;padding:8px 22px;flex-wrap:wrap}
+#fpd_root .fpd-tab{display:flex;align-items:center;gap:7px;border:0;background:none;color:var(--ink-2);font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer}
+#fpd_root .fpd-tab:hover{background:var(--paper)}
+#fpd_root .fpd-tab.fpd-active{background:var(--brand-tint);color:var(--brand)}
+#fpd_root .fpd-tab b{font-weight:700}
+#fpd_root .fpd-toolbar-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+#fpd_root .fpd-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:8px;font-weight:600;font-size:12.5px;padding:8px 13px;cursor:pointer;transition:background .15s,border-color .15s}
+#fpd_root .fpd-btn-line{border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+#fpd_root .fpd-btn-line:hover{border-color:var(--ink-3)}
+#fpd_root .fpd-btn-brand{border:0;background:var(--brand);color:#fff}
+#fpd_root .fpd-btn-brand:hover{background:var(--brand-deep)}
+#fpd_root .fpd-btn-green{border:0;background:var(--green);color:#fff}
+#fpd_root .fpd-btn-green:hover{background:var(--green-deep)}
+#fpd_root button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+#fpd_root /* ---------- table ---------- */
+.fpd-table-wrap{padding:16px 22px 60px;overflow-x:auto}
+#fpd_root table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+#fpd_root thead th{position:sticky;top:0;background:var(--paper);text-align:left;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+#fpd_root thead th.fpd-sortable{cursor:pointer;user-select:none}
+#fpd_root thead th.fpd-sortable:hover{color:var(--ink)}
+#fpd_root thead th .fpd-arrow{font-size:9px;margin-left:3px}
+#fpd_root tbody td{padding:12px 14px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+#fpd_root tbody tr:last-child td{border-bottom:0}
+#fpd_root tbody tr{cursor:pointer;transition:background .12s}
+#fpd_root tbody tr:hover{background:#f8fafd}
+#fpd_root tbody tr.fpd-sel{background:var(--brand-tint)}
+#fpd_root .fpd-cell-cand{display:flex;align-items:center;gap:11px;min-width:200px}
+#fpd_root .fpd-avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--brand-tint);color:var(--brand);font-size:11.5px;font-weight:700;flex-shrink:0;overflow:hidden;position:relative}
+#fpd_root .fpd-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#fpd_root .fpd-cand-nm{min-width:0}
+#fpd_root .fpd-cand-nm strong{font-size:13.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+#fpd_root .fpd-cand-nm span{font-size:12px;color:var(--ink-2);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+#fpd_root .fpd-cell-contact div{font-size:12.5px;white-space:nowrap;display:flex;align-items:center;gap:5px}
+#fpd_root .fpd-cell-contact .fpd-none{color:var(--ink-3);font-style:normal}
+#fpd_root .fpd-vtick{color:var(--green-deep);display:inline-flex}
+#fpd_root .fpd-cell-facts{font-size:12px;color:var(--ink-2);white-space:nowrap}
+#fpd_root .fpd-cell-facts .fpd-sep{color:#c4ccdb;margin:0 5px}
+#fpd_root .fpd-chip{display:inline-flex;align-items:center;gap:5px;padding:3.5px 9px;border-radius:999px;font-size:10.5px;letter-spacing:.3px;font-weight:600;background:var(--paper);color:var(--ink-2);border:1px solid var(--line)}
+#fpd_root .fpd-chip.fpd-st-pending{background:var(--brand-tint);color:var(--brand);border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-hold{background:var(--amber-tint);color:var(--amber);border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-passed{background:var(--green-tint);color:var(--green-deep);border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-contacted{background:var(--brand-tint);color:var(--brand);border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-replied{background:#e0f2f6;color:#0e7490;border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-interview{background:#f0e9f7;color:#6d3f96;border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-offer{background:var(--amber-tint);color:var(--amber);border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-placed{background:var(--green-tint);color:var(--green-deep);border-color:transparent}
+#fpd_root .fpd-chip.fpd-st-rejected{background:var(--line-soft);color:var(--ink-3);border-color:transparent}
+#fpd_root .fpd-flag-follow{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#fdecec;color:var(--red);font-size:9.5px;font-weight:700;letter-spacing:.3px}
+#fpd_root .fpd-tab-follow b{color:var(--red)}
+#fpd_root .fpd-stage-sel{position:relative;display:block}
+#fpd_root .fpd-stage-sel::after{content:"";position:absolute;right:13px;top:50%;width:7px;height:7px;pointer-events:none;border-right:1.6px solid var(--ink-3);border-bottom:1.6px solid var(--ink-3);transform:translateY(-70%) rotate(45deg)}
+#fpd_root .fpd-stage-sel select{width:100%;appearance:none;-webkit-appearance:none;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;font-weight:600;padding:9px 32px 9px 12px;cursor:pointer}
+#fpd_root .fpd-stage-sel select:focus-visible{outline:none;border-color:var(--brand)}
+#fpd_root .fpd-cell-upd{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+#fpd_root .fpd-empty-table{text-align:center;color:var(--ink-3);padding:56px 20px!important;font-size:13px;cursor:default}
+@media (max-width:960px){#fpd_root .fpd-col-facts{display:none}
+}
+@media (max-width:760px){#fpd_root .fpd-col-contact,#fpd_root .fpd-col-upd{display:none}
+}
+#fpd_root /* ---------- drawer ---------- */
+.fpd-scrim{position:fixed;inset:0;background:rgba(15,25,45,.32);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+body.fpd-drawer-open .fpd-scrim{opacity:1;pointer-events:auto}
+#fpd_root .fpd-drawer{position:fixed;top:0;right:0;bottom:0;width:min(480px,100vw);background:var(--paper);border-left:1px solid var(--line);box-shadow:-16px 0 40px rgba(13,32,66,.12);transform:translateX(102%);transition:transform .22s ease;z-index:60;overflow-y:auto;padding:18px 20px 40px}
+body.fpd-drawer-open .fpd-drawer{transform:none}
+#fpd_root .fpd-drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+#fpd_root .fpd-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+#fpd_root .fpd-d-head{display:flex;gap:13px;align-items:flex-start}
+#fpd_root .fpd-d-head .fpd-avatar{width:52px;height:52px;font-size:15px;border-radius:11px}
+#fpd_root .fpd-d-id{flex:1;min-width:0}
+#fpd_root .fpd-tbid{font-family:var(--code);font-size:10px;letter-spacing:.6px;color:var(--ink-3)}
+#fpd_root .fpd-d-id h1{font-size:18px;font-weight:700;letter-spacing:-.2px;margin:2px 0 1px}
+#fpd_root .fpd-d-role{font-size:13px;color:var(--ink-2);font-weight:500}
+#fpd_root .fpd-d-links{margin-top:6px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#fpd_root .fpd-d-links a{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--ink-3);text-decoration:none}
+#fpd_root .fpd-d-links a:hover{color:var(--brand);text-decoration:underline}
+#fpd_root .fpd-d-saved{font-size:11px;color:var(--ink-3)}
+#fpd_root .fpd-status-row{display:flex;gap:8px;margin-top:12px}
+#fpd_root .fpd-f{background:var(--paper);border:1px solid var(--line-soft);border-radius:9px;padding:9px 12px;margin-bottom:8px}
+#fpd_root .fpd-f:last-child{margin-bottom:0}
+#fpd_root .fpd-f-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;gap:8px}
+#fpd_root .fpd-src{font-size:9px;letter-spacing:.5px;font-weight:700;padding:2px 6px;border-radius:4px}
+#fpd_root .fpd-src-page{background:var(--brand-tint);color:var(--brand)}
+#fpd_root .fpd-src-pdf{background:#f3e9f7;color:#7a3f96}
+#fpd_root .fpd-src-ai{background:#fdf0e3;color:#b45309}
+#fpd_root .fpd-src-manual{background:var(--green-tint);color:var(--green-deep)}
+#fpd_root .fpd-src-none{background:var(--line-soft);color:var(--ink-3)}
+#fpd_root .fpd-f input,#fpd_root .fpd-f select{width:100%;border:0;background:transparent;font-size:13px;color:var(--ink);padding:1px 0}
+#fpd_root .fpd-f input:focus-visible,#fpd_root .fpd-f select:focus-visible{outline:none}
+#fpd_root .fpd-f:focus-within{border-color:var(--brand)}
+#fpd_root .fpd-verify{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--ink-3);cursor:pointer;user-select:none}
+#fpd_root .fpd-verify input{accent-color:var(--green);width:13px;height:13px;cursor:pointer}
+#fpd_root .fpd-verify.fpd-on{color:var(--green-deep)}
+#fpd_root .fpd-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#fpd_root .fpd-grid2 .fpd-f{margin-bottom:0}
+#fpd_root .fpd-sec-h{font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);font-weight:600;display:block;margin-bottom:10px}
+#fpd_root .fpd-sec-note{font-size:11px;color:var(--ink-3);margin:-6px 0 10px}
+#fpd_root textarea{width:100%;border:1px solid var(--line-soft);border-radius:9px;background:var(--paper);padding:10px 12px;font-size:13px;color:var(--ink);line-height:1.6;resize:vertical}
+#fpd_root textarea:focus-visible{outline:none;border-color:var(--brand);background:var(--surface)}
+#fpd_root .fpd-timeline{list-style:none;padding:0}
+#fpd_root .fpd-timeline li{display:flex;gap:10px;padding:6px 0;font-size:12.5px;color:var(--ink-2);border-bottom:1px dashed var(--line-soft)}
+#fpd_root .fpd-timeline li:last-child{border-bottom:0}
+#fpd_root .fpd-timeline .fpd-t-when{font-size:10.5px;color:var(--ink-3);min-width:88px;padding-top:2px}
+#fpd_root .fpd-btn-quiet{display:inline-flex;align-items:center;gap:7px;border:0;background:none;color:var(--ink-2);font-size:12px;font-weight:500;cursor:pointer;padding:5px 8px;border-radius:7px}
+#fpd_root .fpd-btn-quiet:hover{color:var(--ink);background:var(--surface)}
+#fpd_root .fpd-btn-quiet.fpd-danger:hover{color:var(--red)}
+#fpd_root .fpd-grow{flex:1}
+#fpd_root .fpd-send-row{display:flex;gap:8px;margin-top:10px}
+#fpd_root .fpd-import-zone{border:1.5px dashed var(--line);border-radius:10px;padding:11px;text-align:center;font-size:12px;color:var(--ink-3);cursor:pointer;margin-left:8px}
+#fpd_root .fpd-import-zone:hover{border-color:var(--ink-3);color:var(--ink-2)}
+#fpd_root .fpd-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;padding:10px 18px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80}
+#fpd_root .fpd-toast.fpd-show{opacity:1}
+
 </style>
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-fastpass" viewBox="0 0 24 24"><path d="m5 5 7 7-7 7"/><path class="accent" d="M13 5l7 7-7 7"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 .4-9A6 6 0 0 0 6.2 8.6 4.5 4.5 0 0 0 7 17.5h10.5z"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4.5 4.5"/></symbol>
   <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m7 7-7-7 7-7"/></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
@@ -584,12 +747,191 @@ a.c-val:hover{color:var(--brand-2)}
   </header>
   <main class="cand-main">
     <div class="cand-in">
-      <section class="card dash-empty">
-        <span class="dash-empty-ic"><svg class="ic"><use href="#i-fastpass"/></svg></span>
-        <span class="dash-empty-tag">FastPass browser plugin</span>
-        <h2>No data yet</h2>
-        <p>Once the FastPass plugin is connected, candidate details picked up from your browser will show up here.</p>
-      </section>
+      <div id="fpd_root">
+<div id="fpd_acctPanel" class="fpd-cloud hidden" style="width:340px">
+    <div class="fpd-cloud-row"><span class="fpd-lbl">Recruiter account</span><span id="fpd_acctEmail" class="fpd-cloud-status"></span></div>
+
+    <!-- signed out (real accounts) -->
+    <div id="fpd_acctAuthForms" class="hidden" style="display:flex;flex-direction:column;gap:8px">
+      <input id="fpd_acctInEmail" type="email" placeholder="you@company.com" autocomplete="email" style="font-family:var(--body)" />
+      <input id="fpd_acctInPass" type="password" placeholder="Password (min 6 characters)" autocomplete="current-password" style="font-family:var(--body)" />
+      <div id="fpd_acctRegExtra" class="hidden" style="display:flex;flex-direction:column;gap:8px">
+        <input id="fpd_acctInName" type="text" placeholder="Your name" style="font-family:var(--body)" />
+        <input id="fpd_acctInCompany" type="text" placeholder="Company" style="font-family:var(--body)" />
+      </div>
+      <div class="fpd-cloud-row">
+        <button id="fpd_acctToggleMode" class="fpd-btn-quiet" style="padding-left:0">Create an account</button>
+        <button id="fpd_acctSubmit" class="fpd-btn fpd-btn-brand">Sign in</button>
+      </div>
+    </div>
+
+    <!-- signed in / demo: the profile lives HERE, not in the plugin -->
+    <div id="fpd_acctProfile" style="display:flex;flex-direction:column;gap:8px">
+      <input id="fpd_pfName" type="text" placeholder="Your name" style="font-family:var(--body)" />
+      <input id="fpd_pfCompany" type="text" placeholder="Company" style="font-family:var(--body)" />
+      <label class="fpd-stage-sel"><select id="fpd_pfDial">
+        <option value="60">WhatsApp country: Malaysia (+60)</option>
+        <option value="65">WhatsApp country: Singapore (+65)</option>
+        <option value="62">WhatsApp country: Indonesia (+62)</option>
+        <option value="66">WhatsApp country: Thailand (+66)</option>
+        <option value="63">WhatsApp country: Philippines (+63)</option>
+        <option value="84">WhatsApp country: Vietnam (+84)</option>
+        <option value="91">WhatsApp country: India (+91)</option>
+        <option value="852">WhatsApp country: Hong Kong (+852)</option>
+        <option value="61">WhatsApp country: Australia (+61)</option>
+        <option value="44">WhatsApp country: UK (+44)</option>
+        <option value="1">WhatsApp country: US / Canada (+1)</option>
+      </select></label>
+      <div class="fpd-cloud-row">
+        <span id="fpd_acctStatus" class="fpd-cloud-status">Profile is shared with the plugin</span>
+        <span style="display:flex;gap:8px">
+          <button id="fpd_acctSignOut" class="fpd-btn-quiet hidden">Sign out</button>
+          <button id="fpd_pfSave" class="fpd-btn fpd-btn-brand">Save profile</button>
+        </span>
+      </div>
+    </div>
+    <p class="fpd-cloud-hint" id="fpd_acctHint">Demo mode — connect Supabase in config.js so recruiters can register with email + password.</p>
+  </div>
+<div id="fpd_cloudPanel" class="fpd-cloud hidden">
+    <div class="fpd-cloud-row"><span class="fpd-lbl">Cloud sync · Supabase</span>
+      <label class="fpd-mini-toggle"><input type="checkbox" id="fpd_sbOn"><span class="fpd-mswitch"></span></label>
+    </div>
+    <input id="fpd_sbUrl" type="url" placeholder="https://xxxx.supabase.co" autocomplete="off" />
+    <input id="fpd_sbKey" type="password" placeholder="anon public key" autocomplete="off" />
+    <div class="fpd-cloud-row">
+      <span id="fpd_sbStatus" class="fpd-cloud-status">Off — data stays in this browser</span>
+      <button id="fpd_sbSync" class="fpd-btn fpd-btn-line">Sync now</button>
+    </div>
+    <p class="fpd-cloud-hint">Table setup SQL is in the extension README. Demo uses the anon key — add Supabase Auth before real candidate data.</p>
+  </div>
+<div class="fpd-toolbar">
+  <div class="fpd-toolbar-in" id="fpd_statusTabs">
+    <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
+    <button class="fpd-tab" data-f="pending">New <b id="fpd_nPending">0</b></button>
+    <button class="fpd-tab" data-f="contacted">Contacted <b id="fpd_nContacted">0</b></button>
+    <button class="fpd-tab fpd-tab-follow" data-f="followup">Follow-up <b id="fpd_nFollow">0</b></button>
+    <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
+    <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
+    <div class="fpd-toolbar-actions">
+      <span class="fpd-mode-note"><span id="fpd_modeDot" class="fpd-dot"></span><span id="fpd_modeText">Cloud</span></span>
+      <div id="fpd_importZone" class="fpd-import-zone hidden">Import JSON backup</div>
+      <input id="fpd_importFile" type="file" accept="application/json" class="hidden" />
+      <button id="fpd_exportJson" class="fpd-btn fpd-btn-line"><svg class="ic sm"><use href="#i-download"/></svg> Backup</button>
+      <button id="fpd_exportCsv" class="fpd-btn fpd-btn-line"><svg class="ic sm"><use href="#i-download"/></svg> Export CSV</button>
+      <button id="fpd_cloudBtn" class="fpd-icon-btn" title="Cloud sync" aria-expanded="false"><svg class="ic"><use href="#i-cloud"/></svg></button>
+      <button id="fpd_userChip" class="fpd-icon-btn" title="Account">—</button>
+    </div>
+  </div>
+</div>
+<main class="fpd-table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="fpd-sortable" data-sort="name">Candidate<span class="fpd-arrow" id="fpd_arrName"></span></th>
+        <th class="fpd-col-contact">Contact</th>
+        <th class="fpd-col-facts fpd-sortable" data-sort="salary">Salary · Notice · Location<span class="fpd-arrow" id="fpd_arrSal"></span></th>
+        <th>Status</th>
+        <th class="fpd-col-upd fpd-sortable" data-sort="updated">Updated<span class="fpd-arrow" id="fpd_arrUpd"></span></th>
+      </tr>
+    </thead>
+    <tbody id="fpd_tbody"></tbody>
+  </table>
+</main>
+<div class="fpd-scrim" id="fpd_scrim"></div>
+<aside class="fpd-drawer" id="fpd_drawer" aria-label="Candidate detail">
+  <div class="fpd-drawer-top">
+    <span class="fpd-lbl">Candidate</span>
+    <button class="fpd-icon-btn" id="fpd_drawerClose" title="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+
+  <section class="fpd-card">
+    <div class="fpd-d-head">
+      <span class="fpd-avatar" id="fpd_dAvatar">—</span>
+      <div class="fpd-d-id">
+        <div class="fpd-tbid" id="fpd_dTbId">TB-XX-0000</div>
+        <h1 id="fpd_dName">—</h1>
+        <div class="fpd-d-role" id="fpd_dRole">—</div>
+        <div class="fpd-d-links">
+          <a id="fpd_dSource" target="_blank" rel="noopener"><svg class="ic sm"><use href="#i-external"/></svg><span>Source</span></a>
+          <span class="fpd-d-saved" id="fpd_dSaved"></span>
+        </div>
+      </div>
+      <span id="fpd_dStatusChip" class="fpd-chip fpd-st-pending">New</span>
+    </div>
+    <div class="fpd-status-row">
+      <label class="fpd-stage-sel fpd-grow">
+        <select id="fpd_dStage" aria-label="Pipeline stage">
+          <option value="pending">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="replied">Replied</option>
+          <option value="interview">Interview</option>
+          <option value="offer">Offer</option>
+          <option value="placed">Placed</option>
+          <option value="rejected">Rejected</option>
+          <option value="hold">On hold</option>
+          <option value="passed">Shortlisted</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="fpd-card">
+    <span class="fpd-sec-h">Contact</span>
+    <div class="fpd-f">
+      <div class="fpd-f-top">
+        <span class="fpd-lbl">Email</span>
+        <span style="display:flex;gap:8px;align-items:center">
+          <span id="fpd_srcEmail" class="fpd-src fpd-src-none">—</span>
+          <label class="fpd-verify" id="fpd_verEmailWrap"><input type="checkbox" id="fpd_verEmail" /> Verified</label>
+        </span>
+      </div>
+      <input id="fpd_dEmail" type="email" placeholder="Not found — add it here" />
+    </div>
+    <div class="fpd-f">
+      <div class="fpd-f-top">
+        <span class="fpd-lbl">Phone / WhatsApp</span>
+        <span style="display:flex;gap:8px;align-items:center">
+          <span id="fpd_srcPhone" class="fpd-src fpd-src-none">—</span>
+          <label class="fpd-verify" id="fpd_verPhoneWrap"><input type="checkbox" id="fpd_verPhone" /> Verified</label>
+        </span>
+      </div>
+      <input id="fpd_dPhone" type="tel" placeholder="Not found — add with country code" />
+    </div>
+    <div class="fpd-send-row">
+      <button id="fpd_aWa" class="fpd-btn fpd-btn-green fpd-grow"><svg class="ic sm"><use href="#i-message"/></svg> WhatsApp</button>
+      <button id="fpd_aEmail" class="fpd-btn fpd-btn-line fpd-grow"><svg class="ic sm"><use href="#i-mail"/></svg> Email</button>
+    </div>
+  </section>
+
+  <section class="fpd-card">
+    <span class="fpd-sec-h">Candidate details</span>
+    <p class="fpd-sec-note">Auto-filled when the source page or CV provides them — edit anything to correct it.</p>
+    <div class="fpd-grid2">
+      <div class="fpd-f"><div class="fpd-f-top"><span class="fpd-lbl">Vacancy</span><span id="fpd_srcVac" class="fpd-src fpd-src-none hidden"></span></div><input id="fpd_eVacancy" placeholder="e.g. Jr DevOps — Cyberjaya" /></div>
+      <div class="fpd-f"><div class="fpd-f-top"><span class="fpd-lbl">Qualification</span><span id="fpd_srcQual" class="fpd-src fpd-src-none"></span></div><input id="fpd_eQual" placeholder="e.g. BSc Computer Science" /></div>
+      <div class="fpd-f"><div class="fpd-f-top"><span class="fpd-lbl">Experience</span><span id="fpd_srcExp" class="fpd-src fpd-src-none"></span></div><input id="fpd_eExp" placeholder="e.g. 3 years" /></div>
+      <div class="fpd-f"><div class="fpd-f-top"><span class="fpd-lbl">Expected salary</span><span id="fpd_srcSal" class="fpd-src fpd-src-none"></span></div><input id="fpd_eSalary" placeholder="e.g. RM 4,500/mo" /></div>
+      <div class="fpd-f"><div class="fpd-f-top"><span class="fpd-lbl">Notice period</span><span id="fpd_srcNot" class="fpd-src fpd-src-none"></span></div><input id="fpd_eNotice" placeholder="e.g. 2 months" /></div>
+      <div class="fpd-f"><div class="fpd-f-top"><span class="fpd-lbl">Relocation</span><span id="fpd_srcRel" class="fpd-src fpd-src-none"></span></div>
+        <select id="fpd_eRelo"><option value="">Unknown</option><option>Yes</option><option>No</option><option>Negotiable</option></select>
+      </div>
+      <div class="fpd-f"><div class="fpd-f-top"><span class="fpd-lbl">Nationality</span><span id="fpd_srcNat" class="fpd-src fpd-src-none"></span></div><input id="fpd_eNat" placeholder="e.g. Malaysian" /></div>
+    </div>
+  </section>
+
+  <section class="fpd-card">
+    <span class="fpd-sec-h">Notes</span>
+    <textarea id="fpd_dNotes" rows="4" placeholder="Interview feedback, availability, salary discussion…"></textarea>
+  </section>
+
+  <section class="fpd-card">
+    <span class="fpd-sec-h">Activity</span>
+    <ul id="fpd_dTimeline" class="fpd-timeline"></ul>
+    <button id="fpd_aDelete" class="fpd-btn-quiet fpd-danger" style="margin-top:10px"><svg class="ic sm"><use href="#i-trash"/></svg> Remove candidate</button>
+  </section>
+</aside>
+<div id="fpd_toast" class="fpd-toast"></div>
+</div>
     </div>
   </main>
 </div>
@@ -1584,6 +1926,837 @@ window.addEventListener("keydown", (e) => {
 });
 
 applyAuth();
+</script>
+<script>
+/* ============ FastPass Dashboard runtime (merged) ============ */
+const FP_CONFIG = {
+  SUPABASE_URL: "https://jtrzkihonwvgnggxydaq.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0cnpraWhvbnd2Z25nZ3h5ZGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzOTczNjAsImV4cCI6MjA5OTk3MzM2MH0.DL4fpaTJ4hWU0cXpgo_YeJndX8UYCWdhYp7R3DPkhoc",
+  DASHBOARD_URL: location.origin + location.pathname + "#/dashboard"
+};
+const FP_CONFIGURED = true;
+/* ============ FastPass auth (Supabase, shared by plugin + dashboard) ============
+   Real recruiter accounts: register/login on the dashboard (the account
+   home), then the plugin signs in with the same credentials. The recruiter
+   profile (name, company, default WhatsApp country) lives in the
+   fp_recruiters table — the dashboard edits it, the plugin reads it.
+   Dual-mode session storage: chrome.storage inside the extension,
+   localStorage when the dashboard is hosted as a website. */
+const fpAuth = {
+  session: null, // { access_token, refresh_token, expires_at, user }
+
+  _store() {
+    const v = this.session ? JSON.stringify(this.session) : "";
+    if (typeof chrome !== "undefined" && chrome.storage?.local) {
+      return chrome.storage.local.set({ fpAuthSession: v });
+    }
+    if (v) localStorage.setItem("fpAuthSession", v);
+    else localStorage.removeItem("fpAuthSession");
+    return Promise.resolve();
+  },
+  async load() {
+    let raw = "";
+    if (typeof chrome !== "undefined" && chrome.storage?.local) {
+      raw = (await chrome.storage.local.get("fpAuthSession")).fpAuthSession || "";
+    } else {
+      raw = localStorage.getItem("fpAuthSession") || "";
+    }
+    try { this.session = raw ? JSON.parse(raw) : null; } catch { this.session = null; }
+    if (this.session && this.session.expires_at * 1000 < Date.now() + 60_000) {
+      await this.refresh().catch(() => { this.session = null; this._store(); });
+    }
+    return this.session;
+  },
+
+  _base() { return FP_CONFIG.SUPABASE_URL.replace(/\/$/, ""); },
+  _headers(authed) {
+    const h = { "apikey": FP_CONFIG.SUPABASE_ANON_KEY, "Content-Type": "application/json" };
+    h["Authorization"] = "Bearer " + (authed && this.session ? this.session.access_token : FP_CONFIG.SUPABASE_ANON_KEY);
+    return h;
+  },
+  _setSession(d) {
+    this.session = {
+      access_token: d.access_token,
+      refresh_token: d.refresh_token,
+      expires_at: d.expires_at || Math.floor(Date.now() / 1000) + (d.expires_in || 3600),
+      user: { id: d.user?.id, email: d.user?.email }
+    };
+    return this._store();
+  },
+
+  async signUp(email, password) {
+    const res = await fetch(this._base() + "/auth/v1/signup", {
+      method: "POST", headers: this._headers(false),
+      body: JSON.stringify({ email, password })
+    });
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.msg || d.error_description || d.message || "Sign up failed");
+    if (d.access_token) await this._setSession(d);
+    return d; // if email confirmation is on, there is no session yet
+  },
+  async signIn(email, password) {
+    const res = await fetch(this._base() + "/auth/v1/token?grant_type=password", {
+      method: "POST", headers: this._headers(false),
+      body: JSON.stringify({ email, password })
+    });
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.msg || d.error_description || d.message || "Sign in failed");
+    await this._setSession(d);
+    return this.session;
+  },
+  async refresh() {
+    if (!this.session?.refresh_token) throw new Error("no session");
+    const res = await fetch(this._base() + "/auth/v1/token?grant_type=refresh_token", {
+      method: "POST", headers: this._headers(false),
+      body: JSON.stringify({ refresh_token: this.session.refresh_token })
+    });
+    const d = await res.json();
+    if (!res.ok) throw new Error("session expired");
+    await this._setSession(d);
+    return this.session;
+  },
+  async signOut() {
+    this.session = null;
+    return this._store();
+  },
+
+  /* ---- recruiter profile (fp_recruiters, one row per account) ---- */
+  async getProfile() {
+    if (!this.session) return null;
+    const res = await fetch(this._base() + "/rest/v1/fp_recruiters?id=eq." + this.session.user.id + "&select=*", {
+      headers: this._headers(true)
+    });
+    if (!res.ok) return null;
+    const rows = await res.json();
+    return rows[0] || null;
+  },
+  async saveProfile(profile) {
+    if (!this.session) throw new Error("not signed in");
+    const row = {
+      id: this.session.user.id,
+      name: profile.name || "",
+      company: profile.company || "",
+      default_dial: profile.defaultDial || "60",
+      updated_at: new Date().toISOString()
+    };
+    const res = await fetch(this._base() + "/rest/v1/fp_recruiters?on_conflict=id", {
+      method: "POST",
+      headers: { ...this._headers(true), "Prefer": "resolution=merge-duplicates,return=minimal" },
+      body: JSON.stringify([row])
+    });
+    if (!res.ok) throw new Error("profile save failed (" + res.status + ")");
+    return row;
+  }
+};
+
+(function () {
+/* ============ FastPass Dashboard controller (table + drawer) ============
+   Dual-mode storage:
+   - Inside the extension (chrome.storage.local): live, shared with the plugin.
+   - Standalone (hosted site): localStorage + JSON import/export.            */
+const $ = (id) => document.getElementById(id);
+const EXT = typeof chrome !== "undefined" && !!chrome.storage?.local;
+
+const state = {
+  candidates: [], settings: {}, session: null,
+  selectedId: null, filter: "all", q: "",
+  sortKey: "updated", sortDir: -1
+};
+
+/* ---------- storage ---------- */
+async function load() {
+  if (EXT) {
+    const d = await chrome.storage.local.get(["fpCandidates", "fpSettings", "fpSession"]);
+    state.candidates = d.fpCandidates || [];
+    state.settings = d.fpSettings || {};
+    state.session = d.fpSession || null;
+  } else {
+    try { state.candidates = JSON.parse(localStorage.getItem("fpCandidates") || "[]"); } catch { state.candidates = []; }
+    try { state.settings = JSON.parse(localStorage.getItem("fpSettings") || "{}"); } catch { state.settings = {}; }
+  }
+}
+let saveT;
+function save() {
+  clearTimeout(saveT);
+  saveT = setTimeout(() => {
+    if (EXT) chrome.storage.local.set({ fpCandidates: state.candidates });
+    else localStorage.setItem("fpCandidates", JSON.stringify(state.candidates));
+    cloudAutoPush();
+  }, 250);
+}
+const sel = () => state.candidates.find((c) => c.id === state.selectedId) || null;
+
+/* ---------- helpers ---------- */
+function toast(msg) {
+  const t = $("fpd_toast");
+  t.textContent = msg; t.classList.add("fpd-show");
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("fpd-show"), 2200);
+}
+function timeAgo(iso) {
+  const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+  if (s < 60) return "just now";
+  if (s < 3600) return Math.floor(s / 60) + "m ago";
+  if (s < 86400) return Math.floor(s / 3600) + "h ago";
+  return Math.floor(s / 86400) + "d ago";
+}
+function initials(n) { return (n || "?").split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase(); }
+function tbId(c) {
+  const ini = initials(c.name).replace(/[^A-Z]/g, "").padEnd(2, "X").slice(0, 2);
+  let h = 0; for (const ch of c.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return `TB-${ini}-${(h % 9000) + 1000}`;
+}
+function candStampMs(c) { return new Date(c.updatedAt || c.extractedAt).getTime(); }
+const SRC_LABEL = { page: "Page", pdf: "PDF", ai: "AI", manual: "You" };
+const ST_LABEL = {
+  pending: "New", contacted: "Contacted", replied: "Replied",
+  interview: "Interview", offer: "Offer", placed: "Placed",
+  rejected: "Rejected", hold: "On hold", passed: "Shortlisted"
+};
+const ACTIVE_STAGES = ["replied", "interview", "offer", "passed"];
+const FOLLOWUP_MS = 48 * 3600 * 1000;
+// contacted 48h+ ago and still sitting at Contacted = needs a follow-up
+function needsFollowUp(c) {
+  return c.status === "contacted" && c.lastContact &&
+    (Date.now() - new Date(c.lastContact.at).getTime()) > FOLLOWUP_MS;
+}
+function waNumber(phone, dial) {
+  const raw = (phone || "").trim();
+  const digits = raw.replace(/\D/g, "");
+  if (!digits) return "";
+  if (raw.startsWith("+")) return digits;
+  if (digits.startsWith("00")) return digits.slice(2);
+  if (digits.startsWith("0")) return (dial || "60") + digits.slice(1);
+  return digits;
+}
+function avatarEl(c, cls) {
+  const av = document.createElement("span");
+  av.className = cls; av.textContent = initials(c.name);
+  if (c.photo) {
+    const img = document.createElement("img");
+    img.referrerPolicy = "no-referrer"; img.src = c.photo;
+    img.onerror = () => img.remove(); av.append(img);
+  }
+  return av;
+}
+
+/* ---------- table ---------- */
+function visible() {
+  const q = state.q.toLowerCase();
+  let rows = state.candidates.filter((c) => {
+    if (state.filter === "followup") { if (!needsFollowUp(c)) return false; }
+    else if (state.filter === "active") { if (!ACTIVE_STAGES.includes(c.status)) return false; }
+    else if (state.filter === "closed") { if (!["placed", "rejected", "hold"].includes(c.status)) return false; }
+    else if (state.filter !== "all" && c.status !== state.filter) return false;
+    if (!q) return true;
+    return [c.name, c.title, c.email, c.phone, c.vacancy, c.location, c.sourceHost]
+      .join(" ").toLowerCase().includes(q);
+  });
+  const dir = state.sortDir;
+  // unknown salaries sink to the bottom whichever way we sort
+  const unk = state.sortDir > 0 ? Infinity : -Infinity;
+  const salaryVal = (c) => c.salaryNorm?.amount ?? unk;
+  rows.sort(state.sortKey === "name"
+    ? (a, b) => dir * (a.name || "").localeCompare(b.name || "")
+    : state.sortKey === "salary"
+    ? (a, b) => dir * (salaryVal(a) - salaryVal(b))
+    : (a, b) => dir * (candStampMs(a) - candStampMs(b)));
+  return rows;
+}
+function renderCounts() {
+  const n = (s) => state.candidates.filter((c) => c.status === s).length;
+  $("fpd_nAll").textContent = state.candidates.length;
+  $("fpd_nPending").textContent = n("pending");
+  $("fpd_nContacted").textContent = n("contacted");
+  $("fpd_nFollow").textContent = state.candidates.filter(needsFollowUp).length;
+  $("fpd_nActive").textContent = state.candidates.filter((c) => ACTIVE_STAGES.includes(c.status)).length;
+  $("fpd_nClosed").textContent = state.candidates.filter((c) => ["placed", "rejected", "hold"].includes(c.status)).length;
+  document.querySelectorAll("#fpd_statusTabs .fpd-tab").forEach((b) =>
+    b.classList.toggle("active", b.dataset.f === state.filter));
+  $("fpd_arrName").textContent = state.sortKey === "name" ? (state.sortDir > 0 ? "▲" : "▼") : "";
+  $("fpd_arrUpd").textContent = state.sortKey === "updated" ? (state.sortDir > 0 ? "▲" : "▼") : "";
+}
+function contactCell(c) {
+  const td = document.createElement("td");
+  td.className = "fpd-cell-contact fpd-col-contact";
+  const mk = (val, verified) => {
+    const d = document.createElement("div");
+    if (val) {
+      d.textContent = val;
+      if (verified) {
+        const v = document.createElement("span");
+        v.className = "fpd-vtick"; v.title = "Verified";
+        v.innerHTML = '<svg class="ic sm"><use href="#i-check"/></svg>';
+        d.append(v);
+      }
+    } else {
+      d.innerHTML = '<span class="fpd-none">—</span>';
+    }
+    return d;
+  };
+  td.append(mk(c.email, c.verified?.email), mk(c.phone, c.verified?.phone));
+  return td;
+}
+function renderTable() {
+  const tb = $("fpd_tbody"); tb.innerHTML = "";
+  const rows = visible();
+  if (!rows.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 5; td.className = "fpd-empty-table";
+    td.textContent = state.candidates.length
+      ? "No candidates match."
+      : "No candidates yet — sign in (top-right) and save candidates with the FastPass plugin; they sync here automatically.";
+    tr.append(td); tb.append(tr);
+    return;
+  }
+  for (const c of rows) {
+    const tr = document.createElement("tr");
+    tr.className = c.id === state.selectedId && document.body.classList.contains("fpd-drawer-open") ? "fpd-sel" : "";
+
+    const tdC = document.createElement("td");
+    const wrap = document.createElement("div"); wrap.className = "fpd-cell-cand";
+    const nm = document.createElement("span"); nm.className = "fpd-cand-nm";
+    const s1 = document.createElement("strong"); s1.textContent = c.name || "Unnamed";
+    const s2 = document.createElement("span"); s2.textContent = c.title || c.sourceHost || "—";
+    nm.append(s1, s2);
+    wrap.append(avatarEl(c, "fpd-avatar"), nm); tdC.append(wrap);
+
+    const tdF = document.createElement("td");
+    tdF.className = "fpd-cell-facts fpd-col-facts";
+    const facts = [c.expectedSalary, c.noticePeriod, (c.location || "").split(",")[0]].filter(Boolean);
+    tdF.innerHTML = facts.length
+      ? facts.map((f) => `<span></span>`).join('<span class="fpd-sep">·</span>')
+      : '<span class="fpd-none" style="color:var(--ink-3)">—</span>';
+    [...tdF.querySelectorAll("span:not(.fpd-sep):not(.fpd-none)")].forEach((el, i) => el.textContent = facts[i]);
+
+    const tdS = document.createElement("td");
+    const chip = document.createElement("span");
+    chip.className = "fpd-chip fpd-st-" + c.status;
+    chip.textContent = ST_LABEL[c.status] || c.status;
+    tdS.append(chip);
+
+    const tdU = document.createElement("td");
+    tdU.className = "fpd-cell-upd fpd-col-upd";
+    tdU.textContent = timeAgo(c.updatedAt || c.extractedAt);
+    if (needsFollowUp(c)) {
+      const f = document.createElement("span");
+      f.className = "fpd-flag-follow";
+      f.textContent = "Follow up";
+      tdU.append(f);
+    }
+
+    tr.append(tdC, contactCell(c), tdF, tdS, tdU);
+    tr.addEventListener("click", () => openDrawer(c.id));
+    tb.append(tr);
+  }
+}
+
+/* ---------- drawer ---------- */
+function setSrc(el, src) {
+  el.className = "fpd-src " + (src ? "fpd-src-" + src : "fpd-src-none");
+  el.textContent = src ? SRC_LABEL[src] : "Empty";
+}
+function openDrawer(id) {
+  state.selectedId = id;
+  renderDetail();
+  document.body.classList.add("fpd-drawer-open");
+  renderTable();
+}
+function closeDrawer() {
+  document.body.classList.remove("fpd-drawer-open");
+  renderTable();
+}
+function renderDetail() {
+  const c = sel();
+  if (!c) return;
+
+  $("fpd_dTbId").textContent = tbId(c);
+  $("fpd_dName").textContent = c.name || "Unnamed candidate";
+  $("fpd_dRole").textContent = c.title || "Role not captured";
+  const holder = $("fpd_dAvatar");
+  holder.replaceWith(Object.assign(avatarEl(c, "fpd-avatar"), { id: "fpd_dAvatar" }));
+  $("fpd_dSource").href = c.sourceUrl || "#";
+  $("fpd_dSource").querySelector("span").textContent = c.site ? `View on ${c.site}` : `View source (${c.sourceHost || "—"})`;
+  $("fpd_dSaved").textContent = "Saved " + timeAgo(c.extractedAt);
+
+  const chip = $("fpd_dStatusChip");
+  chip.textContent = ST_LABEL[c.status] || c.status;
+  chip.className = "fpd-chip fpd-st-" + c.status;
+  $("fpd_dStage").value = c.status || "pending";
+
+  $("fpd_dEmail").value = c.email || "";
+  $("fpd_dPhone").value = c.phone || "";
+  setSrc($("fpd_srcEmail"), c.email ? c.sources?.email : "");
+  setSrc($("fpd_srcPhone"), c.phone ? c.sources?.phone : "");
+  $("fpd_verEmail").checked = !!c.verified?.email;
+  $("fpd_verPhone").checked = !!c.verified?.phone;
+  $("fpd_verEmailWrap").classList.toggle("fpd-on", !!c.verified?.email);
+  $("fpd_verPhoneWrap").classList.toggle("fpd-on", !!c.verified?.phone);
+
+  $("fpd_eVacancy").value = c.vacancy || "";
+  $("fpd_eQual").value = c.qualification || "";
+  $("fpd_eExp").value = c.experience || "";
+  $("fpd_eSalary").value = c.expectedSalary || "";
+  $("fpd_eNotice").value = c.noticePeriod || "";
+  $("fpd_eRelo").value = c.relocation2 || "";
+  $("fpd_eNat").value = c.nationality || "";
+  $("fpd_dNotes").value = c.notes || "";
+  setSrc($("fpd_srcQual"), c.qualification ? c.sources?.qualification : "");
+  setSrc($("fpd_srcExp"), c.experience ? c.sources?.experience : "");
+  setSrc($("fpd_srcSal"), c.expectedSalary ? c.sources?.expectedSalary : "");
+  setSrc($("fpd_srcNot"), c.noticePeriod ? c.sources?.noticePeriod : "");
+  setSrc($("fpd_srcRel"), c.relocation2 ? c.sources?.relocation2 : "");
+  setSrc($("fpd_srcNat"), c.nationality ? c.sources?.nationality : "");
+
+  const tl = $("fpd_dTimeline"); tl.innerHTML = "";
+  const events = [{ when: c.extractedAt, what: `Saved from ${c.site || c.sourceHost}` }];
+  (c.log || []).forEach((e) => events.push(e));
+  // legacy candidates saved before activity history existed
+  if (!c.log?.length && c.lastContact) events.push({ when: c.lastContact.at, what: `Contacted via ${c.lastContact.channel}` });
+  events.sort((a, b) => new Date(b.when) - new Date(a.when));
+  for (const e of events) {
+    const li = document.createElement("li");
+    const w = document.createElement("span"); w.className = "fpd-t-when"; w.textContent = timeAgo(e.when);
+    const t = document.createElement("span"); t.textContent = e.what;
+    li.append(w, t); tl.append(li);
+  }
+}
+function renderAll() { renderCounts(); renderTable(); if (document.body.classList.contains("fpd-drawer-open")) renderDetail(); }
+
+/* ---------- edits ---------- */
+function bindField(id, key, opts = {}) {
+  $(id).addEventListener("input", (e) => {
+    const c = sel(); if (!c) return;
+    c[key] = e.target.value;
+    c.updatedAt = new Date().toISOString();
+    if (opts.manualSource) {
+      c.sources = { ...(c.sources || {}), [key]: "manual" };
+      setSrc($(opts.srcEl), c[key] ? "manual" : "");
+    }
+    save();
+    if (opts.rerenderList) renderTable();
+  });
+}
+
+/* ---------- exports ---------- */
+function download(name, mime, content) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([content], { type: mime }));
+  a.download = name; a.click(); URL.revokeObjectURL(a.href);
+}
+function exportJson() {
+  download(`fastpass-backup-${new Date().toISOString().slice(0, 10)}.json`,
+    "application/json", JSON.stringify({ fpCandidates: state.candidates }, null, 2));
+  toast("Backup downloaded");
+}
+function exportCsv() {
+  const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const head = ["TB ID","Name","Role","Email","Email Verified","Phone","Phone Verified","Status","Vacancy","Qualification","Experience","Expected Salary","Notice Period","Relocation","Nationality","Location","Notes","Last Contact","Source","Saved At"];
+  const rows = state.candidates.map((c) => [
+    tbId(c), c.name, c.title, c.email, c.verified?.email ? "Yes" : "", c.phone, c.verified?.phone ? "Yes" : "",
+    ST_LABEL[c.status] || c.status, c.vacancy, c.qualification, c.experience, c.expectedSalary, c.noticePeriod,
+    c.relocation2, c.nationality, c.location, c.notes,
+    c.lastContact ? `${c.lastContact.channel} ${c.lastContact.at}` : "", c.sourceUrl, c.extractedAt
+  ].map(esc).join(","));
+  download(`fastpass-${new Date().toISOString().slice(0, 10)}.csv`, "text/csv;charset=utf-8",
+    "\uFEFF" + [head.map(esc).join(","), ...rows].join("\r\n"));
+  toast("CSV downloaded");
+}
+function importJson(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const data = JSON.parse(r.result);
+      const list = data.fpCandidates || data.candidates || (Array.isArray(data) ? data : null);
+      if (!Array.isArray(list)) throw 0;
+      const byId = new Map(state.candidates.map((c) => [c.id, c]));
+      list.forEach((c) => byId.set(c.id, c));
+      state.candidates = [...byId.values()].sort((a, b) => new Date(b.extractedAt) - new Date(a.extractedAt));
+      save(); renderAll();
+      toast(`Imported ${list.length} candidate(s)`);
+    } catch { toast("That file isn't a FastPass backup"); }
+  };
+  r.readAsText(file);
+}
+
+/* ---------- outreach (mirrors the plugin) ---------- */
+function tpl(c, kind) {
+  const company = state.settings.recruiterCompany || "Talentbank";
+  const sender = state.settings.recruiterName || "Talent team";
+  return kind === "wa"
+    ? `Hi ${c.name || "there"},\n\nI hope you're doing well. I'm reaching out from ${company} regarding your background and interest in the ${c.vacancy || c.title || "open"} role.\n\nI would love to schedule a quick 10-minute call this week.\n\nBest regards,\n${sender}\n${company}`
+    : `Hi ${c.name || "there"},\n\nI'm ${sender} from ${company}. We came across your profile and would like to fast-track you for the ${c.vacancy || c.title || "open"} position.\n\nCould you share your availability this week for a short call?\n\nBest regards,\n${sender}\n${company}`;
+}
+function logSend(c, channel) {
+  c.lastContact = { channel, at: new Date().toISOString() };
+  c.updatedAt = c.lastContact.at;
+  c.log = c.log || [];
+  c.log.push({ when: c.lastContact.at, what: `Contacted via ${channel}` });
+  if (c.status === "pending") c.status = "contacted"; // auto-advance
+  save(); renderAll();
+}
+
+/* ---------- cloud sync (Supabase, optional) ----------
+   Local-first: everything works offline; when enabled, the candidate
+   list is mirrored to a Supabase table. Two-way "Sync now" = pull
+   (newer remote wins) then push (upsert all). Table + policy SQL is
+   in the extension README. Demo-grade auth (anon key). */
+const cloud = { url: "", key: "", enabled: false, busy: false };
+
+/* ---------- recruiter account (the account home is the dashboard) ---------- */
+function saveSettings() {
+  if (EXT) chrome.storage.local.set({ fpSettings: state.settings });
+  else localStorage.setItem("fpSettings", JSON.stringify(state.settings));
+}
+function renderAccount() {
+  const authed = FP_CONFIGURED && !!fpAuth.session;
+  $("fpd_acctAuthForms").classList.toggle("hidden", !FP_CONFIGURED || authed);
+  $("fpd_acctProfile").classList.toggle("hidden", FP_CONFIGURED && !authed);
+  $("fpd_acctSignOut").classList.toggle("hidden", !authed);
+  $("fpd_acctEmail").textContent = authed ? fpAuth.session.user.email : (FP_CONFIGURED ? "Signed out" : "Demo mode");
+  $("fpd_acctHint").textContent = FP_CONFIGURED
+    ? "Recruiters register here once, then sign in from the plugin with the same email."
+    : "Demo mode — connect Supabase in config.js so recruiters can register with email + password.";
+  $("fpd_pfName").value = state.settings.recruiterName || "";
+  $("fpd_pfCompany").value = state.settings.recruiterCompany || "";
+  $("fpd_pfDial").value = state.settings.defaultDial || "60";
+  $("fpd_userChip").textContent = initials(state.settings.recruiterName || state.session?.displayName || "?");
+}
+function wireAccount() {
+  $("fpd_userChip").style.cursor = "pointer";
+  $("fpd_userChip").addEventListener("click", () => {
+    $("fpd_acctPanel").classList.toggle("hidden");
+    $("fpd_cloudPanel").classList.add("hidden");
+  });
+  let registering = false;
+  $("fpd_acctToggleMode").addEventListener("click", () => {
+    registering = !registering;
+    $("fpd_acctRegExtra").classList.toggle("hidden", !registering);
+    $("fpd_acctToggleMode").textContent = registering ? "I already have an account" : "Create an account";
+    $("fpd_acctSubmit").textContent = registering ? "Create account" : "Sign in";
+  });
+  $("fpd_acctSubmit").addEventListener("click", async () => {
+    const email = $("fpd_acctInEmail").value.trim();
+    const pass = $("fpd_acctInPass").value;
+    try {
+      $("fpd_acctSubmit").disabled = true;
+      if (registering) {
+        const d = await fpAuth.signUp(email, pass);
+        if (fpAuth.session) {
+          state.settings.recruiterName = $("fpd_acctInName").value.trim();
+          state.settings.recruiterCompany = $("fpd_acctInCompany").value.trim();
+          saveSettings();
+          await fpAuth.saveProfile({
+            name: state.settings.recruiterName,
+            company: state.settings.recruiterCompany,
+            defaultDial: state.settings.defaultDial || "60"
+          });
+          toast("Account created — you're signed in");
+        } else {
+          toast("Account created — confirm the email Supabase sent you, then sign in");
+        }
+      } else {
+        await fpAuth.signIn(email, pass);
+        const prof = await fpAuth.getProfile();
+        if (prof) {
+          state.settings.recruiterName = prof.name || state.settings.recruiterName;
+          state.settings.recruiterCompany = prof.company || state.settings.recruiterCompany;
+          state.settings.defaultDial = prof.default_dial || state.settings.defaultDial;
+          saveSettings();
+        }
+        toast("Signed in");
+      }
+      renderAccount(); renderAll();
+      cloud.enabled = true; cloudSave();
+      cloudSync(false); // pull this recruiter's pipeline immediately
+    } catch (e) {
+      toast(String(e.message || e));
+    } finally {
+      $("fpd_acctSubmit").disabled = false;
+    }
+  });
+  $("fpd_acctSignOut").addEventListener("click", async () => {
+    await fpAuth.signOut();
+    renderAccount();
+    toast("Signed out");
+  });
+  $("fpd_pfSave").addEventListener("click", async () => {
+    state.settings.recruiterName = $("fpd_pfName").value.trim();
+    state.settings.recruiterCompany = $("fpd_pfCompany").value.trim();
+    state.settings.defaultDial = $("fpd_pfDial").value;
+    saveSettings();
+    renderAccount();
+    if (FP_CONFIGURED && fpAuth.session) {
+      try {
+        await fpAuth.saveProfile({
+          name: state.settings.recruiterName,
+          company: state.settings.recruiterCompany,
+          defaultDial: state.settings.defaultDial
+        });
+        toast("Profile saved to your account");
+      } catch (e) { toast("Saved locally; cloud profile failed: " + (e.message || e)); }
+    } else {
+      toast("Profile saved — the plugin will use it");
+    }
+  });
+}
+
+function cloudLoad() {
+  try {
+    const raw = EXT ? null : localStorage.getItem("fpCloud");
+    if (raw) Object.assign(cloud, JSON.parse(raw));
+  } catch {}
+  if (EXT) {
+    return chrome.storage.local.get("fpCloud").then((d) => Object.assign(cloud, d.fpCloud || {}));
+  }
+  return Promise.resolve();
+}
+function cloudSave() {
+  const conf = { url: cloud.url, key: cloud.key, enabled: cloud.enabled };
+  if (EXT) chrome.storage.local.set({ fpCloud: conf });
+  else localStorage.setItem("fpCloud", JSON.stringify(conf));
+}
+function cloudStatus(msg, cls) {
+  const el = $("fpd_sbStatus");
+  el.textContent = msg;
+  el.className = "fpd-cloud-status" + (cls ? " fpd-" + cls : "");
+}
+function sbHeaders() {
+  const token = (FP_CONFIGURED && fpAuth.session?.access_token) || cloud.key;
+  return {
+    "apikey": cloud.key,
+    "Authorization": "Bearer " + token,
+    "Content-Type": "application/json"
+  };
+}
+function candStamp(c) { return new Date(c.updatedAt || c.extractedAt).toISOString(); }
+
+async function cloudPush() {
+  if (!state.candidates.length) return 0;
+  const owner = FP_CONFIGURED && fpAuth.session ? fpAuth.session.user.id : null;
+  const rows = state.candidates.map((c) => ({ id: c.id, ...(owner ? { owner } : {}), data: c, updated_at: candStamp(c) }));
+  const res = await fetch(cloud.url.replace(/\/$/, "") + "/rest/v1/fp_candidates?on_conflict=id", {
+    method: "POST",
+    headers: { ...sbHeaders(), "Prefer": "resolution=merge-duplicates,return=minimal" },
+    body: JSON.stringify(rows)
+  });
+  if (!res.ok) throw new Error("push failed (" + res.status + ")");
+  return rows.length;
+}
+async function cloudPull() {
+  const res = await fetch(cloud.url.replace(/\/$/, "") + "/rest/v1/fp_candidates?select=id,data,updated_at", {
+    headers: sbHeaders()
+  });
+  if (!res.ok) throw new Error("pull failed (" + res.status + ")");
+  const remote = await res.json();
+  const byId = new Map(state.candidates.map((c) => [c.id, c]));
+  let changed = 0;
+  for (const r of remote) {
+    const local = byId.get(r.id);
+    if (!local) { byId.set(r.id, r.data); changed++; }
+    else if (new Date(r.updated_at) > new Date(candStamp(local))) { byId.set(r.id, r.data); changed++; }
+  }
+  if (changed) {
+    state.candidates = [...byId.values()].sort((a, b) => new Date(b.extractedAt) - new Date(a.extractedAt));
+    save();
+  }
+  return changed;
+}
+async function cloudSync(manual) {
+  if (!cloud.enabled || !cloud.url || !cloud.key || cloud.busy) {
+    if (manual) cloudStatus(!cloud.enabled ? "Turn sync on first" : "Add your Supabase URL and key", "err");
+    return;
+  }
+  cloud.busy = true;
+  cloudStatus("Syncing…");
+  try {
+    const pulled = await cloudPull();
+    const pushed = await cloudPush();
+    renderAll();
+    cloudStatus(`Synced — ${pushed} up, ${pulled} down · ${new Date().toLocaleTimeString()}`, "on");
+  } catch (e) {
+    cloudStatus(String(e.message || e), "err");
+  } finally {
+    cloud.busy = false;
+  }
+}
+let pushT;
+function cloudAutoPush() {
+  if (!cloud.enabled || !cloud.url || !cloud.key) return;
+  clearTimeout(pushT);
+  pushT = setTimeout(() => cloudPush().then(
+    () => cloudStatus("Synced · " + new Date().toLocaleTimeString(), "on"),
+    (e) => cloudStatus(String(e.message || e), "err")
+  ), 1500);
+}
+
+/* ---------- wiring ---------- */
+function wire() {
+  document.querySelectorAll("#fpd_statusTabs .fpd-tab").forEach((b) =>
+    b.addEventListener("click", () => { state.filter = b.dataset.f; renderCounts(); renderTable(); }));
+  $("q").addEventListener("input", (e) => { state.q = e.target.value; renderTable(); });
+
+  document.querySelectorAll("#fpd_root thead th.sortable").forEach((th) =>
+    th.addEventListener("click", () => {
+      const k = th.dataset.sort;
+      if (state.sortKey === k) state.sortDir *= -1;
+      else { state.sortKey = k; state.sortDir = k === "name" ? 1 : -1; }
+      renderCounts(); renderTable();
+    }));
+
+  bindField("fpd_dEmail", "email", { manualSource: true, srcEl: "fpd_srcEmail", rerenderList: true });
+  bindField("fpd_dPhone", "phone", { manualSource: true, srcEl: "fpd_srcPhone", rerenderList: true });
+  bindField("fpd_eVacancy", "vacancy", { rerenderList: true });
+  bindField("fpd_eQual", "qualification", { manualSource: true, srcEl: "fpd_srcQual" });
+  bindField("fpd_eExp", "experience", { manualSource: true, srcEl: "fpd_srcExp" });
+  bindField("fpd_eSalary", "expectedSalary", { manualSource: true, srcEl: "fpd_srcSal", rerenderList: true });
+  bindField("fpd_eNotice", "noticePeriod", { manualSource: true, srcEl: "fpd_srcNot", rerenderList: true });
+  bindField("fpd_eNat", "nationality", { manualSource: true, srcEl: "fpd_srcNat" });
+  bindField("fpd_dNotes", "notes");
+  $("fpd_eRelo").addEventListener("change", (e) => {
+    const c = sel(); if (!c) return;
+    c.relocation2 = e.target.value;
+    c.sources = { ...(c.sources || {}), relocation2: "manual" };
+    c.updatedAt = new Date().toISOString();
+    setSrc($("fpd_srcRel"), c.relocation2 ? "manual" : "");
+    save();
+  });
+
+  const ver = (box, wrap, key) => $(box).addEventListener("change", (e) => {
+    const c = sel(); if (!c) return;
+    c.verified = { ...(c.verified || {}), [key]: e.target.checked };
+    c.updatedAt = new Date().toISOString();
+    $(wrap).classList.toggle("fpd-on", e.target.checked);
+    save(); renderTable();
+  });
+  ver("fpd_verEmail", "fpd_verEmailWrap", "email");
+  ver("fpd_verPhone", "fpd_verPhoneWrap", "phone");
+
+  $("fpd_dStage").addEventListener("change", (e) => {
+    const c = sel(); if (!c) return;
+    c.status = e.target.value;
+    c.updatedAt = new Date().toISOString();
+    c.log = c.log || [];
+    c.log.push({ when: c.updatedAt, what: `Stage → ${ST_LABEL[c.status] || c.status}` });
+    save(); renderAll();
+  });
+  $("fpd_aDelete").addEventListener("click", () => {
+    const c = sel(); if (!c) return;
+    const idx = state.candidates.findIndex((x) => x.id === c.id);
+    state.candidates = state.candidates.filter((x) => x.id !== c.id);
+    state.selectedId = null;
+    closeDrawer();
+    save(); renderAll();
+    // destructive actions get an undo, not a confirm dialog
+    state.lastDeleted = { c, idx };
+    const t = $("fpd_toast");
+    t.innerHTML = "";
+    t.append(`Removed ${c.name || "candidate"} `);
+    const u = document.createElement("button");
+    u.id = "fpd_undoBtn"; u.textContent = "Undo";
+    u.style.cssText = "margin-left:10px;border:0;background:none;color:#8fb4ff;font-weight:700;cursor:pointer;font-size:13px";
+    u.addEventListener("click", () => {
+      const d = state.lastDeleted;
+      if (!d) return;
+      state.candidates.splice(Math.min(d.idx, state.candidates.length), 0, d.c);
+      state.lastDeleted = null;
+      save(); renderAll();
+      t.classList.remove("fpd-show");
+    });
+    t.append(u);
+    t.classList.add("fpd-show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("fpd-show"), 6000);
+  });
+
+  $("fpd_aWa").addEventListener("click", () => {
+    const c = sel(); if (!c) return;
+    const ph = waNumber(c.phone, state.settings.defaultDial);
+    if (!ph) return toast("No phone on file — add one first");
+    window.open(`https://wa.me/${ph}?text=${encodeURIComponent(tpl(c, "wa"))}`, "_blank");
+    logSend(c, "WhatsApp");
+  });
+  $("fpd_aEmail").addEventListener("click", () => {
+    const c = sel(); if (!c) return;
+    if (!c.email) return toast("No email on file — add one first");
+    const subj = encodeURIComponent(`Opportunity — ${c.vacancy || c.title || "your next role"}`);
+    window.open(`mailto:${c.email}?subject=${subj}&body=${encodeURIComponent(tpl(c, "email"))}`, "_blank");
+    logSend(c, "Email");
+  });
+
+  $("fpd_drawerClose").addEventListener("click", closeDrawer);
+  $("fpd_scrim").addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDrawer(); });
+
+  // cloud sync controls
+  $("fpd_cloudBtn").addEventListener("click", () => {
+    const open = $("fpd_cloudPanel").classList.toggle("hidden");
+    $("fpd_acctPanel").classList.add("hidden");
+    $("fpd_cloudBtn").setAttribute("aria-expanded", String(!open));
+  });
+  $("fpd_sbUrl").addEventListener("input", (e) => { cloud.url = e.target.value.trim(); cloudSave(); });
+  $("fpd_sbKey").addEventListener("input", (e) => { cloud.key = e.target.value.trim(); cloudSave(); });
+  $("fpd_sbOn").addEventListener("change", (e) => {
+    cloud.enabled = e.target.checked;
+    cloudSave();
+    cloudStatus(cloud.enabled ? "On — will sync on changes" : "Off — data stays in this browser", cloud.enabled ? "on" : "");
+    if (cloud.enabled) cloudSync(false);
+  });
+  $("fpd_sbSync").addEventListener("click", () => cloudSync(true));
+
+  $("fpd_exportJson").addEventListener("click", exportJson);
+  $("fpd_exportCsv").addEventListener("click", exportCsv);
+  $("fpd_importZone").addEventListener("click", () => $("fpd_importFile").click());
+  $("fpd_importFile").addEventListener("change", (e) => e.target.files[0] && importJson(e.target.files[0]));
+  ["dragover", "drop"].forEach((ev) => $("fpd_importZone").addEventListener(ev, (e) => {
+    e.preventDefault();
+    if (ev === "drop" && e.dataTransfer.files[0]) importJson(e.dataTransfer.files[0]);
+  }));
+
+  if (EXT && chrome.storage.onChanged) {
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === "local" && changes.fpCandidates) {
+        state.candidates = changes.fpCandidates.newValue || [];
+        if (state.selectedId && !state.candidates.find((c) => c.id === state.selectedId)) {
+          state.selectedId = null; closeDrawer();
+        }
+        renderAll();
+      }
+    });
+  }
+}
+
+/* ---------- boot ---------- */
+(async function init() {
+  await load();
+  if (FP_CONFIGURED) {
+    await fpAuth.load();
+    cloud.url = cloud.url || FP_CONFIG.SUPABASE_URL;
+    cloud.key = cloud.key || FP_CONFIG.SUPABASE_ANON_KEY;
+  }
+  await cloudLoad();
+  if (FP_CONFIGURED) { cloud.url = FP_CONFIG.SUPABASE_URL; cloud.key = FP_CONFIG.SUPABASE_ANON_KEY; }
+  wireAccount();
+  renderAccount();
+  $("fpd_sbUrl").value = cloud.url || "";
+  $("fpd_sbKey").value = cloud.key || "";
+  $("fpd_sbOn").checked = !!cloud.enabled;
+  if (cloud.enabled) { cloudStatus("On — syncing…", "on"); cloudSync(false); }
+  $("fpd_modeDot").className = "fpd-dot" + (EXT ? "" : " fpd-off");
+  $("fpd_modeText").textContent = EXT ? "Cloud synced with your FastPass plugin" : "Sign in (account button) to load your pipeline";
+  $("fpd_importZone").classList.toggle("hidden", EXT);
+  $("fpd_userChip").textContent = initials(state.session?.displayName || state.settings.recruiterName || "?");
+  wire();
+  renderAll();
+})();
+
+})();
+/* deep link from the plugin: #/dashboard opens the Dashboard role */
+try {
+  if (/^#\/dashboard/.test(location.hash)) {
+    localStorage.setItem("tbRole", "candidate");
+    if (localStorage.getItem("tbAuthed") === "1" && typeof applyRole === "function") applyRole();
+  }
+} catch (e) {}
 </script>
 </body>
 </html>
