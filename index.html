@@ -1932,7 +1932,9 @@ applyAuth();
 const FP_CONFIG = {
   SUPABASE_URL: "https://jtrzkihonwvgnggxydaq.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0cnpraWhvbnd2Z25nZ3h5ZGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzOTczNjAsImV4cCI6MjA5OTk3MzM2MH0.DL4fpaTJ4hWU0cXpgo_YeJndX8UYCWdhYp7R3DPkhoc",
-  DASHBOARD_URL: location.origin + location.pathname + "#/dashboard"
+  DASHBOARD_URL: location.origin + location.pathname + "#/dashboard",
+  DEMO_EMAIL: "demo@talentbank-fastpass.app",
+  DEMO_PASSWORD: "fastpass-demo-2026!"
 };
 const FP_CONFIGURED = true;
 /* ============ FastPass auth (Supabase, shared by plugin + dashboard) ============
@@ -2205,7 +2207,7 @@ function renderTable() {
     td.colSpan = 5; td.className = "fpd-empty-table";
     td.textContent = state.candidates.length
       ? "No candidates match."
-      : "No candidates yet — sign in (top-right) and save candidates with the FastPass plugin; they sync here automatically.";
+      : "No candidates yet — save candidates with the FastPass plugin and they sync here automatically.";
     tr.append(td); tb.append(tr);
     return;
   }
@@ -2409,14 +2411,12 @@ function saveSettings() {
   else localStorage.setItem("fpSettings", JSON.stringify(state.settings));
 }
 function renderAccount() {
-  const authed = FP_CONFIGURED && !!fpAuth.session;
-  $("fpd_acctAuthForms").classList.toggle("hidden", !FP_CONFIGURED || authed);
-  $("fpd_acctProfile").classList.toggle("hidden", FP_CONFIGURED && !authed);
-  $("fpd_acctSignOut").classList.toggle("hidden", !authed);
-  $("fpd_acctEmail").textContent = authed ? fpAuth.session.user.email : (FP_CONFIGURED ? "Signed out" : "Demo mode");
-  $("fpd_acctHint").textContent = FP_CONFIGURED
-    ? "Recruiters register here once, then sign in from the plugin with the same email."
-    : "Demo mode — connect Supabase in config.js so recruiters can register with email + password.";
+  // one-click demo everywhere: no credentials UI, profile only
+  $("fpd_acctAuthForms").classList.add("hidden");
+  $("fpd_acctProfile").classList.remove("hidden");
+  $("fpd_acctSignOut").classList.add("hidden");
+  $("fpd_acctEmail").textContent = fpAuth.session ? "Demo · cloud connected" : "Demo · connecting…";
+  $("fpd_acctHint").textContent = "One-click demo workspace — this profile and your pipeline sync with the FastPass plugin through Supabase.";
   $("fpd_pfName").value = state.settings.recruiterName || "";
   $("fpd_pfCompany").value = state.settings.recruiterCompany || "";
   $("fpd_pfDial").value = state.settings.defaultDial || "60";
@@ -2730,6 +2730,27 @@ function wire() {
   await load();
   if (FP_CONFIGURED) {
     await fpAuth.load();
+    if (!fpAuth.session) {
+      try {
+        await fpAuth.signIn(FP_CONFIG.DEMO_EMAIL, FP_CONFIG.DEMO_PASSWORD);
+      } catch {
+        try {
+          await fpAuth.signUp(FP_CONFIG.DEMO_EMAIL, FP_CONFIG.DEMO_PASSWORD);
+          if (!fpAuth.session) await fpAuth.signIn(FP_CONFIG.DEMO_EMAIL, FP_CONFIG.DEMO_PASSWORD);
+        } catch { /* offline: local only */ }
+      }
+    }
+    if (fpAuth.session) {
+      try {
+        const prof = await fpAuth.getProfile();
+        if (prof) {
+          state.settings.recruiterName = prof.name || state.settings.recruiterName;
+          state.settings.recruiterCompany = prof.company || state.settings.recruiterCompany;
+          state.settings.defaultDial = prof.default_dial || state.settings.defaultDial;
+          saveSettings();
+        }
+      } catch {}
+    }
     cloud.url = cloud.url || FP_CONFIG.SUPABASE_URL;
     cloud.key = cloud.key || FP_CONFIG.SUPABASE_ANON_KEY;
   }
@@ -2740,9 +2761,10 @@ function wire() {
   $("fpd_sbUrl").value = cloud.url || "";
   $("fpd_sbKey").value = cloud.key || "";
   $("fpd_sbOn").checked = !!cloud.enabled;
+  if (fpAuth.session) { cloud.enabled = true; cloudSave(); }
   if (cloud.enabled) { cloudStatus("On — syncing…", "on"); cloudSync(false); }
   $("fpd_modeDot").className = "fpd-dot" + (EXT ? "" : " fpd-off");
-  $("fpd_modeText").textContent = EXT ? "Cloud synced with your FastPass plugin" : "Sign in (account button) to load your pipeline";
+  $("fpd_modeText").textContent = EXT ? "Cloud synced with your FastPass plugin" : "Cloud connecting…";
   $("fpd_importZone").classList.toggle("hidden", EXT);
   $("fpd_userChip").textContent = initials(state.session?.displayName || state.settings.recruiterName || "?");
   wire();
