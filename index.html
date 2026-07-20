@@ -256,28 +256,31 @@ body.sidebar-collapsed .sidebar-expand{display:flex}
 .skill{background:var(--bg);border:1px solid var(--line);border-radius:20px;font-size:12.5px;font-weight:500;padding:6px 14px;color:var(--ink-2);transition:border-color .13s,color .13s,background .13s}
 .skill:hover{border-color:var(--brand-line);background:var(--brand-tint);color:var(--brand-2)}
 
-/* about & education */
+/* about */
 .about{color:var(--ink-2);font-size:14px;line-height:1.7}
-.edu-sub{margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft);display:flex;gap:14px;align-items:flex-start}
-.edu-sub.edu-sub-flush{margin-top:0;padding-top:0;border-top:0}
-.edu-ic{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:var(--bg);color:var(--ink-2);flex-shrink:0}
-.edu-ic .ic{width:19px;height:19px;stroke-width:1.9}
-.edu strong{display:block;color:var(--ink);font-size:14px;font-weight:600;letter-spacing:-.1px}
-.edu .edu-note{font-size:12.5px;color:var(--ink-3);margin-top:2px}
-.certs{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+
+/* education */
+.edu-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.edu-row strong{color:var(--ink);font-size:14.5px;font-weight:600;letter-spacing:-.1px}
+.edu-cgpa{flex-shrink:0;font-size:11.5px;font-weight:700;color:var(--brand-2);background:var(--brand-tint);border:1px solid var(--brand-line);padding:3px 10px;border-radius:20px;font-variant-numeric:tabular-nums}
+.certs{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line-soft)}
 .cert-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--ink-2)}
 .cert-item .ic{width:14px;height:14px;color:var(--amber);flex-shrink:0}
 
-/* animal traits — same avatar-badge language used for candidates & companies */
+/* animal traits — emoji "icons" with a hover tooltip */
 .traits-block{margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft)}
 .traits-label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px}
 .traits-label .ic{width:13px;height:13px;color:var(--violet)}
-.trait-list{list-style:none;display:flex;flex-direction:column;gap:11px}
-.trait-item{display:flex;align-items:center;gap:12px}
-.trait-badge{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-family:var(--display);font-size:11px;font-weight:700;flex-shrink:0}
-.trait-body{display:flex;flex-direction:column;min-width:0}
-.trait-body strong{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.1px}
-.trait-body span{font-size:12px;color:var(--ink-2);margin-top:1px;line-height:1.4}
+.traits-label em{font-style:normal;font-weight:600;color:var(--ink-3);opacity:.7;text-transform:none;letter-spacing:0}
+.trait-chips{display:flex;gap:10px;flex-wrap:wrap}
+.trait-chip{position:relative;display:grid;place-items:center;width:50px;height:50px;border-radius:15px;background:var(--bg);border:1px solid var(--line);cursor:default;transition:border-color .14s,background .14s,transform .14s,box-shadow .14s}
+.trait-chip:hover,.trait-chip:focus-visible{border-color:var(--brand-line);background:var(--brand-tint);transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
+.trait-emoji{font-size:25px;line-height:1;filter:saturate(1.05)}
+.trait-pop{position:absolute;bottom:calc(100% + 10px);left:-6px;width:216px;background:var(--ink);color:#fff;border-radius:11px;padding:11px 13px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .15s,transform .15s,visibility .15s;z-index:6;box-shadow:var(--shadow-lg)}
+.trait-pop::after{content:"";position:absolute;top:100%;left:27px;border:6px solid transparent;border-top-color:var(--ink)}
+.trait-chip:hover .trait-pop,.trait-chip:focus-visible .trait-pop{opacity:1;visibility:visible;transform:translateY(0)}
+.trait-pop-name{display:block;font-family:var(--display);font-size:13px;font-weight:700}
+.trait-pop-desc{display:block;font-size:11.5px;color:rgba(255,255,255,.72);margin-top:3px;line-height:1.5}
 
 /* ---------- AI screening summary ---------- */
 .screening-card{padding:20px 24px 22px;border:1px solid #e4defc;background:linear-gradient(180deg,#fbfaff,#fff 70%)}
@@ -1571,18 +1574,24 @@ function coMono(co) {
   return `<span class="co-avatar" style="background:${tint};color:${deep}">${esc(initials(co.replace(/[^\w\s]/g, " ").trim()))}</span>`;
 }
 const telHref = (p) => p.replace(/[^\d+]/g, "");
-/* animal trait row: "Otter — quick learner..." -> colored initials badge + name + description */
+/* animal trait -> recognizable emoji "icon"; hover reveals name + description */
+const TRAIT_EMOJI = {
+  ant:"🐜", beaver:"🦫", bee:"🐝", camel:"🐪", chameleon:"🦎", dolphin:"🐬",
+  elephant:"🐘", fox:"🦊", lion:"🦁", meerkat:"🐾", otter:"🦦", owl:"🦉",
+  ox:"🐂", peacock:"🦚", puppy:"🐶", squirrel:"🐿️", swan:"🦢", tortoise:"🐢",
+  "border collie":"🐕"
+};
 function traitItem(raw) {
   const [name, desc] = raw.split("—").map((s) => s.trim());
-  const [deep, tint] = nameHue(name || raw);
+  const emoji = TRAIT_EMOJI[(name || "").toLowerCase()] || "🐾";
   return `
-    <li class="trait-item">
-      <span class="trait-badge" style="background:${tint};color:${deep}">${esc(initials(name || raw))}</span>
-      <span class="trait-body">
-        <strong>${esc(name || raw)}</strong>
-        ${desc ? `<span>${esc(desc)}</span>` : ""}
+    <span class="trait-chip" tabindex="0" role="button" aria-label="${esc(name)}${desc ? " — " + esc(desc) : ""}">
+      <span class="trait-emoji" aria-hidden="true">${emoji}</span>
+      <span class="trait-pop">
+        <span class="trait-pop-name">${esc(name || raw)}</span>
+        ${desc ? `<span class="trait-pop-desc">${esc(desc)}</span>` : ""}
       </span>
-    </li>`;
+    </span>`;
 }
 
 /* other candidates who share skills, level or title with c, best matches first */
@@ -1747,31 +1756,23 @@ function renderDetail() {
           <p class="about">${esc(c.summary)}</p>
           ${c.animalTraits?.length ? `
           <div class="traits-block">
-            <span class="traits-label"><svg class="ic"><use href="#i-paw"/></svg> Top 3 Animal Traits</span>
-            <ul class="trait-list">
+            <span class="traits-label"><svg class="ic"><use href="#i-paw"/></svg> Top 3 Animal Traits <em>· hover to read</em></span>
+            <div class="trait-chips">
               ${c.animalTraits.slice(0, 3).map(traitItem).join("")}
-            </ul>
+            </div>
           </div>` : ""}
         </section>
 
         <section class="card sec-card">
           <div class="sec-head"><span class="sec-ic v"><svg class="ic"><use href="#i-cap"/></svg></span><h2>Education</h2></div>
-          <div class="edu-sub edu-sub-flush">
-            <span class="edu-ic"><svg class="ic"><use href="#i-cap"/></svg></span>
-            <div class="edu">
-              <strong>${esc(c.edu)}</strong>
-              <div class="edu-note">CGPA ${esc(c.cgpa)}</div>
-              ${c.certs?.length ? `
-              <div class="certs">
-                ${c.certs.map((cert) => `<div class="cert-item"><svg class="ic"><use href="#i-award"/></svg>${esc(cert)}</div>`).join("")}
-              </div>` : ""}
-            </div>
+          <div class="edu-row">
+            <strong>${esc(c.edu)}</strong>
+            <span class="edu-cgpa">CGPA ${esc(c.cgpa)}</span>
           </div>
-        </section>
-
-        <section class="card sec-card">
-          <div class="sec-head"><span class="sec-ic v"><svg class="ic"><use href="#i-tag"/></svg></span><h2>Skills</h2></div>
-          <div class="skills">${c.skills.map((s) => `<span class="skill">${esc(s)}</span>`).join("")}</div>
+          ${c.certs?.length ? `
+          <div class="certs">
+            ${c.certs.map((cert) => `<div class="cert-item"><svg class="ic"><use href="#i-award"/></svg>${esc(cert)}</div>`).join("")}
+          </div>` : ""}
         </section>
 
         <section class="card sec-card">
@@ -1788,6 +1789,11 @@ function renderDetail() {
                 </div>
               </li>`).join("")}
           </ul>
+        </section>
+
+        <section class="card sec-card">
+          <div class="sec-head"><span class="sec-ic v"><svg class="ic"><use href="#i-tag"/></svg></span><h2>Skills</h2></div>
+          <div class="skills">${c.skills.map((s) => `<span class="skill">${esc(s)}</span>`).join("")}</div>
         </section>
 
         <section class="card screening-card">
