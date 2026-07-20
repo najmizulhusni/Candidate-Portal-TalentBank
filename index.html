@@ -503,31 +503,61 @@ a.c-val:hover{color:var(--brand-2)}
 @media (max-width:560px){.modal-box{padding:36px 18px 20px}}
 
 /* ---------- floating assistant chat ---------- */
-.chat-fab-wrap{position:fixed;right:24px;bottom:24px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.chat-fab{width:56px;height:56px;border-radius:50%;background:var(--grad);color:#fff;border:0;display:grid;place-items:center;cursor:pointer;box-shadow:0 12px 28px -10px rgba(79,70,229,.55);transition:transform .15s,box-shadow .15s;flex-shrink:0}
-.chat-fab:hover{transform:translateY(-2px);box-shadow:0 16px 32px -10px rgba(79,70,229,.6)}
+.chat-fab-wrap{position:fixed;right:24px;bottom:24px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.chat-fab{position:relative;width:56px;height:56px;border-radius:50%;background:var(--grad);color:#fff;border:0;display:grid;place-items:center;cursor:pointer;box-shadow:0 14px 30px -8px rgba(79,70,229,.6);transition:transform .18s,box-shadow .18s}
+.chat-fab:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 18px 38px -8px rgba(79,70,229,.7)}
 .chat-fab .ic{width:24px;height:24px;stroke-width:2}
-.chat-panel{width:340px;max-width:calc(100vw - 48px);max-height:min(520px,70vh);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line-soft);border-radius:16px;box-shadow:var(--shadow-lg);overflow:hidden}
+.chat-fab::after{content:"";position:absolute;top:12px;right:12px;width:9px;height:9px;border-radius:50%;background:#a5f3cf;border:2px solid #4f46e5}
+
+.chat-panel{width:364px;max-width:calc(100vw - 48px);height:min(564px,74vh);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -16px rgba(16,27,51,.4);overflow:hidden;transform-origin:bottom right;animation:chatIn .2s cubic-bezier(.2,.7,.3,1)}
 .chat-panel.hidden{display:none}
-.chat-panel-head{display:flex;align-items:center;justify-content:space-between;padding:13px 14px 13px 16px;border-bottom:1px solid var(--line-soft);background:var(--brand-tint);flex-shrink:0}
-.chat-panel-title{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--brand-2)}
-.chat-close{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1px solid transparent;background:none;color:var(--brand-2);cursor:pointer}
-.chat-close:hover{background:rgba(255,255,255,.6);border-color:var(--brand-line)}
+@keyframes chatIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+
+/* header */
+.chat-head{display:flex;align-items:center;gap:11px;padding:14px 14px 14px 16px;background:var(--grad);color:#fff;flex-shrink:0;position:relative;overflow:hidden}
+.chat-head::after{content:"";position:absolute;inset:0;background:radial-gradient(320px 120px at 88% -30%,rgba(255,255,255,.22),transparent 65%);pointer-events:none}
+.chat-head-mark{position:relative;z-index:1;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);flex-shrink:0}
+.chat-head-mark .ic{width:18px;height:18px}
+.chat-head-txt{position:relative;z-index:1;flex:1;min-width:0;line-height:1.25}
+.chat-head-txt strong{display:block;font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:-.2px}
+.chat-head-txt span{display:flex;align-items:center;gap:5px;font-size:10.5px;color:rgba(255,255,255,.78);margin-top:2px}
+.chat-head-txt span::before{content:"";width:6px;height:6px;border-radius:50%;background:#a5f3cf;box-shadow:0 0 0 3px rgba(165,243,207,.3)}
+.chat-close{position:relative;z-index:1;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;border:0;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;transition:background .13s}
+.chat-close:hover{background:rgba(255,255,255,.28)}
 .chat-close .ic{width:14px;height:14px}
-.chat-body{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-height:120px}
-.chat-msg{font-size:13px;line-height:1.55;padding:9px 12px;border-radius:12px;max-width:88%}
-.chat-msg-bot{align-self:flex-start;background:var(--bg);color:var(--ink-2);border-bottom-left-radius:4px}
-.chat-msg-user{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:4px}
-.chat-suggest{padding:0 16px 10px;flex-shrink:0}
-.chat-chip{border:1.5px solid var(--brand-line);background:var(--brand-tint);color:var(--brand-2);font-size:12px;font-weight:600;padding:7px 12px;border-radius:20px;cursor:pointer;font-family:inherit}
-.chat-chip:hover{background:var(--brand-line)}
-.chat-input-row{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line-soft);flex-shrink:0}
-.chat-input-row input{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;min-width:0}
-.chat-input-row input:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint)}
-.chat-send{width:36px;height:36px;border-radius:10px;border:0;background:var(--brand);color:#fff;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+
+/* body */
+.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--bg)}
+.chat-row{display:flex;gap:9px;align-items:flex-end;animation:chatMsgIn .22s ease both}
+@keyframes chatMsgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.chat-row-user{flex-direction:row-reverse}
+.chat-avatar{flex-shrink:0;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--grad);color:#fff;box-shadow:0 2px 6px -1px rgba(79,70,229,.5)}
+.chat-avatar .ic{width:13px;height:13px}
+.chat-bubble{font-size:13px;line-height:1.55;padding:10px 13px;border-radius:14px;max-width:80%}
+.chat-bubble-bot{background:var(--surface);color:var(--ink);border:1px solid var(--line-soft);border-bottom-left-radius:5px;box-shadow:0 1px 2px rgba(16,27,51,.04)}
+.chat-bubble-user{background:var(--brand);color:#fff;border-bottom-right-radius:5px}
+
+/* typing indicator */
+.chat-typing{display:flex;gap:4px;align-items:center}
+.chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--ink-3);animation:chatDot 1s infinite ease-in-out}
+.chat-typing span:nth-child(2){animation-delay:.15s}
+.chat-typing span:nth-child(3){animation-delay:.3s}
+@keyframes chatDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+/* suggestions */
+.chat-suggest{display:flex;gap:7px;flex-wrap:wrap;padding:11px 16px;background:var(--bg);border-top:1px solid var(--line-soft);flex-shrink:0}
+.chat-chip{border:1px solid var(--brand-line);background:var(--surface);color:var(--brand-2);font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:20px;cursor:pointer;font-family:inherit;transition:background .13s,border-color .13s}
+.chat-chip:hover{background:var(--brand-tint);border-color:var(--brand)}
+
+/* input */
+.chat-input-row{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line-soft);background:var(--surface);flex-shrink:0}
+.chat-input-row input{flex:1;border:1.5px solid var(--line);border-radius:11px;padding:9px 13px;font-size:13px;min-width:0;background:var(--bg);transition:border-color .14s,box-shadow .14s,background .14s}
+.chat-input-row input:focus-visible{outline:none;border-color:var(--brand);background:var(--surface);box-shadow:0 0 0 3px var(--brand-tint)}
+.chat-send{width:38px;height:38px;border-radius:11px;border:0;background:var(--brand);color:#fff;display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:background .13s,transform .12s}
 .chat-send:hover{background:var(--brand-2)}
-.chat-send .ic{width:15px;height:15px}
-@media (max-width:480px){.chat-fab-wrap{right:16px;bottom:16px}.chat-panel{width:calc(100vw - 32px)}}
+.chat-send:active{transform:scale(.94)}
+.chat-send .ic{width:16px;height:16px}
+@media (max-width:480px){.chat-fab-wrap{right:16px;bottom:16px}.chat-panel{width:calc(100vw - 32px);height:min(70vh,540px)}}
 /* ============ FastPass Dashboard (merged, namespaced fpd-) ============ */
 #fpd_root{
   --paper:var(--bg);--brand-deep:var(--brand-2);--r:10px;--code:var(--mono);--red:#dc2626;
@@ -1186,15 +1216,25 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
 
 <div class="chat-fab-wrap">
   <div class="chat-panel hidden" id="chatPanel" role="dialog" aria-label="FastPass Assistant">
-    <div class="chat-panel-head">
-      <span class="chat-panel-title"><svg class="ic sm"><use href="#i-spark"/></svg> FastPass Assistant</span>
+    <div class="chat-head">
+      <span class="chat-head-mark"><svg class="ic"><use href="#i-spark"/></svg></span>
+      <span class="chat-head-txt">
+        <strong>FastPass Assistant</strong>
+        <span>Online · reviewing this candidate</span>
+      </span>
       <button class="chat-close" id="chatClose" type="button" aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
     </div>
     <div class="chat-body" id="chatBody">
-      <div class="chat-msg chat-msg-bot">Hi! I can help you review the candidate you're currently viewing. Try the suggestion below, or ask your own question.</div>
+      <div class="chat-row chat-row-bot">
+        <span class="chat-avatar"><svg class="ic"><use href="#i-spark"/></svg></span>
+        <div class="chat-bubble chat-bubble-bot">Hi! I can help you review the candidate you're viewing — try a suggestion below or ask your own question.</div>
+      </div>
     </div>
-    <div class="chat-suggest">
-      <button class="chat-chip" id="chatSummarize" type="button">Summarize this candidate</button>
+    <div class="chat-suggest" id="chatSuggest">
+      <button class="chat-chip" type="button" data-q="Summarize this candidate">Summarize</button>
+      <button class="chat-chip" type="button" data-q="What are the strengths?">Strengths</button>
+      <button class="chat-chip" type="button" data-q="Any concerns?">Concerns</button>
+      <button class="chat-chip" type="button" data-q="What are the key skills?">Skills</button>
     </div>
     <form class="chat-input-row" id="chatForm">
       <label class="sr-only" for="chatInput">Ask about this candidate</label>
@@ -2198,37 +2238,77 @@ window.addEventListener("keydown", (e) => {
 });
 
 /* ---------- floating assistant chat (hardcoded, template-based) ---------- */
-function chatCandidateSummary() {
+function chatAnswer(q) {
   const c = CANDIDATES.find((x) => x.slug === state.selected);
-  if (!c) return "Pick a candidate from the list first, then ask me to summarize them.";
+  if (!c) return "Open a candidate from the list first, then ask me about them.";
+  const ql = q.toLowerCase();
+  if (/strength|good|pros?\b|why hire/.test(ql)) {
+    const s = c.strengths || [];
+    return s.length ? `Strengths for ${c.name}:\n• ${s.join("\n• ")}` : `No specific strengths are noted for ${c.name}.`;
+  }
+  if (/concern|watch|weak|risk|cons?\b|red flag/.test(ql)) {
+    const w = c.improve || [];
+    return w.length ? `Areas to watch for ${c.name}:\n• ${w.join("\n• ")}` : `No specific concerns are noted for ${c.name}.`;
+  }
+  if (/skill|tech|stack|tool/.test(ql)) {
+    return (c.skills || []).length ? `${c.name}'s key skills: ${c.skills.join(", ")}.` : `No skills are listed for ${c.name}.`;
+  }
+  if (/salary|expect|pay|cost|rate/.test(ql)) {
+    return `${c.name} expects ${c.salary}, with a ${c.notice} notice period and is ${String(c.relocation).toLowerCase() === "yes" ? "open to" : "not open to"} relocation.`;
+  }
+  if (/experience|year|senior|background/.test(ql)) {
+    const latest = (c.xp || [])[0];
+    return latest ? `${c.name} has ${c.expYears} of experience — most recently ${latest.role} at ${latest.co} (${latest.when}).` : `${c.name} has ${c.expYears} of experience.`;
+  }
+  // default: full summary
   const strengths = (c.strengths || []).slice(0, 2).join(" and ");
   const watch = (c.improve || [])[0];
-  return `${c.name} is a ${c.title} based in ${c.location}, expecting ${c.salary}. ${c.verdict}${strengths ? ` Strengths: ${strengths}.` : ""}${watch ? ` Worth watching: ${watch}.` : ""}`;
+  return `${c.name} is a ${c.title} in ${c.location}, expecting ${c.salary}. ${c.verdict}${strengths ? ` Strengths: ${strengths}.` : ""}${watch ? ` Worth watching: ${watch}.` : ""}`;
+}
+function chatAvatar() {
+  return '<span class="chat-avatar"><svg class="ic"><use href="#i-spark"/></svg></span>';
 }
 function addChatMsg(text, who) {
   const body = $("chatBody");
-  const div = document.createElement("div");
-  div.className = "chat-msg chat-msg-" + who;
-  div.textContent = text;
-  body.append(div);
+  const row = document.createElement("div");
+  row.className = "chat-row chat-row-" + who;
+  if (who === "bot") row.innerHTML = chatAvatar();
+  const bubble = document.createElement("div");
+  bubble.className = "chat-bubble chat-bubble-" + who;
+  bubble.textContent = text;
+  bubble.style.whiteSpace = "pre-line";
+  row.append(bubble);
+  body.append(row);
   body.scrollTop = body.scrollHeight;
 }
-function replyWithSummary() {
-  setTimeout(() => addChatMsg(chatCandidateSummary(), "bot"), 350);
+function botReply(text) {
+  const body = $("chatBody");
+  const typing = document.createElement("div");
+  typing.className = "chat-row chat-row-bot";
+  typing.id = "chatTyping";
+  typing.innerHTML = chatAvatar() + '<div class="chat-bubble chat-bubble-bot chat-typing"><span></span><span></span><span></span></div>';
+  body.append(typing);
+  body.scrollTop = body.scrollHeight;
+  setTimeout(() => { typing.remove(); addChatMsg(text, "bot"); }, 700);
 }
-$("chatFab").addEventListener("click", () => $("chatPanel").classList.toggle("hidden"));
-$("chatClose").addEventListener("click", () => $("chatPanel").classList.add("hidden"));
-$("chatSummarize").addEventListener("click", () => {
-  addChatMsg("Summarize this candidate", "user");
-  replyWithSummary();
+function chatAsk(q) {
+  addChatMsg(q, "user");
+  botReply(chatAnswer(q));
+}
+$("chatFab").addEventListener("click", () => {
+  const panel = $("chatPanel");
+  panel.classList.toggle("hidden");
+  if (!panel.classList.contains("hidden")) $("chatInput").focus();
 });
+$("chatClose").addEventListener("click", () => $("chatPanel").classList.add("hidden"));
+document.querySelectorAll("#chatSuggest .chat-chip").forEach((chip) =>
+  chip.addEventListener("click", () => chatAsk(chip.dataset.q)));
 $("chatForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const val = $("chatInput").value.trim();
   if (!val) return;
-  addChatMsg(val, "user");
   $("chatInput").value = "";
-  replyWithSummary();
+  chatAsk(val);
 });
 
 applyAuth();
