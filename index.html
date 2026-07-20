@@ -50,15 +50,18 @@ button,select,input,textarea{font-family:inherit}
 
 /* ---------- top bar: white product frame with nav ---------- */
 .topbar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-.topbar-in{display:flex;align-items:center;gap:12px;padding:13px 24px}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0;border:0;background:none;padding:0;cursor:pointer;font-family:inherit;text-align:left}
-.logo{display:grid;place-items:center;width:34px;height:34px;background:var(--grad);color:#fff;border-radius:10px;box-shadow:0 3px 10px rgba(79,70,229,.35);flex-shrink:0}
+.topbar-in{display:flex;align-items:center;gap:12px;padding:12px 24px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;border:0;background:none;padding:4px 8px 4px 4px;margin-left:-4px;border-radius:10px;cursor:pointer;font-family:inherit;text-align:left;transition:background .13s}
+.brand:hover{background:var(--bg)}
+.logo{display:grid;place-items:center;width:34px;height:34px;background:var(--grad);color:#fff;border-radius:10px;box-shadow:0 4px 12px -2px rgba(79,70,229,.45);flex-shrink:0}
 .logo .ic{width:16px;height:16px;stroke-width:2.4}
 .logo .ic .accent{stroke:#a5f3cf}
-.wordmark{display:flex;flex-direction:column;line-height:1.25}
-.wordmark strong{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
-.wordmark span{font-size:10.5px;font-weight:500;letter-spacing:.3px;color:var(--ink-3)}
-.topbar-right{display:flex;align-items:center;gap:14px;margin-left:auto;flex-shrink:0}
+.wordmark{display:flex;flex-direction:column;line-height:1.2}
+.wordmark strong{font-family:var(--display);font-size:15.5px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
+.wordmark span{font-size:10px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3)}
+.topbar-divider{width:1px;height:24px;background:var(--line);flex-shrink:0;margin:0 3px}
+@media (max-width:560px){.topbar-divider{display:none}}
+.topbar-right{display:flex;align-items:center;gap:12px;margin-left:auto;flex-shrink:0}
 .acct{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);border:1px solid var(--brand-line);color:var(--brand-2);flex-shrink:0;cursor:pointer;transition:background .13s,border-color .13s}
 .acct:hover{background:var(--brand-line)}
 .acct-wrap{position:relative}
@@ -68,10 +71,12 @@ button,select,input,textarea{font-family:inherit}
 .acct-menu-item:hover{background:var(--brand-tint);color:var(--brand-2)}
 .acct-menu-item .ic{color:inherit}
 @media (max-width:640px){.wordmark span{display:none}}
-.brand-wrap{position:relative;margin-left:2px}
-.brand-switch{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:12.5px;font-weight:600;padding:7px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:border-color .13s,color .13s,background .13s}
-.brand-switch:hover{border-color:var(--brand-line);color:var(--brand-2);background:var(--brand-tint)}
-.brand-switch .ic{width:12px;height:12px;stroke-width:2.4;transition:transform .15s;color:var(--ink-3)}
+.brand-wrap{position:relative}
+.brand-switch{display:flex;align-items:center;gap:8px;border:1px solid transparent;background:var(--bg);color:var(--ink);font-size:13px;font-weight:600;padding:7px 11px;border-radius:9px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:border-color .13s,color .13s,background .13s}
+.brand-switch:hover{background:var(--brand-tint);color:var(--brand-2)}
+.brand-switch[aria-expanded="true"]{background:var(--brand-tint);color:var(--brand-2);border-color:var(--brand-line)}
+.brand-switch .ic{width:13px;height:13px;stroke-width:2.4;transition:transform .15s;color:var(--ink-3);margin-left:1px}
+.brand-switch:hover .ic,.brand-switch[aria-expanded="true"] .ic{color:var(--brand)}
 .brand-switch[aria-expanded="true"] .ic{transform:rotate(180deg)}
 .brand-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;z-index:30}
 .brand-menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border:0;border-radius:8px;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;text-align:left}
@@ -514,7 +519,7 @@ a.c-val:hover{color:var(--brand-2)}
 /* ============ FastPass Dashboard (merged, namespaced fpd-) ============ */
 #fpd_root{
   --paper:var(--bg);--brand-deep:var(--brand-2);--r:10px;--code:var(--mono);--red:#dc2626;
-  --fpd-accent:#0d9488;--fpd-accent-deep:#0f766e;--fpd-accent-tint:#e6f6f4;--fpd-accent-line:#b8e6e0;
+  --fpd-accent:var(--brand);--fpd-accent-deep:var(--brand-2);--fpd-accent-tint:var(--brand-tint);--fpd-accent-line:var(--brand-line);
   font-size:13.5px;color:var(--ink)
 }
 #candidateView .cand-main{padding:0 0 60px}
@@ -527,30 +532,38 @@ a.c-val:hover{color:var(--brand-2)}
 
 /* ---------- hero ---------- */
 #fpd_root .fpd-hero{
-  position:relative;overflow:hidden;color:#fff;padding:26px 22px 22px;
+  position:relative;overflow:hidden;color:#fff;padding:28px 24px 24px;
   background:
-    radial-gradient(640px 320px at 88% -20%,rgba(45,212,191,.35),transparent 60%),
-    radial-gradient(480px 320px at 6% 120%,rgba(13,148,136,.35),transparent 60%),
-    linear-gradient(160deg,#062825 0%,#0a3733 55%,#0d4a44 100%);
+    radial-gradient(680px 340px at 86% -30%,rgba(129,140,248,.45),transparent 62%),
+    radial-gradient(520px 340px at 4% 130%,rgba(79,70,229,.5),transparent 60%),
+    linear-gradient(145deg,#1a1e45 0%,#272c63 52%,#4338ca 100%);
 }
 #fpd_root .fpd-hero::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
-  background-size:24px 24px;
-  mask-image:radial-gradient(closest-side,#000 0%,transparent 85%)
+  background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);
+  background-size:22px 22px;
+  mask-image:radial-gradient(closest-side,#000 0%,transparent 88%)
 }
 #fpd_root .fpd-hero-top{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
-#fpd_root .fpd-hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:4px 11px;border-radius:20px}
-#fpd_root .fpd-hero h1{margin-top:12px;font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-.4px;color:#fff}
-#fpd_root .fpd-hero p{margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.72);max-width:440px;line-height:1.55}
+#fpd_root .fpd-hero-lead{display:flex;align-items:flex-start;gap:14px}
+#fpd_root .fpd-hero-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);flex-shrink:0;margin-top:2px}
+#fpd_root .fpd-hero-mark .ic{width:21px;height:21px;stroke-width:2.2}
+#fpd_root .fpd-hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:rgba(255,255,255,.82);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:4px 11px;border-radius:20px}
+#fpd_root .fpd-hero-tag .fpd-tag-dot{width:6px;height:6px;border-radius:50%;background:#a5f3cf;box-shadow:0 0 0 3px rgba(165,243,207,.25)}
+#fpd_root .fpd-hero h1{margin-top:11px;font-family:var(--display);font-size:25px;font-weight:700;letter-spacing:-.5px;color:#fff;line-height:1.1}
+#fpd_root .fpd-hero p{margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.7);max-width:440px;line-height:1.55}
 #fpd_root .fpd-hero-right{display:flex;align-items:center;gap:8px;flex-shrink:0;padding-top:4px}
-#fpd_root .fpd-hero-right .fpd-mode-note{color:rgba(255,255,255,.78)}
-#fpd_root .fpd-hero-right .fpd-icon-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#fff}
-#fpd_root .fpd-hero-right .fpd-icon-btn:hover{background:rgba(255,255,255,.18)}
-#fpd_root .fpd-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
-#fpd_root .fpd-stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px}
-#fpd_root .fpd-stat-val{display:block;font-family:var(--display);font-size:22px;font-weight:700;color:#fff;letter-spacing:-.3px}
-#fpd_root .fpd-stat-lbl{display:block;font-size:10.5px;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+#fpd_root .fpd-hero-right .fpd-mode-note{color:rgba(255,255,255,.8)}
+#fpd_root .fpd-hero-right .fpd-icon-btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24);color:#fff}
+#fpd_root .fpd-hero-right .fpd-icon-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.36)}
+#fpd_root .fpd-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:22px}
+#fpd_root .fpd-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px 15px;transition:background .15s,border-color .15s}
+#fpd_root .fpd-stat:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28)}
+#fpd_root .fpd-stat-val{display:block;font-family:var(--display);font-size:23px;font-weight:700;color:#fff;letter-spacing:-.4px;line-height:1}
+#fpd_root .fpd-stat-lbl{display:flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:7px}
+#fpd_root .fpd-stat-lbl::before{content:"";width:6px;height:6px;border-radius:2px;background:rgba(255,255,255,.4)}
+#fpd_root .fpd-stat.fpd-stat-follow .fpd-stat-lbl::before{background:#fbbf7d}
+#fpd_root .fpd-stat.fpd-stat-active .fpd-stat-lbl::before{background:#a5f3cf}
 @media (max-width:700px){#fpd_root .fpd-mode-note span{display:none}}
 @media (max-width:760px){#fpd_root .fpd-stats{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){#fpd_root .fpd-hero-top{flex-direction:column}}
@@ -636,7 +649,7 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-stage-sel select:focus-visible{outline:none;border-color:var(--brand)}
 #fpd_root .fpd-cell-upd{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
 #fpd_root .fpd-empty-table{text-align:center;color:var(--ink-3);padding:72px 20px!important;font-size:13px;cursor:default}
-#fpd_root .fpd-empty-ic{display:grid;place-items:center;width:60px;height:60px;border-radius:16px;background:linear-gradient(155deg,var(--fpd-accent) 0%,var(--fpd-accent-deep) 100%);color:#fff;margin:0 auto 18px;box-shadow:0 12px 26px -10px rgba(13,148,136,.5)}
+#fpd_root .fpd-empty-ic{display:grid;place-items:center;width:60px;height:60px;border-radius:16px;background:linear-gradient(155deg,var(--fpd-accent) 0%,var(--fpd-accent-deep) 100%);color:#fff;margin:0 auto 18px;box-shadow:0 12px 26px -10px rgba(79,70,229,.5)}
 #fpd_root .fpd-empty-ic .ic{width:26px;height:26px;stroke-width:1.8}
 #fpd_root .fpd-empty-table strong{display:block;font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
 #fpd_root .fpd-empty-table span{display:block;max-width:380px;margin:0 auto;line-height:1.6;font-size:13px}
@@ -797,6 +810,7 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
         <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
         <span class="wordmark"><strong>FastPass</strong><span>by Talentbank</span></span>
       </button>
+      <span class="topbar-divider" aria-hidden="true"></span>
       <span class="brand-wrap">
         <button class="brand-switch" id="candBrandSwitch" type="button" aria-haspopup="true" aria-expanded="false">
           <span>Dashboard</span><svg class="ic"><use href="#i-chevron-down"/></svg>
@@ -880,10 +894,13 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
   </div>
 <div class="fpd-hero">
   <div class="fpd-hero-top">
-    <div>
-      <span class="fpd-hero-tag"><svg class="ic sm"><use href="#i-plug"/></svg> Live from the plugin</span>
-      <h1>Candidate pipeline</h1>
-      <p>Everything the FastPass plugin picks up from your browser syncs here automatically.</p>
+    <div class="fpd-hero-lead">
+      <span class="fpd-hero-mark"><svg class="ic"><use href="#i-grid"/></svg></span>
+      <div>
+        <span class="fpd-hero-tag"><span class="fpd-tag-dot"></span> Live from the plugin</span>
+        <h1>Candidate pipeline</h1>
+        <p>Everything the FastPass plugin picks up from your browser syncs here automatically.</p>
+      </div>
     </div>
     <div class="fpd-hero-right">
       <span class="fpd-mode-note"><span id="fpd_modeDot" class="fpd-dot"></span><span id="fpd_modeText">Cloud</span></span>
@@ -894,8 +911,8 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
   <div class="fpd-stats">
     <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statTotal">0</span><span class="fpd-stat-lbl">Total candidates</span></div>
     <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statNew">0</span><span class="fpd-stat-lbl">New</span></div>
-    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statFollow">0</span><span class="fpd-stat-lbl">Needs follow-up</span></div>
-    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statActive">0</span><span class="fpd-stat-lbl">Active</span></div>
+    <div class="fpd-stat fpd-stat-follow"><span class="fpd-stat-val" id="fpd_statFollow">0</span><span class="fpd-stat-lbl">Needs follow-up</span></div>
+    <div class="fpd-stat fpd-stat-active"><span class="fpd-stat-val" id="fpd_statActive">0</span><span class="fpd-stat-lbl">Active</span></div>
   </div>
 </div>
 <div class="fpd-toolbar">
@@ -1065,6 +1082,7 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
       <span class="logo"><svg class="ic"><use href="#i-fastpass"/></svg></span>
       <span class="wordmark"><strong>FastPass</strong><span>by Talentbank</span></span>
     </button>
+    <span class="topbar-divider" aria-hidden="true"></span>
     <span class="brand-wrap">
       <button class="brand-switch" id="recruiterBrandSwitch" type="button" aria-haspopup="true" aria-expanded="false">
         <span>Candidate Portal</span><svg class="ic"><use href="#i-chevron-down"/></svg>
