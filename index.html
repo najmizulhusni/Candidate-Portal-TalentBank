@@ -297,10 +297,10 @@ body.sidebar-collapsed .sidebar-expand{display:flex}
 .assess-h.pos{color:var(--green-deep)}
 .assess-h.neg{color:var(--amber)}
 .assess-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
-.assess-list li{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink-2);line-height:1.55}
-.assess-list .ic{flex-shrink:0;margin-top:2.5px;width:14px;height:14px}
-.assess-list.pos .ic{color:var(--green)}
-.assess-list.neg .ic{color:#d97706}
+.assess-list li{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-2);line-height:1.55}
+.assess-list .dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:7.5px}
+.assess-list.pos .dot{background:var(--green)}
+.assess-list.neg .dot{background:#d97706}
 @media (max-width:560px){.assess-grid{grid-template-columns:1fr;gap:18px}}
 
 /* ---------- sidebar ---------- */
@@ -1848,13 +1848,13 @@ function renderDetail() {
             <div>
               <div class="assess-h pos"><svg class="ic sm"><use href="#i-check"/></svg>Strengths</div>
               <ul class="assess-list pos">
-                ${c.strengths.map((s) => `<li><svg class="ic sm"><use href="#i-check"/></svg>${esc(s)}</li>`).join("")}
+                ${c.strengths.map((s) => `<li><span class="dot"></span>${esc(s)}</li>`).join("")}
               </ul>
             </div>
             <div>
               <div class="assess-h neg"><svg class="ic sm"><use href="#i-caution"/></svg>Areas to watch</div>
               <ul class="assess-list neg">
-                ${c.improve.map((s) => `<li><svg class="ic sm"><use href="#i-caution"/></svg>${esc(s)}</li>`).join("")}
+                ${c.improve.map((s) => `<li><span class="dot"></span>${esc(s)}</li>`).join("")}
               </ul>
             </div>
           </div>
