@@ -267,17 +267,15 @@ body.sidebar-collapsed .sidebar-expand{display:flex}
 .cert-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--ink-2)}
 .cert-item .ic{width:14px;height:14px;color:var(--amber);flex-shrink:0}
 
-/* highlights — icon-based traits with a hover tooltip for the full detail */
+/* animal traits — plain word chips with a hover tooltip for the full detail */
 .traits-block{margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft)}
 .traits-label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px}
 .traits-label .ic{width:13px;height:13px;color:var(--violet)}
 .traits-label em{font-style:normal;font-weight:600;color:var(--ink-3);opacity:.7;text-transform:none;letter-spacing:0}
 .trait-chips{display:flex;gap:10px;flex-wrap:wrap}
-.trait-chip{position:relative;display:inline-flex;align-items:center;gap:8px;max-width:240px;padding:6px 14px 6px 6px;border-radius:999px;background:var(--bg);border:1px solid var(--line);cursor:default;transition:border-color .14s,background .14s,transform .14s,box-shadow .14s}
+.trait-chip{position:relative;display:inline-flex;align-items:center;padding:8px 16px;border-radius:999px;background:var(--bg);border:1px solid var(--line);cursor:default;transition:border-color .14s,background .14s,transform .14s,box-shadow .14s}
 .trait-chip:hover,.trait-chip:focus-visible{border-color:var(--brand-line);background:var(--brand-tint);transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
-.trait-ic{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--violet-tint);color:var(--violet);flex-shrink:0}
-.trait-ic .ic{width:13px;height:13px;stroke-width:2.2}
-.trait-name{font-size:12.5px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trait-name{font-size:12.5px;font-weight:600;color:var(--ink-2)}
 .trait-pop{position:absolute;bottom:calc(100% + 10px);left:-6px;width:216px;background:var(--ink);color:#fff;border-radius:11px;padding:11px 13px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .15s,transform .15s,visibility .15s;z-index:6;box-shadow:var(--shadow-lg)}
 .trait-pop::after{content:"";position:absolute;top:100%;left:27px;border:6px solid transparent;border-top-color:var(--ink)}
 .trait-chip:hover .trait-pop,.trait-chip:focus-visible .trait-pop{opacity:1;visibility:visible;transform:translateY(0)}
@@ -1593,33 +1591,14 @@ function coMono(co) {
   return `<span class="co-avatar" style="background:${tint};color:${deep}">${esc(initials(co.replace(/[^\w\s]/g, " ").trim()))}</span>`;
 }
 const telHref = (p) => p.replace(/[^\d+]/g, "");
-/* highlight description -> the professional icon that best fits its meaning */
-function traitIcon(desc) {
-  const d = (desc || "").toLowerCase();
-  if (/\blead/.test(d)) return "i-flag";
-  if (/collab|communicat|\baligned\b|team/.test(d)) return "i-users";
-  if (/vigilant|watch|spot/.test(d)) return "i-search";
-  if (/meticulous|analytical|pattern|insight|\bsharp\b/.test(d)) return "i-search";
-  if (/calm|patient|steady|pace|endur|long stretches/.test(d)) return "i-clock";
-  if (/dependable|unshakeable|carries|workload|remembers|reliable/.test(d)) return "i-shield";
-  if (/quick|fast|energetic|juggl|adapt|playful/.test(d)) return "i-spark";
-  if (/feedback|eager|please/.test(d)) return "i-check";
-  if (/organiz|scattered|herd/.test(d)) return "i-tag";
-  if (/bold|expressive|storytell|graceful/.test(d)) return "i-award";
-  return "i-award";
-}
 function traitItem(raw) {
-  const [, rawDesc] = raw.split("—").map((s) => s.trim());
-  const desc = rawDesc || raw;
-  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  const label = cap(desc.split(",")[0].trim());
+  const [name, desc] = raw.split("—").map((s) => s.trim());
   return `
-    <span class="trait-chip" tabindex="0" role="button" aria-label="${esc(cap(desc))}">
-      <span class="trait-ic"><svg class="ic sm"><use href="#${traitIcon(desc)}"/></svg></span>
-      <span class="trait-name">${esc(label)}</span>
-      <span class="trait-pop">
-        <span class="trait-pop-desc">${esc(cap(desc))}</span>
-      </span>
+    <span class="trait-chip" tabindex="0" role="button" aria-label="${esc(name)}${desc ? " — " + esc(desc) : ""}">
+      <span class="trait-name">${esc(name || raw)}</span>
+      ${desc ? `<span class="trait-pop">
+        <span class="trait-pop-desc">${esc(desc)}</span>
+      </span>` : ""}
     </span>`;
 }
 
@@ -1785,7 +1764,7 @@ function renderDetail() {
           <p class="about">${esc(c.summary)}</p>
           ${c.animalTraits?.length ? `
           <div class="traits-block">
-            <span class="traits-label"><svg class="ic"><use href="#i-award"/></svg> Key Strengths <em>· hover for detail</em></span>
+            <span class="traits-label"><svg class="ic"><use href="#i-paw"/></svg> Top 3 Animal Traits <em>· hover to read</em></span>
             <div class="trait-chips">
               ${c.animalTraits.slice(0, 3).map(traitItem).join("")}
             </div>
