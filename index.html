@@ -213,12 +213,6 @@ body.sidebar-collapsed .sidebar-expand{display:flex}
 .chip.mint{background:var(--green);color:#fff;border-color:transparent;font-weight:700;box-shadow:0 2px 8px -2px rgba(5,150,105,.5)}
 .chip.gold{background:var(--amber-tint);color:var(--amber);border-color:var(--amber-line);font-weight:700}
 
-/* sponsorship banner */
-.sponsor-band{display:flex;align-items:center;gap:12px;background:var(--amber-tint);border:1px solid var(--amber-line);border-radius:12px;padding:12px 15px;margin-top:14px}
-.sponsor-band .ic{width:18px;height:18px;color:var(--amber);flex-shrink:0}
-.sponsor-band strong{display:block;font-size:12.5px;color:#8c3d07}
-.sponsor-band span{font-size:12px;color:#a05b1a}
-
 /* stat tiles: colored icon squares */
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:16px}
 .stat{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
@@ -682,12 +676,6 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-chip.fpd-st-rejected{background:#fef2f2;color:#b91c1c;border-color:transparent}
 #fpd_root .fpd-flag-follow{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#fdecec;color:var(--red);font-size:9.5px;font-weight:700;letter-spacing:.3px}
 #fpd_root .fpd-tab-follow b{color:var(--red)}
-#fpd_root .fpd-tab-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.6;flex-shrink:0}
-#fpd_root .fpd-tab-new{color:var(--sky)}
-#fpd_root .fpd-tab-contacted{color:var(--brand)}
-#fpd_root .fpd-tab-follow{color:var(--red)}
-#fpd_root .fpd-tab-activestage{color:var(--green-deep)}
-#fpd_root .fpd-tab-closedstage{color:#5a5142}
 #fpd_root .fpd-stage-sel{position:relative;display:block}
 #fpd_root .fpd-stage-sel::after{content:"";position:absolute;right:13px;top:50%;width:7px;height:7px;pointer-events:none;border-right:1.6px solid var(--ink-3);border-bottom:1.6px solid var(--ink-3);transform:translateY(-70%) rotate(45deg)}
 #fpd_root .fpd-stage-sel select{width:100%;appearance:none;-webkit-appearance:none;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;font-weight:600;padding:9px 32px 9px 12px;cursor:pointer}
@@ -945,11 +933,11 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
       </div>
       <div class="fpd-tabs" id="fpd_statusTabs">
         <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
-        <button class="fpd-tab fpd-tab-new" data-f="pending"><span class="fpd-tab-dot"></span>New <b id="fpd_nPending">0</b></button>
-        <button class="fpd-tab fpd-tab-contacted" data-f="contacted"><span class="fpd-tab-dot"></span>Contacted <b id="fpd_nContacted">0</b></button>
-        <button class="fpd-tab fpd-tab-follow" data-f="followup"><span class="fpd-tab-dot"></span>Follow-up <b id="fpd_nFollow">0</b></button>
-        <button class="fpd-tab fpd-tab-activestage" data-f="active"><span class="fpd-tab-dot"></span>Active <b id="fpd_nActive">0</b></button>
-        <button class="fpd-tab fpd-tab-closedstage" data-f="closed"><span class="fpd-tab-dot"></span>Closed <b id="fpd_nClosed">0</b></button>
+        <button class="fpd-tab" data-f="pending">New <b id="fpd_nPending">0</b></button>
+        <button class="fpd-tab" data-f="contacted">Contacted <b id="fpd_nContacted">0</b></button>
+        <button class="fpd-tab fpd-tab-follow" data-f="followup">Follow-up <b id="fpd_nFollow">0</b></button>
+        <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
+        <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
       </div>
     </div>
   </div>
@@ -1292,7 +1280,7 @@ const CANDIDATES = [
     qualification: "Bachelor of Computer Science, UM",
     cgpa: "3.84 / 4.00",
     verified: true,
-    sponsor: "Telekom Malaysia — TM Undergraduate Scholarship (bonded 2 years, fulfilled)",
+    sponsor: "Telekom Malaysia (TM) Scholar",
     source: "Sourced via Talentbank Campus Fair 2025",
     strengths: [
       "Ships full production apps solo — unusually complete for a fresh graduate",
@@ -1740,13 +1728,8 @@ function renderDetail() {
           <span class="chip">${esc(lvlTxt)}</span>
           <span class="chip">Notice: ${esc(c.notice)}</span>
           <span class="chip">Relocate: ${esc(c.relocation)}</span>
-          ${c.sponsor ? `<span class="chip gold"><svg class="ic sm"><use href="#i-flag"/></svg> Sponsored scholar</span>` : ""}
+          ${c.sponsor ? `<span class="chip gold"><svg class="ic sm"><use href="#i-flag"/></svg> ${esc(c.sponsor)}</span>` : ""}
         </div>
-        ${c.sponsor ? `
-        <div class="sponsor-band">
-          <svg class="ic"><use href="#i-flag"/></svg>
-          <div><strong>Sponsorship / bonding obligation</strong><span>${esc(c.sponsor)}</span></div>
-        </div>` : ""}
         <div class="stat-row">
           <div class="stat"><span class="stat-ic g"><svg class="ic"><use href="#i-coin"/></svg></span><span><span class="stat-label">Expected salary</span><span class="stat-val">${esc(c.salary)}</span></span></div>
           <div class="stat"><span class="stat-ic v"><svg class="ic"><use href="#i-cap"/></svg></span><span><span class="stat-label">CGPA</span><span class="stat-val">${esc(c.cgpa)}</span></span></div>
