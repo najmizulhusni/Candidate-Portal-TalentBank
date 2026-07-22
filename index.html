@@ -62,14 +62,20 @@ button,select,input,textarea{font-family:inherit}
 .topbar-divider{width:1px;height:24px;background:var(--line);flex-shrink:0;margin:0 3px}
 @media (max-width:560px){.topbar-divider{display:none}}
 .topbar-right{display:flex;align-items:center;gap:12px;margin-left:auto;flex-shrink:0}
-.acct{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);border:1px solid var(--brand-line);color:var(--brand-2);flex-shrink:0;cursor:pointer;transition:background .13s,border-color .13s}
+.acct{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);border:1px solid var(--brand-line);color:var(--brand-2);font-size:11.5px;font-weight:700;letter-spacing:-.2px;flex-shrink:0;cursor:pointer;transition:background .13s,border-color .13s}
 .acct:hover{background:var(--brand-line)}
 .acct-wrap{position:relative}
-.acct-menu{position:absolute;top:calc(100% + 10px);right:0;min-width:170px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;z-index:30}
-.acct-menu-name{padding:8px 10px 9px;font-size:12px;font-weight:600;color:var(--ink-3);border-bottom:1px solid var(--line-soft);margin-bottom:4px}
-.acct-menu-item{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border:0;border-radius:8px;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;text-align:left}
+.acct-menu{position:absolute;top:calc(100% + 10px);right:0;min-width:224px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);padding:8px;z-index:30}
+.acct-menu-head{display:flex;align-items:center;gap:11px;padding:6px 8px 12px}
+.acct-menu-avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--brand-tint);color:var(--brand-2);font-size:12.5px;font-weight:700;letter-spacing:-.2px;flex-shrink:0}
+.acct-menu-id{min-width:0}
+.acct-menu-name{display:block;font-size:13.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acct-menu-role{display:block;font-size:11.5px;color:var(--ink-3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acct-menu-divider{height:1px;background:var(--line-soft);margin:0 4px 6px}
+.acct-menu-item{display:flex;align-items:center;gap:8px;width:100%;padding:9px 10px;border:0;border-radius:9px;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;text-align:left;transition:background .13s,color .13s}
 .acct-menu-item:hover{background:var(--brand-tint);color:var(--brand-2)}
 .acct-menu-item .ic{color:inherit}
+.acct-menu-item.danger:hover{background:#fef2f2;color:#b91c1c}
 @media (max-width:640px){.wordmark span{display:none}}
 .brand-wrap{position:relative}
 .brand-switch{display:flex;align-items:center;gap:8px;border:1px solid transparent;background:var(--bg);color:var(--ink);font-size:13px;font-weight:600;padding:7px 11px;border-radius:9px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:border-color .13s,color .13s,background .13s}
@@ -854,10 +860,17 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
       </span>
       <span class="topbar-right">
         <span class="acct-wrap">
-          <button class="acct acct-btn" id="candAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false"><svg class="ic sm"><use href="#i-user"/></svg></button>
+          <button class="acct acct-btn" id="candAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false">NZ</button>
           <div class="acct-menu hidden" id="candAcctMenu">
-            <div class="acct-menu-name">najmizulhusni</div>
-            <button class="acct-menu-item" id="candLogout" type="button"><svg class="ic sm"><use href="#i-logout"/></svg> Log out</button>
+            <div class="acct-menu-head">
+              <span class="acct-menu-avatar">NZ</span>
+              <span class="acct-menu-id">
+                <span class="acct-menu-name">Najmi Zulhusni</span>
+                <span class="acct-menu-role">PS Global Consulting</span>
+              </span>
+            </div>
+            <div class="acct-menu-divider"></div>
+            <button class="acct-menu-item danger" id="candLogout" type="button"><svg class="ic sm"><use href="#i-logout"/></svg> Log out</button>
           </div>
         </span>
       </span>
@@ -1098,10 +1111,17 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
     </span>
     <span class="topbar-right">
       <span class="acct-wrap">
-        <button class="acct acct-btn" id="recruiterAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false"><svg class="ic sm"><use href="#i-user"/></svg></button>
+        <button class="acct acct-btn" id="recruiterAcctBtn" title="Account" type="button" aria-haspopup="true" aria-expanded="false">NZ</button>
         <div class="acct-menu hidden" id="recruiterAcctMenu">
-          <div class="acct-menu-name">najmizulhusni</div>
-          <button class="acct-menu-item" id="recruiterLogout" type="button"><svg class="ic sm"><use href="#i-logout"/></svg> Log out</button>
+          <div class="acct-menu-head">
+            <span class="acct-menu-avatar">NZ</span>
+            <span class="acct-menu-id">
+              <span class="acct-menu-name">Najmi Zulhusni</span>
+              <span class="acct-menu-role">PS Global Consulting</span>
+            </span>
+          </div>
+          <div class="acct-menu-divider"></div>
+          <button class="acct-menu-item danger" id="recruiterLogout" type="button"><svg class="ic sm"><use href="#i-logout"/></svg> Log out</button>
         </div>
       </span>
     </span>
