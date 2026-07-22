@@ -2224,6 +2224,14 @@ function wireAddCandidateForm() {
       return;
     }
     const data = { name: get("name"), title: get("title"), email: get("email"), location: get("location") };
+    if (typeof window.fpdAddCandidate === "function") {
+      window.fpdAddCandidate({
+        name: data.name, title: data.title, email: data.email, location: data.location,
+        phone: get("phone"), salary: get("salary"), notice: get("notice"),
+        years: get("years"), education: get("education"), relocation: get("relocation"),
+        nationality: get("nationality"), summary: get("summary")
+      });
+    }
     const content = $("addCandContent");
     content.innerHTML = candidateAddedHTML(data);
     $("addAnotherBtn").addEventListener("click", openAddCandidateModal);
@@ -2772,6 +2780,33 @@ function renderDetail() {
   }
 }
 function renderAll() { renderCounts(); renderTable(); if (document.body.classList.contains("fpd-drawer-open")) renderDetail(); }
+
+/* Bridge for the Candidate Portal's "Add a candidate" form (outside this
+   IIFE, in the recruiter view) — without this, candidates submitted there
+   never entered any storage, so they could never show up in the Dashboard
+   pipeline or sync to Supabase. */
+window.fpdAddCandidate = function (payload) {
+  const now = new Date().toISOString();
+  state.candidates.unshift({
+    id: newCandidateId(),
+    name: payload.name || "",
+    title: payload.title || "",
+    email: payload.email || "",
+    phone: payload.phone || "",
+    location: payload.location || "",
+    expectedSalary: payload.salary || "",
+    noticePeriod: payload.notice || "",
+    qualification: payload.education || "",
+    experience: payload.years ? `${payload.years} year${Number(payload.years) === 1 ? "" : "s"}` : "",
+    relocation2: payload.relocation || "",
+    nationality: payload.nationality || "",
+    notes: payload.summary || "",
+    status: "pending", sourceHost: "manual", verified: {},
+    extractedAt: now, updatedAt: now
+  });
+  save();
+  renderAll();
+};
 
 /* ---------- edits ---------- */
 function bindField(id, key, opts = {}) {
