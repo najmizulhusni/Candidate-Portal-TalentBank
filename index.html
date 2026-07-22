@@ -633,7 +633,8 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch::after{transform:translateX(13px)}
 #fpd_root /* ---------- toolbar ---------- */
 .fpd-toolbar{background:var(--surface);border-bottom:1px solid var(--line)}
-#fpd_root .fpd-toolbar-in{display:flex;align-items:center;gap:14px;padding:12px 22px;flex-wrap:wrap;row-gap:10px}
+#fpd_root .fpd-toolbar-in{display:flex;flex-direction:column;gap:10px;padding:12px 22px}
+#fpd_root .fpd-toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;row-gap:10px}
 #fpd_root .fpd-tabs{display:flex;align-items:center;gap:2px;background:var(--paper);border:1px solid var(--line-soft);border-radius:10px;padding:3px;flex-shrink:0}
 #fpd_root .fpd-tab{display:flex;align-items:center;gap:6px;border:0;background:none;color:var(--ink-2);font-size:12.5px;font-weight:600;padding:6.5px 11px;border-radius:7px;cursor:pointer;flex-shrink:0;transition:background .13s,color .13s}
 #fpd_root .fpd-tab:hover{color:var(--ink)}
@@ -643,7 +644,6 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-search{flex:1;min-width:160px;max-width:240px}
 #fpd_root .fpd-search input{width:100%;border:1px solid var(--line);border-radius:9px;background:var(--paper);padding:8px 12px 8px 33px;font-size:12.5px}
 #fpd_root .fpd-search input:focus-visible{outline:none;border-color:var(--fpd-accent);background:var(--surface);box-shadow:0 0 0 3px var(--fpd-accent-tint)}
-#fpd_root .fpd-toolbar-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-left:16px;border-left:1px solid var(--line-soft)}
 #fpd_root .fpd-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:8px;font-weight:600;font-size:12.5px;padding:8px 13px;cursor:pointer;transition:background .15s,border-color .15s}
 #fpd_root .fpd-btn-line{border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 #fpd_root .fpd-btn-line:hover{border-color:var(--ink-3)}
@@ -831,7 +831,7 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
         <span class="role-eyebrow">For recruiters</span>
         <strong>Candidate Portal</strong>
         <span class="role-line">Manage your candidate list — search, review AI screening summaries, and add new candidates.</span>
-        <span class="role-go">Continue as recruiter <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
+        <span class="role-go">Continue as Recruiter <svg class="ic sm"><use href="#i-arrow-right"/></svg></span>
       </span>
     </button>
     <div class="role-divider" aria-hidden="true"><span>OR</span></div>
@@ -924,61 +924,33 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
     </div>
     <p class="fpd-cloud-hint" id="fpd_acctHint">Demo mode — connect Supabase in config.js so recruiters can register with email + password.</p>
   </div>
-<div id="fpd_cloudPanel" class="fpd-cloud hidden">
-    <div class="fpd-cloud-row"><span class="fpd-lbl">Cloud sync · Supabase</span>
-      <label class="fpd-mini-toggle"><input type="checkbox" id="fpd_sbOn"><span class="fpd-mswitch"></span></label>
-    </div>
-    <input id="fpd_sbUrl" type="url" placeholder="https://xxxx.supabase.co" autocomplete="off" />
-    <input id="fpd_sbKey" type="password" placeholder="anon public key" autocomplete="off" />
-    <div class="fpd-cloud-row">
-      <span id="fpd_sbStatus" class="fpd-cloud-status">Off — data stays in this browser</span>
-      <button id="fpd_sbSync" class="fpd-btn fpd-btn-line">Sync now</button>
-    </div>
-    <p class="fpd-cloud-hint">Table setup SQL is in the extension README. Demo uses the anon key — add Supabase Auth before real candidate data.</p>
-  </div>
 <div class="fpd-hero">
   <div class="fpd-hero-top">
     <div class="fpd-hero-lead">
       <span class="fpd-hero-mark"><svg class="ic"><use href="#i-grid"/></svg></span>
       <div>
-        <span class="fpd-hero-tag"><span class="fpd-tag-dot"></span> Live from the plugin</span>
         <h1>Candidate pipeline</h1>
         <p>Everything the FastPass plugin picks up from your browser syncs here automatically.</p>
       </div>
     </div>
-    <div class="fpd-hero-right">
-      <span class="fpd-mode-note"><span id="fpd_modeDot" class="fpd-dot"></span><span id="fpd_modeText">Cloud</span></span>
-      <button id="fpd_cloudBtn" class="fpd-icon-btn" title="Cloud sync" aria-expanded="false"><svg class="ic"><use href="#i-cloud"/></svg></button>
-      <button id="fpd_userChip" class="fpd-icon-btn" title="Account">—</button>
-    </div>
-  </div>
-  <div class="fpd-stats">
-    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statTotal">0</span><span class="fpd-stat-lbl">Total candidates</span></div>
-    <div class="fpd-stat"><span class="fpd-stat-val" id="fpd_statNew">0</span><span class="fpd-stat-lbl">New</span></div>
-    <div class="fpd-stat fpd-stat-follow"><span class="fpd-stat-val" id="fpd_statFollow">0</span><span class="fpd-stat-lbl">Needs follow-up</span></div>
-    <div class="fpd-stat fpd-stat-active"><span class="fpd-stat-val" id="fpd_statActive">0</span><span class="fpd-stat-lbl">Active</span></div>
   </div>
 </div>
 <div class="fpd-toolbar">
   <div class="fpd-toolbar-in">
-    <div class="fpd-tabs" id="fpd_statusTabs">
-      <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
-      <button class="fpd-tab" data-f="pending">New <b id="fpd_nPending">0</b></button>
-      <button class="fpd-tab" data-f="contacted">Contacted <b id="fpd_nContacted">0</b></button>
-      <button class="fpd-tab fpd-tab-follow" data-f="followup">Follow-up <b id="fpd_nFollow">0</b></button>
-      <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
-      <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
-    </div>
-    <div class="fp-search fpd-search">
-      <label class="sr-only" for="fpd_q">Search candidates</label>
-      <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
-      <input id="fpd_q" type="search" placeholder="Search candidates…" autocomplete="off" />
-    </div>
-    <div class="fpd-toolbar-actions">
-      <div id="fpd_importZone" class="fpd-import-zone hidden">Import JSON backup</div>
-      <input id="fpd_importFile" type="file" accept="application/json" class="hidden" />
-      <button id="fpd_exportJson" class="fpd-btn fpd-btn-line"><svg class="ic sm"><use href="#i-download"/></svg> Backup</button>
-      <button id="fpd_exportCsv" class="fpd-btn fpd-btn-line"><svg class="ic sm"><use href="#i-download"/></svg> Export CSV</button>
+    <div class="fpd-toolbar-row">
+      <div class="fp-search fpd-search">
+        <label class="sr-only" for="fpd_q">Search candidates</label>
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="fpd_q" type="search" placeholder="Search candidates…" autocomplete="off" />
+      </div>
+      <div class="fpd-tabs" id="fpd_statusTabs">
+        <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
+        <button class="fpd-tab" data-f="pending">New <b id="fpd_nPending">0</b></button>
+        <button class="fpd-tab" data-f="contacted">Contacted <b id="fpd_nContacted">0</b></button>
+        <button class="fpd-tab fpd-tab-follow" data-f="followup">Follow-up <b id="fpd_nFollow">0</b></button>
+        <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
+        <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
+      </div>
     </div>
   </div>
 </div>
@@ -2616,10 +2588,6 @@ function renderCounts() {
   $("fpd_nFollow").textContent = state.candidates.filter(needsFollowUp).length;
   $("fpd_nActive").textContent = state.candidates.filter((c) => ACTIVE_STAGES.includes(c.status)).length;
   $("fpd_nClosed").textContent = state.candidates.filter((c) => ["placed", "rejected", "hold"].includes(c.status)).length;
-  $("fpd_statTotal").textContent = state.candidates.length;
-  $("fpd_statNew").textContent = n("pending");
-  $("fpd_statFollow").textContent = state.candidates.filter(needsFollowUp).length;
-  $("fpd_statActive").textContent = state.candidates.filter((c) => ACTIVE_STAGES.includes(c.status)).length;
   document.querySelectorAll("#fpd_statusTabs .fpd-tab").forEach((b) =>
     b.classList.toggle("fpd-active", b.dataset.f === state.filter));
   $("fpd_arrName").textContent = state.sortKey === "name" ? (state.sortDir > 0 ? "▲" : "▼") : "";
@@ -2658,12 +2626,10 @@ function renderTable() {
       : `<span class="fpd-empty-ic"><svg class="ic"><use href="#i-plug"/></svg></span><strong>Your pipeline is empty</strong><span>Save candidates with the FastPass plugin while you browse, or add your first one by hand.</span>
          <div class="fpd-empty-actions">
            <button class="fpd-btn fpd-btn-accent" id="fpd_emptyAdd" type="button"><svg class="ic sm"><use href="#i-plus"/></svg> Add a candidate</button>
-           <button class="fpd-btn fpd-btn-line" id="fpd_emptyPlugin" type="button"><svg class="ic sm"><use href="#i-cloud"/></svg> Set up the plugin</button>
          </div>`;
     tr.append(td); tb.append(tr);
     if (!state.candidates.length) {
       $("fpd_emptyAdd").addEventListener("click", openQuickAdd);
-      $("fpd_emptyPlugin").addEventListener("click", () => $("fpd_cloudBtn").click());
     }
     return;
   }
@@ -2823,47 +2789,6 @@ function bindField(id, key, opts = {}) {
   });
 }
 
-/* ---------- exports ---------- */
-function download(name, mime, content) {
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([content], { type: mime }));
-  a.download = name; a.click(); URL.revokeObjectURL(a.href);
-}
-function exportJson() {
-  download(`fastpass-backup-${new Date().toISOString().slice(0, 10)}.json`,
-    "application/json", JSON.stringify({ fpCandidates: state.candidates }, null, 2));
-  toast("Backup downloaded");
-}
-function exportCsv() {
-  const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-  const head = ["TB ID","Name","Role","Email","Email Verified","Phone","Phone Verified","Status","Vacancy","Qualification","Experience","Expected Salary","Notice Period","Relocation","Nationality","Location","Notes","Last Contact","Source","Saved At"];
-  const rows = state.candidates.map((c) => [
-    tbId(c), c.name, c.title, c.email, c.verified?.email ? "Yes" : "", c.phone, c.verified?.phone ? "Yes" : "",
-    ST_LABEL[c.status] || c.status, c.vacancy, c.qualification, c.experience, c.expectedSalary, c.noticePeriod,
-    c.relocation2, c.nationality, c.location, c.notes,
-    c.lastContact ? `${c.lastContact.channel} ${c.lastContact.at}` : "", c.sourceUrl, c.extractedAt
-  ].map(esc).join(","));
-  download(`fastpass-${new Date().toISOString().slice(0, 10)}.csv`, "text/csv;charset=utf-8",
-    "\uFEFF" + [head.map(esc).join(","), ...rows].join("\r\n"));
-  toast("CSV downloaded");
-}
-function importJson(file) {
-  const r = new FileReader();
-  r.onload = () => {
-    try {
-      const data = JSON.parse(r.result);
-      const list = data.fpCandidates || data.candidates || (Array.isArray(data) ? data : null);
-      if (!Array.isArray(list)) throw 0;
-      const byId = new Map(state.candidates.map((c) => [c.id, c]));
-      list.forEach((c) => byId.set(c.id, c));
-      state.candidates = [...byId.values()].sort((a, b) => new Date(b.extractedAt) - new Date(a.extractedAt));
-      save(); renderAll();
-      toast(`Imported ${list.length} candidate(s)`);
-    } catch { toast("That file isn't a FastPass backup"); }
-  };
-  r.readAsText(file);
-}
-
 /* ---------- outreach (mirrors the plugin) ---------- */
 function tpl(c, kind) {
   const company = state.settings.recruiterCompany || "Talentbank";
@@ -2901,14 +2826,8 @@ function renderAccount() {
   $("fpd_acctEmail").textContent = fpAuth.session ? "Demo · cloud connected" : "Demo · connecting…";
   $("fpd_acctHint").textContent = "One-click demo workspace — this profile and your pipeline sync with the FastPass plugin through Supabase.";
   $("fpd_pfDial").value = state.settings.defaultDial || "60";
-  $("fpd_userChip").textContent = initials(state.settings.recruiterName);
 }
 function wireAccount() {
-  $("fpd_userChip").style.cursor = "pointer";
-  $("fpd_userChip").addEventListener("click", () => {
-    $("fpd_acctPanel").classList.toggle("hidden");
-    $("fpd_cloudPanel").classList.add("hidden");
-  });
   let registering = false;
   $("fpd_acctToggleMode").addEventListener("click", () => {
     registering = !registering;
@@ -2993,10 +2912,8 @@ function cloudSave() {
   if (EXT) chrome.storage.local.set({ fpCloud: conf });
   else localStorage.setItem("fpCloud", JSON.stringify(conf));
 }
-function cloudStatus(msg, cls) {
-  const el = $("fpd_sbStatus");
-  el.textContent = msg;
-  el.className = "fpd-cloud-status" + (cls ? " fpd-" + cls : "");
+function cloudStatus(msg) {
+  console.debug("[FastPass]", msg);
 }
 function sbHeaders() {
   const token = (FP_CONFIGURED && fpAuth.session?.access_token) || cloud.key;
@@ -3165,31 +3082,6 @@ function wire() {
   $("fpd_scrim").addEventListener("click", closeDrawer);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDrawer(); });
 
-  // cloud sync controls
-  $("fpd_cloudBtn").addEventListener("click", () => {
-    const open = $("fpd_cloudPanel").classList.toggle("hidden");
-    $("fpd_acctPanel").classList.add("hidden");
-    $("fpd_cloudBtn").setAttribute("aria-expanded", String(!open));
-  });
-  $("fpd_sbUrl").addEventListener("input", (e) => { cloud.url = e.target.value.trim(); cloudSave(); });
-  $("fpd_sbKey").addEventListener("input", (e) => { cloud.key = e.target.value.trim(); cloudSave(); });
-  $("fpd_sbOn").addEventListener("change", (e) => {
-    cloud.enabled = e.target.checked;
-    cloudSave();
-    cloudStatus(cloud.enabled ? "On — will sync on changes" : "Off — data stays in this browser", cloud.enabled ? "on" : "");
-    if (cloud.enabled) cloudSync(false);
-  });
-  $("fpd_sbSync").addEventListener("click", () => cloudSync(true));
-
-  $("fpd_exportJson").addEventListener("click", exportJson);
-  $("fpd_exportCsv").addEventListener("click", exportCsv);
-  $("fpd_importZone").addEventListener("click", () => $("fpd_importFile").click());
-  $("fpd_importFile").addEventListener("change", (e) => e.target.files[0] && importJson(e.target.files[0]));
-  ["dragover", "drop"].forEach((ev) => $("fpd_importZone").addEventListener(ev, (e) => {
-    e.preventDefault();
-    if (ev === "drop" && e.dataTransfer.files[0]) importJson(e.dataTransfer.files[0]);
-  }));
-
   if (EXT && chrome.storage.onChanged) {
     chrome.storage.onChanged.addListener((changes, area) => {
       if (area === "local" && changes.fpCandidates) {
@@ -3234,15 +3126,8 @@ function wire() {
   if (FP_CONFIGURED) { cloud.url = FP_CONFIG.SUPABASE_URL; cloud.key = FP_CONFIG.SUPABASE_ANON_KEY; }
   wireAccount();
   renderAccount();
-  $("fpd_sbUrl").value = cloud.url || "";
-  $("fpd_sbKey").value = cloud.key || "";
-  $("fpd_sbOn").checked = !!cloud.enabled;
   if (fpAuth.session) { cloud.enabled = true; cloudSave(); }
-  if (cloud.enabled) { cloudStatus("On — syncing…", "on"); cloudSync(false); }
-  $("fpd_modeDot").className = "fpd-dot" + (EXT ? "" : " fpd-off");
-  $("fpd_modeText").textContent = EXT ? "Cloud synced with your FastPass plugin" : "Cloud connecting…";
-  $("fpd_importZone").classList.toggle("hidden", EXT);
-  $("fpd_userChip").textContent = initials(state.session?.displayName || state.settings.recruiterName || "?");
+  if (cloud.enabled) cloudSync(false);
   wire();
   renderAll();
 })();
