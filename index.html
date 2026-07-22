@@ -267,20 +267,21 @@ body.sidebar-collapsed .sidebar-expand{display:flex}
 .cert-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--ink-2)}
 .cert-item .ic{width:14px;height:14px;color:var(--amber);flex-shrink:0}
 
-/* animal traits — emoji "icons" with a hover tooltip */
+/* highlights — icon-based traits with a hover tooltip for the full detail */
 .traits-block{margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft)}
 .traits-label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px}
 .traits-label .ic{width:13px;height:13px;color:var(--violet)}
 .traits-label em{font-style:normal;font-weight:600;color:var(--ink-3);opacity:.7;text-transform:none;letter-spacing:0}
 .trait-chips{display:flex;gap:10px;flex-wrap:wrap}
-.trait-chip{position:relative;display:grid;place-items:center;width:50px;height:50px;border-radius:15px;background:var(--bg);border:1px solid var(--line);cursor:default;transition:border-color .14s,background .14s,transform .14s,box-shadow .14s}
+.trait-chip{position:relative;display:inline-flex;align-items:center;gap:8px;max-width:240px;padding:6px 14px 6px 6px;border-radius:999px;background:var(--bg);border:1px solid var(--line);cursor:default;transition:border-color .14s,background .14s,transform .14s,box-shadow .14s}
 .trait-chip:hover,.trait-chip:focus-visible{border-color:var(--brand-line);background:var(--brand-tint);transform:translateY(-2px);box-shadow:var(--shadow);outline:none}
-.trait-emoji{font-size:25px;line-height:1;filter:saturate(1.05)}
+.trait-ic{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--violet-tint);color:var(--violet);flex-shrink:0}
+.trait-ic .ic{width:13px;height:13px;stroke-width:2.2}
+.trait-name{font-size:12.5px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trait-pop{position:absolute;bottom:calc(100% + 10px);left:-6px;width:216px;background:var(--ink);color:#fff;border-radius:11px;padding:11px 13px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .15s,transform .15s,visibility .15s;z-index:6;box-shadow:var(--shadow-lg)}
 .trait-pop::after{content:"";position:absolute;top:100%;left:27px;border:6px solid transparent;border-top-color:var(--ink)}
 .trait-chip:hover .trait-pop,.trait-chip:focus-visible .trait-pop{opacity:1;visibility:visible;transform:translateY(0)}
-.trait-pop-name{display:block;font-family:var(--display);font-size:13px;font-weight:700}
-.trait-pop-desc{display:block;font-size:11.5px;color:rgba(255,255,255,.72);margin-top:3px;line-height:1.5}
+.trait-pop-desc{display:block;font-size:11.5px;color:rgba(255,255,255,.85);line-height:1.5}
 
 /* ---------- AI screening summary ---------- */
 .screening-card{padding:20px 24px 22px;border:1px solid #e4defc;background:linear-gradient(180deg,#fbfaff,#fff 70%)}
@@ -453,9 +454,9 @@ a.c-val:hover{color:var(--brand-2)}
 }
 
 /* ---------- candidate intake ---------- */
-.cand-shell{flex:1;display:flex;flex-direction:column;min-height:0}
+.cand-shell{display:flex;flex-direction:column;min-height:0}
 #recruiterView{flex:1;display:flex;flex-direction:column;min-height:0}
-.cand-main{flex:1;background:var(--bg);padding:36px 24px 72px}
+.cand-main{background:var(--bg);padding:36px 24px 72px}
 .cand-in{max-width:760px;margin:0 auto}
 .cand-head{margin-bottom:22px}
 .cand-head h1{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-.4px;color:var(--ink)}
@@ -577,16 +578,13 @@ a.c-val:hover{color:var(--brand-2)}
 /* ---------- hero ---------- */
 #fpd_root .fpd-hero{
   position:relative;overflow:hidden;color:#fff;padding:28px 24px 24px;
-  background:
-    radial-gradient(680px 340px at 86% -30%,rgba(129,140,248,.45),transparent 62%),
-    radial-gradient(520px 340px at 4% 130%,rgba(79,70,229,.5),transparent 60%),
-    linear-gradient(145deg,#1a1e45 0%,#272c63 52%,#4338ca 100%);
+  background:var(--grad);
 }
 #fpd_root .fpd-hero::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);
-  background-size:22px 22px;
-  mask-image:radial-gradient(closest-side,#000 0%,transparent 88%)
+  background:
+    radial-gradient(420px 120px at 82% 0%,rgba(255,255,255,.28),transparent 65%),
+    radial-gradient(300px 100px at 12% 100%,rgba(255,255,255,.10),transparent 60%);
 }
 #fpd_root .fpd-hero-top{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
 #fpd_root .fpd-hero-lead{display:flex;align-items:flex-start;gap:14px}
@@ -652,7 +650,8 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 #fpd_root /* ---------- table ---------- */
 .fpd-table-wrap{padding:16px 22px 60px;overflow-x:auto}
-#fpd_root table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+#fpd_root table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+#fpd_root .fpd-more-hint{text-align:center;color:var(--ink-3);font-size:12.5px;margin-top:16px}
 #fpd_root thead th{position:sticky;top:0;background:var(--paper);text-align:left;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
 #fpd_root thead th.fpd-sortable{cursor:pointer;user-select:none}
 #fpd_root thead th.fpd-sortable:hover{color:var(--ink)}
@@ -663,7 +662,7 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root tbody tr:hover{background:#f8fafd}
 #fpd_root tbody tr.fpd-sel{background:var(--brand-tint)}
 #fpd_root .fpd-cell-cand{display:flex;align-items:center;gap:11px;min-width:200px}
-#fpd_root .fpd-avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--brand-tint);color:var(--brand);font-size:11.5px;font-weight:700;flex-shrink:0;overflow:hidden;position:relative}
+#fpd_root .fpd-avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:11.5px;font-weight:700;flex-shrink:0;overflow:hidden;position:relative}
 #fpd_root .fpd-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #fpd_root .fpd-cand-nm{min-width:0}
 #fpd_root .fpd-cand-nm strong{font-size:13.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
@@ -685,6 +684,12 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-chip.fpd-st-rejected{background:#fef2f2;color:#b91c1c;border-color:transparent}
 #fpd_root .fpd-flag-follow{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#fdecec;color:var(--red);font-size:9.5px;font-weight:700;letter-spacing:.3px}
 #fpd_root .fpd-tab-follow b{color:var(--red)}
+#fpd_root .fpd-tab-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.6;flex-shrink:0}
+#fpd_root .fpd-tab-new{color:var(--sky)}
+#fpd_root .fpd-tab-contacted{color:var(--brand)}
+#fpd_root .fpd-tab-follow{color:var(--red)}
+#fpd_root .fpd-tab-activestage{color:var(--green-deep)}
+#fpd_root .fpd-tab-closedstage{color:#5a5142}
 #fpd_root .fpd-stage-sel{position:relative;display:block}
 #fpd_root .fpd-stage-sel::after{content:"";position:absolute;right:13px;top:50%;width:7px;height:7px;pointer-events:none;border-right:1.6px solid var(--ink-3);border-bottom:1.6px solid var(--ink-3);transform:translateY(-70%) rotate(45deg)}
 #fpd_root .fpd-stage-sel select{width:100%;appearance:none;-webkit-appearance:none;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;font-weight:600;padding:9px 32px 9px 12px;cursor:pointer}
@@ -708,9 +713,9 @@ body.fpd-drawer-open #fpd_root .fpd-scrim{opacity:1;pointer-events:auto}
 #fpd_root .fpd-drawer{position:fixed;top:0;right:0;bottom:0;width:min(480px,100vw);background:var(--paper);border-left:1px solid var(--line);box-shadow:-16px 0 40px rgba(13,32,66,.12);transform:translateX(102%);transition:transform .22s ease;z-index:60;overflow-y:auto;padding:18px 20px 40px}
 body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
 #fpd_root .fpd-drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-#fpd_root .fpd-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+#fpd_root .fpd-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
 #fpd_root .fpd-d-head{display:flex;gap:13px;align-items:flex-start}
-#fpd_root .fpd-d-head .fpd-avatar{width:52px;height:52px;font-size:15px;border-radius:11px}
+#fpd_root .fpd-d-head .fpd-avatar{width:52px;height:52px;font-size:15px;border-radius:50%}
 #fpd_root .fpd-d-id{flex:1;min-width:0}
 #fpd_root .fpd-tbid{font-family:var(--code);font-size:10px;letter-spacing:.6px;color:var(--ink-3)}
 #fpd_root .fpd-d-id h1{font-size:18px;font-weight:700;letter-spacing:-.2px;margin:2px 0 1px}
@@ -926,7 +931,7 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
   <div class="fpd-hero-top">
     <div class="fpd-hero-lead">
       <div>
-        <h1>Dashboard Candidate</h1>
+        <h1>Candidate Dashboard</h1>
         <p>Everything the FastPass plugin picks up from your browser syncs here automatically.</p>
       </div>
     </div>
@@ -942,11 +947,11 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
       </div>
       <div class="fpd-tabs" id="fpd_statusTabs">
         <button class="fpd-tab fpd-active" data-f="all">All <b id="fpd_nAll">0</b></button>
-        <button class="fpd-tab" data-f="pending">New <b id="fpd_nPending">0</b></button>
-        <button class="fpd-tab" data-f="contacted">Contacted <b id="fpd_nContacted">0</b></button>
-        <button class="fpd-tab fpd-tab-follow" data-f="followup">Follow-up <b id="fpd_nFollow">0</b></button>
-        <button class="fpd-tab" data-f="active">Active <b id="fpd_nActive">0</b></button>
-        <button class="fpd-tab" data-f="closed">Closed <b id="fpd_nClosed">0</b></button>
+        <button class="fpd-tab fpd-tab-new" data-f="pending"><span class="fpd-tab-dot"></span>New <b id="fpd_nPending">0</b></button>
+        <button class="fpd-tab fpd-tab-contacted" data-f="contacted"><span class="fpd-tab-dot"></span>Contacted <b id="fpd_nContacted">0</b></button>
+        <button class="fpd-tab fpd-tab-follow" data-f="followup"><span class="fpd-tab-dot"></span>Follow-up <b id="fpd_nFollow">0</b></button>
+        <button class="fpd-tab fpd-tab-activestage" data-f="active"><span class="fpd-tab-dot"></span>Active <b id="fpd_nActive">0</b></button>
+        <button class="fpd-tab fpd-tab-closedstage" data-f="closed"><span class="fpd-tab-dot"></span>Closed <b id="fpd_nClosed">0</b></button>
       </div>
     </div>
   </div>
@@ -964,6 +969,7 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
     </thead>
     <tbody id="fpd_tbody"></tbody>
   </table>
+  <p id="fpd_moreHint" class="fpd-more-hint hidden">More candidates will appear here as you save them with the FastPass plugin.</p>
 </main>
 <div class="fpd-scrim" id="fpd_scrim"></div>
 <aside class="fpd-drawer" id="fpd_drawer" aria-label="Candidate detail">
@@ -1561,15 +1567,17 @@ const notes = new Map();      // slug -> recruiter note text
 const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
 const city = (c) => c.location.split(",")[0].trim();
-/* colored-initials fallback: hue is stable per name, palette matches the design system */
-/* muted, low-saturation tones — enough to tell people apart in a list without competing for attention */
+/* colored-initials fallback: hue is stable per name, reused verbatim as
+   FPD_AVATAR_PALETTE on the Dashboard so the same person renders identically
+   on both pages — same tones as the status chips, so avatars stay distinct */
 const AVATAR_PALETTE = [
-  ["#3c4b6b", "#e7eaf1"], // slate blue
-  ["#4b5f57", "#e6ede9"], // sage
-  ["#5c5470", "#eae8f0"], // muted plum
-  ["#6b5847", "#efe8e1"], // taupe
-  ["#42636a", "#e5edee"], // muted teal
-  ["#5a5142", "#eeeae1"]  // stone
+  ["#4338ca", "#eef1fe"], // indigo (brand)
+  ["#047857", "#e5f6ef"], // green
+  ["#6d28d9", "#f3edfd"], // violet
+  ["#b45309", "#fdf3e3"], // amber
+  ["#0369a1", "#e0f2fe"], // sky
+  ["#be185d", "#fce7f3"], // rose
+  ["#0f766e", "#ccfbf1"]  // teal
 ];
 const nameHue = (name) => AVATAR_PALETTE[[...name].reduce((a, ch) => a + ch.charCodeAt(0), 0) % AVATAR_PALETTE.length];
 function avatarUri(name) {
@@ -1585,22 +1593,32 @@ function coMono(co) {
   return `<span class="co-avatar" style="background:${tint};color:${deep}">${esc(initials(co.replace(/[^\w\s]/g, " ").trim()))}</span>`;
 }
 const telHref = (p) => p.replace(/[^\d+]/g, "");
-/* animal trait -> recognizable emoji "icon"; hover reveals name + description */
-const TRAIT_EMOJI = {
-  ant:"🐜", beaver:"🦫", bee:"🐝", camel:"🐪", chameleon:"🦎", dolphin:"🐬",
-  elephant:"🐘", fox:"🦊", lion:"🦁", meerkat:"🐾", otter:"🦦", owl:"🦉",
-  ox:"🐂", peacock:"🦚", puppy:"🐶", squirrel:"🐿️", swan:"🦢", tortoise:"🐢",
-  "border collie":"🐕"
-};
+/* highlight description -> the professional icon that best fits its meaning */
+function traitIcon(desc) {
+  const d = (desc || "").toLowerCase();
+  if (/\blead/.test(d)) return "i-flag";
+  if (/collab|communicat|\baligned\b|team/.test(d)) return "i-users";
+  if (/vigilant|watch|spot/.test(d)) return "i-search";
+  if (/meticulous|analytical|pattern|insight|\bsharp\b/.test(d)) return "i-search";
+  if (/calm|patient|steady|pace|endur|long stretches/.test(d)) return "i-clock";
+  if (/dependable|unshakeable|carries|workload|remembers|reliable/.test(d)) return "i-shield";
+  if (/quick|fast|energetic|juggl|adapt|playful/.test(d)) return "i-spark";
+  if (/feedback|eager|please/.test(d)) return "i-check";
+  if (/organiz|scattered|herd/.test(d)) return "i-tag";
+  if (/bold|expressive|storytell|graceful/.test(d)) return "i-award";
+  return "i-award";
+}
 function traitItem(raw) {
-  const [name, desc] = raw.split("—").map((s) => s.trim());
-  const emoji = TRAIT_EMOJI[(name || "").toLowerCase()] || "🐾";
+  const [, rawDesc] = raw.split("—").map((s) => s.trim());
+  const desc = rawDesc || raw;
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const label = cap(desc.split(",")[0].trim());
   return `
-    <span class="trait-chip" tabindex="0" role="button" aria-label="${esc(name)}${desc ? " — " + esc(desc) : ""}">
-      <span class="trait-emoji" aria-hidden="true">${emoji}</span>
+    <span class="trait-chip" tabindex="0" role="button" aria-label="${esc(cap(desc))}">
+      <span class="trait-ic"><svg class="ic sm"><use href="#${traitIcon(desc)}"/></svg></span>
+      <span class="trait-name">${esc(label)}</span>
       <span class="trait-pop">
-        <span class="trait-pop-name">${esc(name || raw)}</span>
-        ${desc ? `<span class="trait-pop-desc">${esc(desc)}</span>` : ""}
+        <span class="trait-pop-desc">${esc(cap(desc))}</span>
       </span>
     </span>`;
 }
@@ -1767,7 +1785,7 @@ function renderDetail() {
           <p class="about">${esc(c.summary)}</p>
           ${c.animalTraits?.length ? `
           <div class="traits-block">
-            <span class="traits-label"><svg class="ic"><use href="#i-paw"/></svg> Top 3 Animal Traits <em>· hover to read</em></span>
+            <span class="traits-label"><svg class="ic"><use href="#i-award"/></svg> Key Strengths <em>· hover for detail</em></span>
             <div class="trait-chips">
               ${c.animalTraits.slice(0, 3).map(traitItem).join("")}
             </div>
@@ -2503,10 +2521,16 @@ function timeAgo(iso) {
   return Math.floor(s / 86400) + "d ago";
 }
 function initials(n) { return (n || "?").split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase(); }
-/* per-candidate avatar color, stable per name — same muted palette used across the app */
+/* per-candidate avatar color, stable per name — reuses the app's own accent
+   hues (same tones as the status chips) so avatars read as distinct, not gray */
 const FPD_AVATAR_PALETTE = [
-  ["#3c4b6b", "#e7eaf1"], ["#4b5f57", "#e6ede9"], ["#5c5470", "#eae8f0"],
-  ["#6b5847", "#efe8e1"], ["#42636a", "#e5edee"], ["#5a5142", "#eeeae1"]
+  ["#4338ca", "#eef1fe"], // indigo (brand)
+  ["#047857", "#e5f6ef"], // green
+  ["#6d28d9", "#f3edfd"], // violet
+  ["#b45309", "#fdf3e3"], // amber
+  ["#0369a1", "#e0f2fe"], // sky
+  ["#be185d", "#fce7f3"], // rose
+  ["#0f766e", "#ccfbf1"]  // teal
 ];
 function fpdNameHue(name) {
   const s = name || "?";
@@ -2611,9 +2635,11 @@ function contactCell(c) {
   td.append(mk(c.email, c.verified?.email), mk(c.phone, c.verified?.phone));
   return td;
 }
+const FPD_MORE_HINT_THRESHOLD = 5;
 function renderTable() {
   const tb = $("fpd_tbody"); tb.innerHTML = "";
   const rows = visible();
+  $("fpd_moreHint").classList.toggle("hidden", !(rows.length > 0 && rows.length < FPD_MORE_HINT_THRESHOLD));
   if (!rows.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
