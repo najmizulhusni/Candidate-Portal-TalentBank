@@ -475,7 +475,6 @@ a.c-val:hover{color:var(--brand-2)}
 .cform-field input::placeholder,.cform-field textarea::placeholder{color:var(--ink-3)}
 .cform-field input:focus-visible,.cform-field select:focus-visible,.cform-field textarea:focus-visible{
   outline:none;border-color:var(--brand);background:var(--surface);box-shadow:0 0 0 4px var(--brand-tint)}
-.cform-hint{font-size:11.5px;color:var(--ink-3);margin-top:-2px}
 .cform-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:20px}
 .cform-error{font-size:12.5px;color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;border-radius:9px;padding:10px 13px;margin-bottom:16px;display:none}
 .cform-error.show{display:block}
@@ -570,8 +569,6 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer;font-weight:700;font-size:10.5px;flex-shrink:0}
 #fpd_root .fpd-icon-btn:hover{border-color:var(--ink-3)}
 #fpd_root .fpd-lbl{font-size:10px;letter-spacing:.5px;color:var(--ink-3);font-weight:600;text-transform:uppercase}
-#fpd_root .fpd-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
-#fpd_root .fpd-dot.fpd-off{background:var(--amber)}
 
 /* ---------- hero ---------- */
 #fpd_root .fpd-hero{
@@ -586,45 +583,9 @@ a.c-val:hover{color:var(--brand-2)}
 }
 #fpd_root .fpd-hero-top{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
 #fpd_root .fpd-hero-lead{display:flex;align-items:flex-start;gap:14px}
-#fpd_root .fpd-hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:rgba(255,255,255,.82);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:4px 11px;border-radius:20px}
-#fpd_root .fpd-hero-tag .fpd-tag-dot{width:6px;height:6px;border-radius:50%;background:#a5f3cf;box-shadow:0 0 0 3px rgba(165,243,207,.25)}
 #fpd_root .fpd-hero h1{margin-top:11px;font-family:var(--display);font-size:25px;font-weight:700;letter-spacing:-.5px;color:#fff;line-height:1.1}
 #fpd_root .fpd-hero p{margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.7);max-width:440px;line-height:1.55}
-#fpd_root .fpd-hero-right{display:flex;align-items:center;gap:8px;flex-shrink:0;padding-top:4px}
-#fpd_root .fpd-hero-right .fpd-mode-note{color:rgba(255,255,255,.8)}
-#fpd_root .fpd-hero-right .fpd-icon-btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24);color:#fff}
-#fpd_root .fpd-hero-right .fpd-icon-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.36)}
-#fpd_root .fpd-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:22px}
-#fpd_root .fpd-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px 15px;transition:background .15s,border-color .15s}
-#fpd_root .fpd-stat:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28)}
-#fpd_root .fpd-stat-val{display:block;font-family:var(--display);font-size:23px;font-weight:700;color:#fff;letter-spacing:-.4px;line-height:1}
-#fpd_root .fpd-stat-lbl{display:flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:7px}
-#fpd_root .fpd-stat-lbl::before{content:"";width:6px;height:6px;border-radius:2px;background:rgba(255,255,255,.4)}
-#fpd_root .fpd-stat.fpd-stat-follow .fpd-stat-lbl::before{background:#fbbf7d}
-#fpd_root .fpd-stat.fpd-stat-active .fpd-stat-lbl::before{background:#a5f3cf}
-@media (max-width:700px){#fpd_root .fpd-mode-note span{display:none}}
-@media (max-width:760px){#fpd_root .fpd-stats{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){#fpd_root .fpd-hero-top{flex-direction:column}}
-#fpd_root /* ---------- cloud panel ---------- */
-.fpd-cloud{position:fixed;right:18px;top:60px;width:320px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(13,32,66,.14);padding:14px;display:flex;flex-direction:column;gap:9px;z-index:40}
-#fpd_root .fpd-cloud input{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:8px 10px;font-size:12px;font-family:var(--code)}
-#fpd_root .fpd-cloud input:focus-visible{outline:none;border-color:var(--brand)}
-#fpd_root .fpd-acct-fixed{display:flex;align-items:center;gap:10px;padding:8px 2px 12px;border-bottom:1px solid var(--line-soft);margin-bottom:2px}
-#fpd_root .fpd-acct-fixed-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:11px;font-weight:700;flex-shrink:0}
-#fpd_root .fpd-acct-fixed-txt{display:flex;flex-direction:column;min-width:0}
-#fpd_root .fpd-acct-fixed-txt strong{font-size:12.5px;font-weight:700;color:var(--ink)}
-#fpd_root .fpd-acct-fixed-txt span{font-size:11px;color:var(--ink-3);margin-top:1px}
-#fpd_root .fpd-cloud-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-#fpd_root .fpd-cloud-status{font-size:11px;font-weight:500;color:var(--ink-3)}
-#fpd_root .fpd-cloud-status.fpd-on{color:var(--green-deep)}
-#fpd_root .fpd-cloud-status.fpd-err{color:var(--red)}
-#fpd_root .fpd-cloud-hint{font-size:11px;color:var(--ink-3);line-height:1.5}
-#fpd_root .fpd-mini-toggle{position:relative;display:inline-block;cursor:pointer}
-#fpd_root .fpd-mini-toggle input{position:absolute;opacity:0}
-#fpd_root .fpd-mswitch{display:block;width:32px;height:18px;border-radius:999px;background:#ccd3e2;position:relative;transition:background .2s}
-#fpd_root .fpd-mswitch::after{content:"";position:absolute;top:2.5px;left:3px;width:13px;height:13px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
-#fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch{background:var(--brand)}
-#fpd_root .fpd-mini-toggle input:checked+.fpd-mswitch::after{transform:translateX(13px)}
 #fpd_root /* ---------- toolbar ---------- */
 .fpd-toolbar{background:var(--surface);border-bottom:1px solid var(--line)}
 #fpd_root .fpd-toolbar-in{display:flex;flex-direction:column;gap:10px;padding:12px 22px}
@@ -641,8 +602,6 @@ a.c-val:hover{color:var(--brand-2)}
 #fpd_root .fpd-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:8px;font-weight:600;font-size:12.5px;padding:8px 13px;cursor:pointer;transition:background .15s,border-color .15s}
 #fpd_root .fpd-btn-line{border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 #fpd_root .fpd-btn-line:hover{border-color:var(--ink-3)}
-#fpd_root .fpd-btn-brand{border:0;background:var(--brand);color:#fff}
-#fpd_root .fpd-btn-brand:hover{background:var(--brand-deep)}
 #fpd_root .fpd-btn-green{border:0;background:var(--green);color:#fff}
 #fpd_root .fpd-btn-green:hover{background:var(--green-deep)}
 #fpd_root button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
@@ -746,8 +705,6 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
 #fpd_root .fpd-btn-quiet.fpd-danger:hover{color:var(--red)}
 #fpd_root .fpd-grow{flex:1}
 #fpd_root .fpd-send-row{display:flex;gap:8px;margin-top:10px}
-#fpd_root .fpd-import-zone{display:flex;align-items:center;border:1.5px dashed var(--line);border-radius:8px;padding:7.5px 13px;font-size:12.5px;font-weight:600;color:var(--ink-3);cursor:pointer}
-#fpd_root .fpd-import-zone:hover{border-color:var(--ink-3);color:var(--ink-2)}
 #fpd_root .fpd-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;padding:10px 18px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80}
 #fpd_root .fpd-toast.fpd-show{opacity:1}
 
@@ -757,7 +714,6 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-fastpass" viewBox="0 0 24 24"><path d="m5 5 7 7-7 7"/><path class="accent" d="M13 5l7 7-7 7"/></symbol>
-  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 .4-9A6 6 0 0 0 6.2 8.6 4.5 4.5 0 0 0 7 17.5h10.5z"/></symbol>
   <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
@@ -879,52 +835,6 @@ body.fpd-drawer-open #fpd_root .fpd-drawer{transform:none}
   <main class="cand-main">
     <div class="cand-in">
       <div id="fpd_root">
-<div id="fpd_acctPanel" class="fpd-cloud hidden" style="width:340px">
-    <div class="fpd-cloud-row"><span class="fpd-lbl">Recruiter account</span><span id="fpd_acctEmail" class="fpd-cloud-status"></span></div>
-
-    <!-- signed out (real accounts) -->
-    <div id="fpd_acctAuthForms" class="hidden" style="display:flex;flex-direction:column;gap:8px">
-      <input id="fpd_acctInEmail" type="email" placeholder="you@company.com" autocomplete="email" style="font-family:var(--body)" />
-      <input id="fpd_acctInPass" type="password" placeholder="Password (min 6 characters)" autocomplete="current-password" style="font-family:var(--body)" />
-      <div id="fpd_acctRegExtra" class="hidden" style="display:flex;flex-direction:column;gap:8px">
-        <input id="fpd_acctInName" type="text" placeholder="Your name" style="font-family:var(--body)" />
-        <input id="fpd_acctInCompany" type="text" placeholder="Company" style="font-family:var(--body)" />
-      </div>
-      <div class="fpd-cloud-row">
-        <button id="fpd_acctToggleMode" class="fpd-btn-quiet" style="padding-left:0">Create an account</button>
-        <button id="fpd_acctSubmit" class="fpd-btn fpd-btn-brand">Sign in</button>
-      </div>
-    </div>
-
-    <!-- signed in / demo: the profile lives HERE, not in the plugin -->
-    <div id="fpd_acctProfile" style="display:flex;flex-direction:column;gap:8px">
-      <div class="fpd-acct-fixed">
-        <span class="fpd-acct-fixed-ic">NZ</span>
-        <span class="fpd-acct-fixed-txt"><strong>Najmi Zulhusni</strong><span>PS Global Consulting</span></span>
-      </div>
-      <label class="fpd-stage-sel"><select id="fpd_pfDial">
-        <option value="60">WhatsApp country: Malaysia (+60)</option>
-        <option value="65">WhatsApp country: Singapore (+65)</option>
-        <option value="62">WhatsApp country: Indonesia (+62)</option>
-        <option value="66">WhatsApp country: Thailand (+66)</option>
-        <option value="63">WhatsApp country: Philippines (+63)</option>
-        <option value="84">WhatsApp country: Vietnam (+84)</option>
-        <option value="91">WhatsApp country: India (+91)</option>
-        <option value="852">WhatsApp country: Hong Kong (+852)</option>
-        <option value="61">WhatsApp country: Australia (+61)</option>
-        <option value="44">WhatsApp country: UK (+44)</option>
-        <option value="1">WhatsApp country: US / Canada (+1)</option>
-      </select></label>
-      <div class="fpd-cloud-row">
-        <span id="fpd_acctStatus" class="fpd-cloud-status">Profile is shared with the plugin</span>
-        <span style="display:flex;gap:8px">
-          <button id="fpd_acctSignOut" class="fpd-btn-quiet hidden">Sign out</button>
-          <button id="fpd_pfSave" class="fpd-btn fpd-btn-brand">Save profile</button>
-        </span>
-      </div>
-    </div>
-    <p class="fpd-cloud-hint" id="fpd_acctHint">Demo mode — connect Supabase in config.js so recruiters can register with email + password.</p>
-  </div>
 <div class="fpd-hero">
   <div class="fpd-hero-top">
     <div class="fpd-hero-lead">
@@ -2817,88 +2727,10 @@ function logSend(c, channel) {
    in the extension README. Demo-grade auth (anon key). */
 const cloud = { url: "", key: "", enabled: false, busy: false };
 
-/* ---------- recruiter account (the account home is the dashboard) ---------- */
+/* ---------- recruiter account settings persistence ---------- */
 function saveSettings() {
   if (EXT) chrome.storage.local.set({ fpSettings: state.settings });
   else localStorage.setItem("fpSettings", JSON.stringify(state.settings));
-}
-function renderAccount() {
-  // one-click demo everywhere: no credentials UI, profile only
-  $("fpd_acctAuthForms").classList.add("hidden");
-  $("fpd_acctProfile").classList.remove("hidden");
-  $("fpd_acctSignOut").classList.add("hidden");
-  $("fpd_acctEmail").textContent = fpAuth.session ? "Demo · cloud connected" : "Demo · connecting…";
-  $("fpd_acctHint").textContent = "One-click demo workspace — this profile and your pipeline sync with the FastPass plugin through Supabase.";
-  $("fpd_pfDial").value = state.settings.defaultDial || "60";
-}
-function wireAccount() {
-  let registering = false;
-  $("fpd_acctToggleMode").addEventListener("click", () => {
-    registering = !registering;
-    $("fpd_acctRegExtra").classList.toggle("hidden", !registering);
-    $("fpd_acctToggleMode").textContent = registering ? "I already have an account" : "Create an account";
-    $("fpd_acctSubmit").textContent = registering ? "Create account" : "Sign in";
-  });
-  $("fpd_acctSubmit").addEventListener("click", async () => {
-    const email = $("fpd_acctInEmail").value.trim();
-    const pass = $("fpd_acctInPass").value;
-    try {
-      $("fpd_acctSubmit").disabled = true;
-      if (registering) {
-        const d = await fpAuth.signUp(email, pass);
-        if (fpAuth.session) {
-          state.settings.recruiterName = $("fpd_acctInName").value.trim();
-          state.settings.recruiterCompany = $("fpd_acctInCompany").value.trim();
-          saveSettings();
-          await fpAuth.saveProfile({
-            name: state.settings.recruiterName,
-            company: state.settings.recruiterCompany,
-            defaultDial: state.settings.defaultDial || "60"
-          });
-          toast("Account created — you're signed in");
-        } else {
-          toast("Account created — confirm the email Supabase sent you, then sign in");
-        }
-      } else {
-        await fpAuth.signIn(email, pass);
-        const prof = await fpAuth.getProfile();
-        if (prof) {
-          state.settings.defaultDial = prof.default_dial || state.settings.defaultDial;
-          saveSettings();
-        }
-        toast("Signed in");
-      }
-      renderAccount(); renderAll();
-      cloud.enabled = true; cloudSave();
-      cloudSync(false); // pull this recruiter's pipeline immediately
-    } catch (e) {
-      toast(String(e.message || e));
-    } finally {
-      $("fpd_acctSubmit").disabled = false;
-    }
-  });
-  $("fpd_acctSignOut").addEventListener("click", async () => {
-    await fpAuth.signOut();
-    renderAccount();
-    toast("Signed out");
-  });
-  $("fpd_pfSave").addEventListener("click", async () => {
-    state.settings.defaultDial = $("fpd_pfDial").value;
-    saveSettings();
-    renderAccount();
-    if (FP_CONFIGURED && fpAuth.session) {
-      try {
-        await fpAuth.saveProfile({
-          name: state.settings.recruiterName,
-          company: state.settings.recruiterCompany,
-          defaultDial: state.settings.defaultDial
-        });
-        toast("Profile saved to your account");
-      } catch (e) { toast("Saved locally; cloud profile failed: " + (e.message || e)); }
-    } else {
-      toast("Profile saved — the plugin will use it");
-    }
-  });
 }
 
 function cloudLoad() {
@@ -3128,8 +2960,6 @@ function wire() {
   }
   await cloudLoad();
   if (FP_CONFIGURED) { cloud.url = FP_CONFIG.SUPABASE_URL; cloud.key = FP_CONFIG.SUPABASE_ANON_KEY; }
-  wireAccount();
-  renderAccount();
   if (fpAuth.session) { cloud.enabled = true; cloudSave(); }
   if (cloud.enabled) cloudSync(false);
   wire();
